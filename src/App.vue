@@ -15,7 +15,12 @@ export default {
 
 <style>
 html, body {
+  overflow: hidden;
+  box-sizing: border-box;
+}
+html, body, p {
   margin: 0;
   padding: 0;
 }
+
 </style>
