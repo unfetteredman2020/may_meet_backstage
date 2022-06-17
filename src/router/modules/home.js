@@ -69,7 +69,7 @@ export default [
                 component: () => import(/* webpackChunkName: 'root' */ '@/views/systemSetting/index.vue')
         
               },
-              { path: '*', redirect: '/userManage' }
+              { path: '', redirect: '/userManage' }
         ]
     },
     

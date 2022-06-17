@@ -6,40 +6,20 @@
           <img :src="logo" />
         </div>
         <div class="topMenu">
-          <!-- <div
-            @click="$router.push(item.path)"
-            :class="{ active: $route.path == item.path }"
-            class="menuItem"
-            v-for="(item, index) in menu"
-            :key="index"
-          >
-            {{ item.name }}
-          </div> -->
-          <el-menu
-            :default-active="activeIndex"
-            class="homeMenu"
-            mode="horizontal"
-            @select="handleSelect"
-            background-color="#000"
-            text-color="#999999"
-            active-text-color="#fff"
-          >
+          <el-menu :default-active="activeIndex" class="homeMenu" mode="horizontal" @select="handleSelect" background-color="#000" text-color="#999999" active-text-color="#fff">
             <MenuTree class="homeMenuTree" :menuData="menu" />
           </el-menu>
         </div>
         <div class="avatar">
           <img :src="avatar" />
           <div class="userInfo">
-            <p>Jerry JackBee</p>
-            <p>{{ "超级管理员" }}</p>
+            <p>{{ storeUserInfo.nickname }}</p>
+            <p>{{ storeUserInfo.role == 0 ? "超级管理员" : "普通管理员" }}</p>
           </div>
           <el-popover placement="top" width="160">
-            <div class="setting">
-              <i
-                class="el-icon-switch-button customIcon"
-                style="margin: 0 10px"
-              ></i
-              ><span>退出登录</span>
+            <div class="setting" @click="logout">
+              <i class="el-icon-switch-button customIcon" style="margin: 0 10px"></i>
+              <span>退出登录</span>
             </div>
             <i class="el-icon-s-platform customIcon" slot="reference"></i>
           </el-popover>
@@ -52,6 +32,7 @@
 
 <script>
 import MenuTree from "@/components/menuTree.vue";
+import { mapState } from "vuex";
 
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
@@ -98,12 +79,18 @@ export default {
   //监控data中的数据变化
   watch: {},
   //计算属性，类似于data概念
-  computed: {},
+  computed: {
+    ...mapState(["storeUserInfo"]),
+  },
   //⽅法集合
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
       this.$router.push(key);
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/login");
     },
   },
   //⽣命周期，创建完成（可以访问当前this实例）

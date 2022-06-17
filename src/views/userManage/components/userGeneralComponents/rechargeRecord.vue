@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { getRechargeRecord } from "@/api/api.js";
+import { getRechargeRecord } from "@/api/userApi.js";
 import { getDate, formateDate } from "@/utils/date.js";
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
@@ -115,18 +115,12 @@ export default {
         if (res && res.errcode == 0) {
           this.list = res.data || [];
         } else {
-          this.$message({
-            type: "error",
-            message: "获取充值记录失败",
-          });
+          this.$message('error', '获取充值记录失败');
         }
         console.log("getRecharge res :>> ", res);
       } catch (error) {
         console.log("error :>> ", error);
-        this.$message({
-          type: "error",
-          message: "获取充值记录失败",
-        });
+        this.$message('error', error.errmsg || '获取充值记录失败');
       }
     },
     handleSizeChange(val) {

@@ -42,8 +42,12 @@
 </template>
 
 <script>
-import { login } from "@/api/api.js";
+import { login, signLogin } from "@/api/userApi.js";
 import { getMd5 } from "@/utils/md5";
+import { mapMutations } from 'vuex'
+import types from '@/store/type.js'
+const { SET_TOKEN, SET_USERINFO } = types
+
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
   components: {},
@@ -85,29 +89,30 @@ export default {
         // let user = Object.assign({...this.loginForm}, { pwd: getMd5(this.loginForm.pwd)})
          let user = Object.assign({...this.loginForm}, { pwd:'e10adc3949ba59abbe56e057f20f883e'})
         console.log('user :>> ', user);
-        const res = await login(user);
-        console.log("res :>> ", res);
+        // const res = await login(user);
+        const res = await signLogin()
+        console.log("signLogin res :>> ", res);
         if(res && res.errcode === 0) {
-          this.$message({
-            type: 'success',
-            message: '登录成功'
-          })
+          localStorage.setItem('storeUserInfo', JSON.stringify(res.data))
+          console.log('this.$store', SET_USERINFO)
+          this.$store.commit(SET_USERINFO, { userInfo: res.data })
+          // localStorage.setItem('userSing', res.data.sign)
+          this.$message('success', '登录成功')
           this.$router.push('/')
         }else {
-           this.$message({
-            type: 'error',
-            message: res.errmsg
-          })
+           this.$message( 'error', res.errmsg)
         }
       } catch (error) {
-        console.log("error :>> ", error);
+        console.log("signLogin error :>> ", error);
       }
     },
   },
   //⽣命周期，创建完成（可以访问当前this实例）
   created() {},
   //⽣命周期，挂载完成（可以访问dom元素）
-  mounted() {},
+  mounted() {
+    console.log('this.$stor1e', this.$store)
+  },
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前
   beforeUpdate() {}, //⽣命周期 - 更新之后

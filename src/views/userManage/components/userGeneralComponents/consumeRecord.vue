@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { getConsumeRecord } from "@/api/api.js";
+import { getConsumeRecord } from "@/api/userApi.js";
 import { getDate, formateDate } from "@/utils/date.js";
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
@@ -115,18 +115,12 @@ export default {
           // this.list = res.data || [];
           this.list = arr
         } else {
-          this.$message({
-            type: "error",
-            message: "获取充值记录失败",
-          });
+          this.$message('error', '获取充值记录失败');
         }
         console.log("geConsume res :>> ", res);
       } catch (error) {
         console.log("error :>> ", error);
-        this.$message({
-          type: "error",
-          message: "获取充值记录失败",
-        });
+        this.$message('error',error.errmsg || '获取充值记录失败');
       }
     },
     handleSizeChange(val) {

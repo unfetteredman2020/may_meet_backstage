@@ -8,8 +8,6 @@
 
 export default {
   name: 'App',
-  components: {
-  }
 }
 </script>
 
@@ -17,6 +15,7 @@ export default {
 html, body {
   overflow: hidden;
   box-sizing: border-box;
+  min-width: 1100px;
 }
 html, body, p {
   margin: 0;

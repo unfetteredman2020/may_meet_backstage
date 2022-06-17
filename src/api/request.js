@@ -11,12 +11,12 @@ const toLogin = () => {
         }
     })
 }
-
+console.log('process.env.VUE_APP_BASE_URL', process.env)
 const api = axios.create({
-    baseURL: 'http://192.168.50.32:3000', 
+    baseURL: process.env.VUE_APP_BASE_URL, 
     timeout: 10000,
     headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
         // "Access-Control-Allow-Origin": "*",
         // "Access-Control-Allow-Methods": "PUT,POST,GET,DELETE,OPTIONS,sign"
     }

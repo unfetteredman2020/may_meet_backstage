@@ -121,6 +121,7 @@ export default {
   data() {
     //这⾥存放数据
     return {
+      list: [],
       activeName: "abnormalRecord",
       currentPage: 1,
       searchForm: {

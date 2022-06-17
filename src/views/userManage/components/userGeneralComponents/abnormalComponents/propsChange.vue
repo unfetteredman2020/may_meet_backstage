@@ -2,39 +2,26 @@
   <div class="propsChange">
     <el-table :data="list" border style="width: 100%" max-height="620">
       <el-table-column prop="id" label="流水号" width="100"></el-table-column>
-      <el-table-column
-        prop="type"
-        label="业务代码"
-        width="190"
-      ></el-table-column>
-      <el-table-column prop="describe" label="属性名称" width="200">
-      </el-table-column>
-      <el-table-column prop="old_amount" label="变化前"> </el-table-column>
-      <el-table-column prop="new_amount" label="变化后" width="100">
-      </el-table-column>
-      <el-table-column prop="src_userid" label="创建者" width="120">
-      </el-table-column>
-      <el-table-column prop="inserttime" label="变化时间" width="120">
-      </el-table-column>
+      <el-table-column prop="type" label="业务代码" width="190"></el-table-column>
+      <el-table-column prop="describe" label="属性名称" width="200"></el-table-column>
+      <el-table-column prop="old_amount" label="变化前"></el-table-column>
+      <el-table-column prop="new_amount" label="变化后" width="100"></el-table-column>
+      <el-table-column prop="src_userid" label="创建者" width="120"></el-table-column>
+      <el-table-column prop="inserttime" label="变化时间" width="120"></el-table-column>
     </el-table>
     <div class="rechargeFooter">
-      <span>充值总金额：<b>99999</b> 元</span>
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="400"
-      >
-      </el-pagination>
+      <span>
+        充值总金额：
+        <b>99999</b>
+        元
+      </span>
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400"></el-pagination>
     </div>
   </div>
 </template>
 
 <script>
-import { getPropsChange } from "@/api/api.js";
+import { getPropsChange } from "@/api/userApi.js";
 import { getDate, formateDate } from "@/utils/date.js";
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
@@ -59,28 +46,18 @@ export default {
     async geConsume() {
       try {
         const { year, month, dayNumber, fullDate } = getDate();
-        let startTime = `${year}-${formateDate(month - 1)}-${formateDate(
-          dayNumber
-        )}`;
+        let startTime = `${year}-${formateDate(month - 1)}-${formateDate(dayNumber)}`;
         let endTiem = fullDate;
-        const res = await getPropsChange(
-          `userid=${10000}&starttime=${startTime}&endtime=${endTiem}`
-        );
+        const res = await getPropsChange(`userid=${10000}&starttime=${startTime}&endtime=${endTiem}`);
         if (res && res.errcode == 0) {
           this.list = res.data || [];
         } else {
-          this.$message({
-            type: "error",
-            message: "获取充值记录失败",
-          });
+          this.$message("error", "获取充值记录失败");
         }
         console.log("geConsume res :>> ", res);
       } catch (error) {
         console.log("error :>> ", error);
-        this.$message({
-          type: "error",
-          message: "获取充值记录失败",
-        });
+        this.$message("error", "获取充值记录失败");
       }
     },
     handleSizeChange(val) {

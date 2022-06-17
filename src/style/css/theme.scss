@@ -1,0 +1,23 @@
+/* 改变主题色变量 */
+$--color-primary: rgb(209, 40, 156);
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: "~element-ui/lib/theme-chalk/fonts";
+::-webkit-scrollbar {
+  width: 4px !important;
+  height: 4px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  width: 1px;
+  background: rgba(209, 40, 156, 0.5);
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background: rgba(57, 176, 255, 0.288);
+}
+
+@import "~element-ui/packages/theme-chalk/src/index";

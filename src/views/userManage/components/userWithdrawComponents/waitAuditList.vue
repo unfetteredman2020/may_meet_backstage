@@ -1,51 +1,26 @@
 <template>
   <div class="userGeneral">
     <div class="seatch">
-      <el-form
-        :rules="rules"
-        :inline="true"
-        :model="searchForm"
-        class="userGeneralForm"
-        ref="auditSearchForm"
-      >
+      <el-form :rules="rules" :inline="true" :model="searchForm" class="userGeneralForm" ref="auditSearchForm">
         <el-form-item label="用户ID" prop="id">
-          <el-input
-            size="mini"
-            v-model="searchForm.id"
-            placeholder="用户ID"
-          ></el-input>
+          <el-input size="mini" v-model="searchForm.id" placeholder="用户ID"></el-input>
         </el-form-item>
-        <el-form-item label="时间">
-          <el-date-picker
-            size="mini"
-            v-model="searchForm.selectTime"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-          />
+        <el-form-item label="时间" prop="selectTime">
+          <el-date-picker size="mini" v-model="searchForm.selectTime" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" />
         </el-form-item>
         <el-form-item label="订单号" prop="SerialNumber">
-          <el-input
-            size="mini"
-            v-model="searchForm.SerialNumber"
-            placeholder="订单号"
-          ></el-input>
+          <el-input size="mini" v-model="searchForm.SerialNumber" placeholder="订单号"></el-input>
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="onSubmit" size="mini"
-            >搜索</el-button
-          >
-          <el-button @click="resetForm('auditSearchForm')" size="mini"
-            >重置</el-button
-          >
+          <el-button type="primary" @click="onSubmit" size="mini">搜索</el-button>
+          <el-button @click="resetForm('auditSearchForm')" size="mini">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
     <div class="settingBox">
       <el-table :data="list" border style="width: 100%" max-height="580px">
-        <el-table-column type="selection" width="55"> </el-table-column>
+        <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" class="demo-table-expand">
@@ -70,45 +45,25 @@
             </el-form>
           </template>
         </el-table-column>
-        <el-table-column prop="trade_no" label="订单号" width="150">
-        </el-table-column>
-        <el-table-column prop="nickname" label="用户昵称" width="120">
-        </el-table-column>
-        <el-table-column prop="oldscore" label="现有零钱" width="120">
-        </el-table-column>
-        <el-table-column prop="amount" label="提现金额" width="120">
-        </el-table-column>
-        <el-table-column prop="month" label="本月提现" width="120">
-        </el-table-column>
-        <el-table-column prop="lastmonth" label="上月提现" width="120">
-        </el-table-column>
-        <el-table-column prop="all" label="历史提现" width="120">
-        </el-table-column>
-        <el-table-column prop="status" label="提现状态" width="120">
-        </el-table-column>
-        <el-table-column prop="updatetime" label="状态时间" width="120">
-        </el-table-column>
-        <el-table-column prop="type" label="打款方式" width="120">
-        </el-table-column>
-        <el-table-column prop="type" label="提现用户类型" width="120">
-        </el-table-column>
-        <el-table-column prop="inserttime" label="提现时间" width="120">
-        </el-table-column>
+        <el-table-column prop="trade_no" label="订单号" width="150"></el-table-column>
+        <el-table-column prop="nickname" label="用户昵称" width="120"></el-table-column>
+        <el-table-column prop="oldscore" label="现有零钱" width="120"></el-table-column>
+        <el-table-column prop="amount" label="提现金额" width="120"></el-table-column>
+        <el-table-column prop="month" label="本月提现" width="120"></el-table-column>
+        <el-table-column prop="lastmonth" label="上月提现" width="120"></el-table-column>
+        <el-table-column prop="all" label="历史提现" width="120"></el-table-column>
+        <el-table-column prop="status" label="提现状态" width="120"></el-table-column>
+        <el-table-column prop="updatetime" label="状态时间" width="120"></el-table-column>
+        <el-table-column prop="type" label="打款方式" width="120"></el-table-column>
+        <el-table-column prop="type" label="提现用户类型" width="120"></el-table-column>
+        <el-table-column prop="inserttime" label="提现时间" width="120"></el-table-column>
         <el-table-column label="操作">
           <i class="el-icon-edit-outline"></i>
         </el-table-column>
       </el-table>
       <div class="rechargeFooter">
         <span class="el-icon-success auditBtn">批量二审</span>
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page.sync="currentPage"
-          :page-size="100"
-          layout="prev, pager, next, jumper"
-          :total="1000"
-        >
-        </el-pagination>
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="100" layout="prev, pager, next, jumper" :total="1000"></el-pagination>
       </div>
     </div>
   </div>
@@ -121,13 +76,11 @@ export default {
   data() {
     //这⾥存放数据
     return {
+      list: [],
       activeName: "abnormalRecord",
       currentPage: 1,
       searchForm: {
-        selectTime: [
-          new Date(2000, 10, 10, 10, 10),
-          new Date(2000, 10, 11, 10, 10),
-        ],
+        selectTime: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
         id: "",
         SerialNumber: "",
       },
