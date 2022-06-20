@@ -5,25 +5,65 @@
     <el-button
       type="primary"
       plain
-      icon="el-icon-lock"
+      :icon="isTimeOut((userInfo.frozen && userInfo.frozen.expiretime) || '') ? 'el-icon-lock' : 'el-icon-unlock'"
       @click="
-        lockVisible = true;
+        lockAccountAndDeviceVisible = true;
         type = 'account';
       "
     >
-      封禁账号
+      {{ isTimeOut((userInfo.frozen && userInfo.frozen.expiretime) || "") ? "封禁账号" : "解封账号" }}
     </el-button>
-    <el-button type="primary" plain icon="el-icon-lock">封禁设备</el-button>
-    <el-button type="primary" plain icon="el-icon-document-delete">禁用私聊</el-button>
-    <el-button type="primary" plain icon="el-icon-circle-close">禁用动态</el-button>
-    <el-button type="primary" plain icon="el-icon-money">禁用提现</el-button>
+    <el-button
+      type="primary"
+      plain
+      :icon="isTimeOut((userInfo.frozen_device && userInfo.frozen_device.expiretime) || '') ? 'el-icon-lock' : 'el-icon-unlock'"
+      @click="
+        lockAccountAndDeviceVisible = true;
+        type = 'device';
+      "
+    >
+      {{ isTimeOut((userInfo.frozen_device && userInfo.frozen_device.expiretime) || "") ? "封禁设备" : "解封设备" }}
+    </el-button>
+    <el-button
+      type="primary"
+      plain
+      :icon="isTimeOut((userInfo.frozen_chat && userInfo.frozen_chat.expiretime) || '') ? 'el-icon-document-delete' : 'el-icon-unlock'"
+      @click="
+        lockChatAndDynamicVisisble = true;
+        type = 'chat';
+      "
+    >
+      {{ isTimeOut((userInfo.frozen_chat && userInfo.frozen_chat.expiretime) || "") ? "禁用私聊" : "解除私聊禁用" }}
+    </el-button>
+    <el-button
+      type="primary"
+      plain
+      :icon="isTimeOut((userInfo.frozen_post && userInfo.frozen_post.expiretime) || '') ? 'el-icon-circle-close' : 'el-icon-unlock'"
+      @click="
+        lockChatAndDynamicVisisble = true;
+        type = 'dynamic';
+      "
+    >
+      {{ isTimeOut((userInfo.frozen_post && userInfo.frozen_post.expiretime) || "") ? "禁用动态" : "解除禁用动态" }}
+    </el-button>
+    <el-button
+      type="primary"
+      plain
+      :icon="isTimeOut((userInfo.frozen_withdraw && userInfo.frozen_withdraw.expiretime) || '') ? 'el-icon-money' : 'el-icon-unlock'"
+      @click="
+        lockChatAndDynamicVisisble = true;
+        type = 'withdrawal';
+      "
+    >
+      {{ isTimeOut((userInfo.frozen_withdraw && userInfo.frozen_withdraw.expiretime) || "") ? "禁用提现" : "解除禁用提现" }}
+    </el-button>
     <el-button type="primary" plain icon="el-icon-cpu">解绑功能</el-button>
     <el-button type="primary" plain icon="el-icon-message-solid">系统提醒</el-button>
     <el-button type="primary" plain icon="el-icon-switch-button">注销账号</el-button>
     <el-button type="primary" plain icon="el-icon-edit">标记为秘书</el-button>
     <el-button type="primary" plain icon="el-icon-s-promotion">发送客诉沟通消息</el-button>
     <!-- 修改资料 -->
-    <el-dialog title="修改资料" :visible.sync="changeUserInfoVisible" class="userInfoDialog" width="700px">
+    <el-dialog title="修改资料" :visible.sync="changeUserInfoVisible" class="userInfoDialog" width="700px" :close-on-click-modal="false">
       <el-form :model="changeUserInfoForm" :rules="changeUserInfoRules" ref="changeUserInfoForm" label-width="120px" class="demo-changeUserInfoForm" size="mini">
         <el-form-item label="用户昵称：" prop="nickname">
           <el-input v-model="changeUserInfoForm.nickname" auto-complete="false"></el-input>
@@ -40,15 +80,15 @@
         <el-form-item label="封面操作">
           <div class="imgList">
             <div class="imgItem" v-for="(item, index) in changeUserInfoForm.photo" :key="index">
-              <i class="el-icon-circle-close delIcon" @click="del"></i>
-              <el-image :preview-src-list="changeUserInfoForm.photo" style="width: 100px; height: 100px" :src="`${BASE_CDN_DOMAIN + item.filename}`" fit="fill"></el-image>
+              <i class="el-icon-circle-close delIcon" @click="del(index)"></i>
+              <el-image @click="setPreview(index)" :preview-src-list="previewList" style="width: 100px; height: 100px" :src="`${BASE_CDN_DOMAIN + item.filename}`" fit="fill"></el-image>
             </div>
           </div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="changeUserInfoVisible = false" size="mini">取 消</el-button>
-        <el-button type="primary" @click="submitChange" size="mini">确 定</el-button>
+        <el-button type="primary" @click="submitChange('changeUserInfoForm')" size="mini">确 定</el-button>
       </div>
     </el-dialog>
     <!-- 敏感信息 -->
@@ -59,24 +99,28 @@
         <el-button type="primary" @click="sensitiveInfoVisible = false">关闭</el-button>
       </span>
     </el-dialog>
-    <!-- 封禁账号 -->
-    <LockDialog :lockVisible="lockVisible" :type="type" :userInfo="userInfo" />
+    <!-- 封禁账号 & 封禁时间 -->
+    <LockAccountAndDeviceDialog :lockAccountAndDeviceVisible="lockAccountAndDeviceVisible" :type="type" :userInfo="userInfo" />
+
+    <!-- 禁用私聊 & 动态 -->
+    <LockChatAndDynamicDialog :lockChatAndDynamicVisisble="lockChatAndDynamicVisisble" :type="type" :userInfo="userInfo" />
   </div>
 </template>
 
 <script>
-import { changeUserInfo } from "@/api/userApi.js";
-
+import { changeUserInfo, lockPrivateChat } from "@/api/userApi.js";
 import { isTimeOut } from "@/utils/date.js";
-import LockDialog from "./lockDialogComponent.vue";
+import LockAccountAndDeviceDialog from "./lockAccountAndDeviceDialog.vue";
+import LockChatAndDynamicDialog from "./lockChatAndDynamicDialog.vue";
 export default {
   components: {
-    LockDialog: LockDialog,
+    LockAccountAndDeviceDialog: LockAccountAndDeviceDialog,
+    LockChatAndDynamicDialog: LockChatAndDynamicDialog,
   },
   props: {
     userInfo: {
       type: Object,
-      default: {}
+      default: {},
     },
   },
   // 定义属性
@@ -85,9 +129,13 @@ export default {
       BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`,
       changeUserInfoVisible: false,
       sensitiveInfoVisible: false, //敏感信息
-      lockVisible: false, // 封禁账号
+      lockAccountAndDeviceVisible: false, // 封禁账号
+      lockPrivateChatVisible: false, //禁用私聊
+      lockChatAndDynamicVisisble: false, // 禁用私聊和动态
       type: "", // 'account' or 'device'
       changeUserInfoForm: {},
+      previewList: [],
+      delIndex: [],
       changeUserInfoRules: {
         nickname: [{ required: true, message: "请输入用户昵称", trigger: "blur" }],
         default_face_img: [{ required: true, message: "请选择默认头像状态", trigger: "blur" }],
@@ -95,16 +143,39 @@ export default {
     };
   },
   computed: {},
-  mounted() {
-    const bool = isTimeOut("2022-06-16 11:47:59");
-    console.log("bool", bool);
-  },
+  mounted() {},
   methods: {
-    closeDialog() {
-      this.lockVisible = false;
+    isTimeOut(time) {
+      if (!time) {
+        return true;
+      } else {
+        return isTimeOut(time);
+      }
     },
-    async submitChange() {
-      console.log("this.changeUserInfoForm", this.changeUserInfoForm);
+    // 关闭打开的dialog
+    closeDialog(dialogName) {
+      this[dialogName] = false;
+    },
+    // 动态计算预览图片
+    setPreview(index) {
+      let origin = this.userInfo.fate_photo;
+      let before = origin.slice(index);
+      let after = origin.slice(0, index);
+      let newArr = new Array().concat(before, after);
+      let a = [];
+      newArr.forEach((item) => a.push(`${this.BASE_CDN_DOMAIN + item.filename}`));
+      this.previewList = a;
+    },
+    async submitChange(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.handleChange();
+          console.log("this.changeUserInfoForm", this.changeUserInfoForm);
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
     // 修改用户
     changeUserInfo() {
@@ -123,27 +194,33 @@ export default {
       try {
         const { nickname, wish, default_face_img, photo } = this.changeUserInfoForm;
         const params = {
-          userid: this.storeUserInfo.userid,
+          userid: this.userInfo.userid,
           nickname,
-          default_face_img,
+          default_face_img: default_face_img * 1,
           wish,
-          photo,
+          photo: this.delIndex,
         };
+        console.log("handleChange");
         const res = await changeUserInfo(params);
+        console.log("changeUserInfo res", res);
         if (res && res.errcode == 0) {
           this.$message("success", "修改用户信息成功！");
         } else {
           this.$message("error", "修改用户信息失败！");
         }
       } catch (error) {
+        console.log("error", error);
         this.$message("error", error.errmsg || "修改用户信息失败！");
       }
     },
-    del() {
-      console.log("del");
-    },
-    async submitChange() {
-      console.log("this.changeUserInfoForm", this.changeUserInfoForm);
+    del(index) {
+      console.log("del", this.delIndex);
+      let photo = [...this.changeUserInfoForm.photo];
+      photo.splice(index, 1);
+      console.log("newArr", photo);
+      this.changeUserInfoForm.photo = photo;
+      this.delIndex = [].concat(this.delIndex, [index]);
+      console.log("delIndex", this.delIndex);
     },
   },
 };

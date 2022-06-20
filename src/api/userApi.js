@@ -32,3 +32,12 @@ export const lockAccount = data => request.post('/yhgl/zhgl/zhxx/fjzh', data)
 
 // 封禁设备
 export const lockDevice = data => request.post('/yhgl/zhgl/zhxx/fjsb', data)
+
+// 封禁私聊
+export const lockPrivateChat = data => request.post('/yhgl/zhgl/zhxx/jysl', data)
+
+// 封禁动态
+export const lockDynamic = data => request.post('/yhgl/zhgl/zhxx/jfdt', data)
+
+// 封禁提现
+export const lockWithdrawal = data => request.post('/yhgl/zhgl/zhxx/fjtx', data)

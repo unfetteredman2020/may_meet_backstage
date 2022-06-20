@@ -5,7 +5,8 @@
       <div class="baseInfo">
         <div class="firstPart">
           <div class="avator">
-            <img :src="BASE_CDN_DOMAIN + userInfo.faceimg" alt="" />
+            <img :src="BASE_CDN_DOMAIN + userInfo.faceimg" alt="" v-if="userInfo.faceimg"/>
+            <el-avatar size="large" :src="BASE_CDN_DOMAIN + userInfo.faceimg" v-else></el-avatar>
           </div>
           <div class="right">
             <div>
@@ -13,11 +14,11 @@
               <span>昵称：{{ userInfo.nickname }}</span>
             </div>
             <div>
-              <span>用户类型：{{ userInfo.level }}</span>
+              <span>用户类型：{{ userType[userInfo.level] }}</span>
               <span>出生日期：{{ userInfo.birthday }}</span>
             </div>
             <div>
-              <span>性别：{{ userInfo.sex }}</span>
+              <span>性别：{{ userInfo.sex == 0 ? "男" : "女" }}</span>
               <span>所在城市：{{ userInfo.livingcity }}</span>
             </div>
           </div>
@@ -27,7 +28,7 @@
             <span>手机号：{{ userInfo.phone }}</span>
             <span>注册渠道：{{ userInfo.regchannelid }}</span>
             <span>注册时间：{{ userInfo.regdate }}</span>
-            <span>最后客户端类型：{{ userInfo.last_login_ostype }}</span>
+            <span>最后客户端类型：{{ userInfo.last_login_ostype == 1 ? "苹果" : "安卓" }}</span>
           </div>
           <div style="margin: 0 0 0 70px; box-sizing: border-box">
             <span>注册ip地址：{{ userInfo.regip }}</span>
@@ -36,8 +37,13 @@
             <span>最后更新时间：{{ userInfo.lastupdatetime }}</span>
           </div>
           <div>
-            <span>首次登录类型：{{ userInfo.regtype }}</span>
-            <span>状态：{{ userInfo.frozen }}</span>
+            <span>首次登录类型：{{ regTypes[userInfo.regtype] }}</span>
+            <span>
+              状态：
+              <el-tag size="mini" :type="isLockAccount ? 'success' : 'danger'" effect="dark">
+                {{ isLockAccount ? "正常" : "禁用" }}
+              </el-tag>
+            </span>
             <span>最后打开版本号：{{ userInfo.lastappver }}</span>
             <span>最后充值时间：{{ userInfo.lastrechargetime }}</span>
           </div>
@@ -64,12 +70,12 @@
         </div>
         <div>
           <span>真人头像：{{ userInfo.realperson_auth_flag == 0 ? "否" : "是" }}</span>
-          <span>语音审核状态： {{ userInfo.voicestate == 0 ? "否" : "是" }}</span>
+          <span>语音审核状态： {{ voiceAuditStatus[userInfo.voicestate] }}</span>
         </div>
         <div class="photoList">
           <p>封面相册：</p>
           <div class="imgListBox">
-            <el-image v-for="(item, index) in userInfo.fate_photo" :key="index" style="min-width: 100px; height: 100px; margin: 0 5px 0 0" :src="`${BASE_CDN_DOMAIN + item.filename}`" fit="fill"></el-image>
+            <el-image @click="setPreview(index)" v-for="(item, index) in userInfo.fate_photo" :preview-src-list="previewList" :key="index" style="min-width: 100px; height: 100px; margin: 0 5px 0 0" :src="`${BASE_CDN_DOMAIN + item.filename}`" fit="fill"></el-image>
           </div>
         </div>
       </div>
@@ -105,7 +111,8 @@
 <script>
 import { getAllInfo } from "@/api/userApi.js";
 import UserSetting from "./allInfoComponents/setting.vue";
-import { mapState } from "vuex";
+import { isTimeOut } from "@/utils/date";
+
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
   components: {
@@ -115,16 +122,47 @@ export default {
   data() {
     //这⾥存放数据
     return {
-      BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`,
+      id: '',
       userInfo: {},
+      previewList: [],
       changeUserInfoVisible: false,
+      regTypes: {
+        phone: "手机登录",
+        fast: "一键登录",
+        apple: "苹果登录",
+        wxapp: "微信APP登录",
+        wxmini: "小程序登录",
+      },
+      userType: {
+        0: "普通用户",
+        100: "嘉宾A",
+        101: "嘉宾B",
+        102: "嘉宾C",
+        103: "嘉宾D",
+        130: "嘉宾S",
+        200: "超级推荐人",
+      },
+      voiceAuditStatus: {
+        0: "未上传语音",
+        1: "审核通过",
+        2: "审核中",
+        3: "审核失败",
+      },
+      BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`
     };
   },
   //监控data中的数据变化
   watch: {},
   //计算属性，类似于data概念
   computed: {
-    ...mapState(["storeUserInfo"]),
+    isLockAccount() {
+      const { frozen } = this.userInfo;
+      if (this.userInfo.frozen && frozen.expiretime) {
+        return isTimeOut(frozen.expiretime);
+      } else {
+        return true;
+      }
+    },
   },
   mounted() {
     this.getUserInfo();
@@ -132,74 +170,28 @@ export default {
   },
   //⽅法集合
   methods: {
-    // 搜索用户
+    // 图片预览
+    setPreview(index) {
+      let origin = this.userInfo.fate_photo;
+      let before = origin.slice(index);
+      let after = origin.slice(0, index);
+      let newArr = new Array().concat(before, after);
+      let a = [];
+      newArr.forEach((item) => a.push(`${this.BASE_CDN_DOMAIN + item.filename}`));
+      this.previewList = a;
+    },
     search(params) {
-      console.log("search", params);
       this.getUserInfo(params.id);
     },
 
     // 获取用户信息
-    async getUserInfo(id = 10000) {
+    async getUserInfo(id) {
       try {
         const res = await getAllInfo(id);
         console.log("getAllInfo :>> ", res);
         if (res && res.errcode == 0) {
           !res.data && this.$message("info", "用户不存在！");
-          let arr = [
-            {
-              filename: "upload/mainpage/photo/10040/5411ae60dbf811ecb3cb157ffc0f06e8",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/1c624f61dbf811ecb3cb157ffc0f06e8",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/2f49e3f1de5911ec878b79e007ddd9bf",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/85478801dbf911ecb3cb157ffc0f06e8",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/8e317bb1dbf911ecb3cb157ffc0f06e8",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/903f7421dbf911ecb3cb157ffc0f06e8",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/9276ed91dbf911ecb3cb157ffc0f06e8",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/2f49e3f1de5911ec878b79e007ddd9bf",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/2f49e3f1de5911ec878b79e007ddd9bf",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/2f49e3f1de5911ec878b79e007ddd9bf",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/2f49e3f1de5911ec878b79e007ddd9bf",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/2f49e3f1de5911ec878b79e007ddd9bf",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/2f49e3f1de5911ec878b79e007ddd9bf",
-            },
-
-            {
-              filename: "upload/mainpage/photo/10040/2f49e3f1de5911ec878b79e007ddd9bf",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/2f49e3f1de5911ec878b79e007ddd9bf",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/2f49e3f1de5911ec878b79e007ddd9bf",
-            },
-            {
-              filename: "upload/mainpage/photo/10040/2f49e3f1de5911ec878b79e007ddd9bf",
-            },
-          ];
-          res.data && (res.data.fate_photo = arr) && (this.userInfo = res.data || {});
+          this.userInfo = res.data || {}
         } else {
           this.$message("error", "获取用户信息失败！");
         }

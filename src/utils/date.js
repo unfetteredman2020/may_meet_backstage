@@ -4,7 +4,7 @@
  * @returns Object
  */
 export const getDate = (date = new Date()) => {
-  console.log('date :>> ', date);
+  // console.log('date :>> ', date);
   var myDate = new Date(date);
   //   const year1 = myDate.getYear(); //获取当前年份(2位)
   const year = myDate.getFullYear(); //获取完整的年份(4位,1970-???)

@@ -1,6 +1,6 @@
 const draggable = {
   inserted: function (el) {
-    console.log('el', el)
+    // console.log('el', el)
     el.style.cursor = 'move'
     el.onmousedown = function (e) {
       console.log(el, e, 123)

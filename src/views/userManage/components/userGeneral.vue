@@ -129,17 +129,26 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
+    keyUpEvent(e) {
+      if(e.keyCode == 13) {
+        this.onSubmit()
+      }
+    }
   },
   //⽣命周期，创建完成（可以访问当前this实例）
   created() {},
   //⽣命周期，挂载完成（可以访问dom元素）
-  mounted() {},
+  mounted() {
+    document.addEventListener('keyup', this.keyUpEvent)
+  },
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前
   beforeUpdate() {}, //⽣命周期 - 更新之后
   updated() {}, //⽣命周期 - 更新之后
   beforeDestroy() {}, //⽣命周期 - 销毁之前
-  destroy() {}, //⽣命周期 - 销毁完成
+  destroy() {
+    document.removeEventListener('keyup', this.keyUpEvent)
+  }, //⽣命周期 - 销毁完成
   activated() {}, //如果页⾯有keep-alive缓存功能，这个函数会触发
 };
 </script>

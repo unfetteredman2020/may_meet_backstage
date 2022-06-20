@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog title="封禁账号" :visible.sync="visible" width="50%">
+    <el-dialog :title="type == 'account' ? '封禁账号': '封禁设备'" :visible.sync="visible" width="50%">
       <el-form :model="lockAccountForm" :rules="lockAccountRules" ref="lockAccountForm" label-width="140px" class="demo-lockAccountForm">
         <el-form-item label="封禁时间" prop="days">
           <el-select v-model="lockAccountForm.days" placeholder="请选择活封禁时间">
@@ -51,7 +51,7 @@ import { lockAccount, lockDevice } from "@/api/userApi.js";
 
 export default {
   props: {
-    lockVisible: {
+    lockAccountAndDeviceVisible: {
       type: Boolean,
       default: false,
     },
@@ -200,21 +200,16 @@ export default {
   computed: {
     visible: {
       get() {
-        return this.lockVisible;
+        return this.lockAccountAndDeviceVisible;
       },
       set(value) {
-        this.$parent.closeDialog();
+        this.$parent.closeDialog('lockAccountAndDeviceVisible');
       },
     },
   },
   mounted() {
-    console.log("this.props", this.userInfo);
   },
   watch: {
-    userInfo(newValue, oldValue) {
-      console.log("newValue", newValue);
-      this.newUserInfo = newValue;
-    },
   },
   methods: {
     onBeforeUploadImage(file) {
@@ -254,12 +249,16 @@ export default {
         console.log("params", params);
         const res = await func[this.type](params);
         if (res && res.errcode == 0) {
-          this.$alert("修改成功！", "成功提示");
+          this.$alert("操作成功！", "成功提示");
+          this.resetForm('lockAccountForm')
+        }else{
+          this.$message('error', '修改失败！')
         }
         console.log("submit res", res);
         // this.resetForm("lockAccountForm");
       } catch (error) {
         console.log("submit error", error);
+         this.$message('error', '修改失败！')
       }
     },
     submitForm(formName) {
@@ -274,7 +273,7 @@ export default {
     },
 
     resetForm(formName) {
-      this.$parent.closeDialog();
+      this.$parent.closeDialog('lockAccountAndDeviceVisible');
       this.$refs[formName].resetFields();
     },
   },

@@ -97,7 +97,6 @@ export default {
   created() {},
   //⽣命周期，挂载完成（可以访问dom元素）
   mounted() {
-    console.log("this.$route :>> ", this.$route);
   },
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前
