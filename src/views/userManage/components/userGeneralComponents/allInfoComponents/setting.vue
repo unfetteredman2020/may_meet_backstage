@@ -1,9 +1,10 @@
 <template>
-  <div>
-    <el-button type="primary" plain icon="el-icon-user" @click="changeUserInfo">修改资料</el-button>
-    <el-button type="primary" plain icon="el-icon-view" @click="sensitiveInfoVisible = true">敏感信息</el-button>
+  <div class="settingBoxs">
+    <el-button size="mini" type="primary" plain icon="el-icon-user" @click="changeUserInfo">修改资料</el-button>
+    <el-button size="mini" type="primary" plain icon="el-icon-view" @click="sensitiveInfoVisible = true">敏感信息</el-button>
     <el-button
       type="primary"
+      size="mini"
       plain
       :icon="isTimeOut((userInfo.frozen && userInfo.frozen.expiretime) || '') ? 'el-icon-lock' : 'el-icon-unlock'"
       @click="
@@ -14,6 +15,7 @@
       {{ isTimeOut((userInfo.frozen && userInfo.frozen.expiretime) || "") ? "封禁账号" : "解封账号" }}
     </el-button>
     <el-button
+      size="mini"
       type="primary"
       plain
       :icon="isTimeOut((userInfo.frozen_device && userInfo.frozen_device.expiretime) || '') ? 'el-icon-lock' : 'el-icon-unlock'"
@@ -25,6 +27,7 @@
       {{ isTimeOut((userInfo.frozen_device && userInfo.frozen_device.expiretime) || "") ? "封禁设备" : "解封设备" }}
     </el-button>
     <el-button
+      size="mini"
       type="primary"
       plain
       :icon="isTimeOut((userInfo.frozen_chat && userInfo.frozen_chat.expiretime) || '') ? 'el-icon-document-delete' : 'el-icon-unlock'"
@@ -36,6 +39,7 @@
       {{ isTimeOut((userInfo.frozen_chat && userInfo.frozen_chat.expiretime) || "") ? "禁用私聊" : "解除私聊禁用" }}
     </el-button>
     <el-button
+      size="mini"
       type="primary"
       plain
       :icon="isTimeOut((userInfo.frozen_post && userInfo.frozen_post.expiretime) || '') ? 'el-icon-circle-close' : 'el-icon-unlock'"
@@ -47,6 +51,7 @@
       {{ isTimeOut((userInfo.frozen_post && userInfo.frozen_post.expiretime) || "") ? "禁用动态" : "解除禁用动态" }}
     </el-button>
     <el-button
+      size="mini"
       type="primary"
       plain
       :icon="isTimeOut((userInfo.frozen_withdraw && userInfo.frozen_withdraw.expiretime) || '') ? 'el-icon-money' : 'el-icon-unlock'"
@@ -57,11 +62,11 @@
     >
       {{ isTimeOut((userInfo.frozen_withdraw && userInfo.frozen_withdraw.expiretime) || "") ? "禁用提现" : "解除禁用提现" }}
     </el-button>
-    <el-button type="primary" plain icon="el-icon-cpu">解绑功能</el-button>
-    <el-button type="primary" plain icon="el-icon-message-solid">系统提醒</el-button>
-    <el-button type="primary" plain icon="el-icon-switch-button">注销账号</el-button>
-    <el-button type="primary" plain icon="el-icon-edit">标记为秘书</el-button>
-    <el-button type="primary" plain icon="el-icon-s-promotion">发送客诉沟通消息</el-button>
+    <el-button size="mini" type="primary" plain icon="el-icon-cpu">解绑功能</el-button>
+    <el-button size="mini" type="primary" plain icon="el-icon-message-solid">系统提醒</el-button>
+    <el-button size="mini" type="primary" plain icon="el-icon-switch-button">注销账号</el-button>
+    <el-button size="mini" type="primary" plain icon="el-icon-edit">标记为秘书</el-button>
+    <el-button size="mini" type="primary" plain icon="el-icon-s-promotion">发送客诉沟通消息</el-button>
     <!-- 修改资料 -->
     <el-dialog title="修改资料" :visible.sync="changeUserInfoVisible" class="userInfoDialog" width="700px" :close-on-click-modal="false">
       <el-form :model="changeUserInfoForm" :rules="changeUserInfoRules" ref="changeUserInfoForm" label-width="120px" class="demo-changeUserInfoForm" size="mini">
@@ -170,9 +175,9 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.handleChange();
-          console.log("this.changeUserInfoForm", this.changeUserInfoForm);
+          // console.log("this.changeUserInfoForm", this.changeUserInfoForm);
         } else {
-          console.log("error submit!!");
+          // console.log("error submit!!");
           return false;
         }
       });
@@ -180,7 +185,7 @@ export default {
     // 修改用户
     changeUserInfo() {
       const { nickname, wish, system_face_flag, fate_photo } = this.userInfo;
-      console.log("first", this.userInfo);
+      // console.log("first", this.userInfo);
       this.changeUserInfoForm = {
         nickname,
         wish,
@@ -200,33 +205,37 @@ export default {
           wish,
           photo: this.delIndex,
         };
-        console.log("handleChange");
+        // console.log("handleChange");
         const res = await changeUserInfo(params);
-        console.log("changeUserInfo res", res);
+        // console.log("changeUserInfo res", res);
         if (res && res.errcode == 0) {
           this.$message("success", "修改用户信息成功！");
         } else {
           this.$message("error", "修改用户信息失败！");
         }
       } catch (error) {
-        console.log("error", error);
+        // console.log("error", error);
         this.$message("error", error.errmsg || "修改用户信息失败！");
       }
     },
     del(index) {
-      console.log("del", this.delIndex);
+      // console.log("del", this.delIndex);
       let photo = [...this.changeUserInfoForm.photo];
       photo.splice(index, 1);
-      console.log("newArr", photo);
+      // console.log("newArr", photo);
       this.changeUserInfoForm.photo = photo;
       this.delIndex = [].concat(this.delIndex, [index]);
-      console.log("delIndex", this.delIndex);
+      // console.log("delIndex", this.delIndex);
     },
   },
 };
 </script>
 
 <style scoped>
+.settingBoxs {
+  /* border: 1px solid red; */
+  min-width: 1400px;
+}
 .userInfoDialog {
   /* border: 1px solid blue; */
   min-width: 700px;

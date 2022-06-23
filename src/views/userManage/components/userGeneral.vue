@@ -114,16 +114,16 @@ export default {
           starttime && Object.assign(params, { starttime });
           endtime && Object.assign(params, { endtime });
           serialNumber && Object.assign(params, { serialNumber });
-          console.log("this.activeName", this.activeName);
+          // console.log("this.activeName", this.activeName);
           this.$refs[this.activeName].$emit("search", params);
         } else {
-          console.log("error submit!!");
+          // console.log("error submit!!");
           return false;
         }
       });
     },
     handleClick(tab, event) {
-      console.log(tab.name);
+      // console.log(tab.name);
       this.activeName = tab.name;
     },
     resetForm(formName) {

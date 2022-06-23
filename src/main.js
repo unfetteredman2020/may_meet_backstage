@@ -3,8 +3,10 @@ import App from "./App.vue";
 import router from "./router/index";
 import ElementUI from "element-ui";
 import '@/style/css/theme.scss'
-import { Message } from "element-ui";
+import { Message, Loading } from "element-ui";
 import store from '@/store/index.js'
+import JsonExcel from "vue-json-excel";
+
 Vue.use(ElementUI);
 
 Vue.prototype.$message = function (type, message) {
@@ -13,6 +15,11 @@ Vue.prototype.$message = function (type, message) {
     message: message
   })
 }
+Vue.prototype.$loading = Loading
+
+Vue.prototype.$eventBus = new Vue()
+
+Vue.component("downloadExcel", JsonExcel);
 
 Vue.config.productionTip = false;
 

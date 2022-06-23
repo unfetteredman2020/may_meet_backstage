@@ -4,7 +4,7 @@
  * @returns Object
  */
 export const getDate = (date = new Date()) => {
-  // console.log('date :>> ', date);
+  // // console.log('date :>> ', date);
   var myDate = new Date(date);
   //   const year1 = myDate.getYear(); //获取当前年份(2位)
   const year = myDate.getFullYear(); //获取完整的年份(4位,1970-???)
@@ -24,6 +24,10 @@ export const getDate = (date = new Date()) => {
   //   let myDay = myDate.toLocaleDateString(); //获取当前日期
   //   var mytime = myDate.toLocaleTimeString(); //获取当前时间
   //   let detail = myDate.toLocaleString(); //
+  const MM = formateDate(month)
+  const DD = formateDate(dayNumber);
+  const HH = formateDate(hour)
+  // const 
   return {
     year, //年
     month, //月
@@ -35,6 +39,8 @@ export const getDate = (date = new Date()) => {
     millisecond, //毫秒
     fullDate: `${year}-${formateDate(month)}-${formateDate(dayNumber)}`, //完整年份，eg： 2022-06-09
     fullTime: `${formateDate(hour)}:${formateDate(minute)}:${formateDate(second)}`, //完整时间：eg：10:47:40
+    fullDateType: `${year}${formateDate(month)}${formateDate(dayNumber)}`, // eg: 20220609
+    completeDate:  `${year}${formateDate(month)}${formateDate(dayNumber)}${formateDate(hour)}${formateDate(minute)}${formateDate(second)}`
   };
 };
 

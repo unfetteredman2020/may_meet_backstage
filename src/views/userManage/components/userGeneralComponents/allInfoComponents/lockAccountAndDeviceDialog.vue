@@ -246,7 +246,7 @@ export default {
           account: (data) => lockAccount(data),
           device: (data) => lockDevice(data),
         };
-        console.log("params", params);
+        // console.log("params", params);
         const res = await func[this.type](params);
         if (res && res.errcode == 0) {
           this.$alert("操作成功！", "成功提示");
@@ -254,10 +254,10 @@ export default {
         }else{
           this.$message('error', '修改失败！')
         }
-        console.log("submit res", res);
+        // console.log("submit res", res);
         // this.resetForm("lockAccountForm");
       } catch (error) {
-        console.log("submit error", error);
+        // console.log("submit error", error);
          this.$message('error', '修改失败！')
       }
     },
@@ -266,7 +266,7 @@ export default {
         if (valid) {
           this.submit();
         } else {
-          console.log("error submit!!");
+          // console.log("error submit!!");
           return false;
         }
       });

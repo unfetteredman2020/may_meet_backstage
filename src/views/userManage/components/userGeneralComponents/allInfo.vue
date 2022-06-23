@@ -5,7 +5,7 @@
       <div class="baseInfo">
         <div class="firstPart">
           <div class="avator">
-            <img :src="BASE_CDN_DOMAIN + userInfo.faceimg" alt="" v-if="userInfo.faceimg"/>
+            <img :src="BASE_CDN_DOMAIN + userInfo.faceimg" alt="" v-if="userInfo.faceimg" />
             <el-avatar size="large" :src="BASE_CDN_DOMAIN + userInfo.faceimg" v-else></el-avatar>
           </div>
           <div class="right">
@@ -122,7 +122,7 @@ export default {
   data() {
     //这⾥存放数据
     return {
-      id: '',
+      id: "",
       userInfo: {},
       previewList: [],
       changeUserInfoVisible: false,
@@ -148,7 +148,7 @@ export default {
         2: "审核中",
         3: "审核失败",
       },
-      BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`
+      BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`,
     };
   },
   //监控data中的数据变化
@@ -165,7 +165,6 @@ export default {
     },
   },
   mounted() {
-    this.getUserInfo();
     this.$on("search", this.search);
   },
   //⽅法集合
@@ -188,15 +187,14 @@ export default {
     async getUserInfo(id) {
       try {
         const res = await getAllInfo(id);
-        console.log("getAllInfo :>> ", res);
+        // console.log("getAllInfo :>> ", res);
         if (res && res.errcode == 0) {
           !res.data && this.$message("info", "用户不存在！");
-          this.userInfo = res.data || {}
+          this.userInfo = res.data || {};
         } else {
           this.$message("error", "获取用户信息失败！");
         }
       } catch (error) {
-        console.log("error :>> ", error);
         this.$message("error", error.errmsg || "获取用户信息失败！");
       }
     },
@@ -216,17 +214,22 @@ export default {
 </script>
 <style scoped>
 .container {
-  /* border: 1px solid olivedrab; */
-  display: flex;
-  flex-direction: column;
+  /* border: 1px solid blue; */
+  /* display: flex;
+  flex-direction: column; */
   min-width: 1400px;
+  position: relative;
 }
 .setting {
   /* border: 1px solid orange; */
+  min-width: calc(100vw - 180px);
+  position: absolute;
+  bottom: 0;
+  left: 0;
   box-sizing: border-box;
   padding: 10px 0 0 0;
   background-color: #f2f2f2;
-  height: 100px;
+  height: 50px;
 }
 .allUserInfo span {
   white-space: nowrap;
@@ -237,10 +240,11 @@ export default {
   vertical-align: middle;
 }
 .allUserInfo {
+  position: relative;
   box-sizing: border-box;
-  /* border: 1px solid red; */
+  /* border: 3px solid orchid; */
   padding: 0 0 120px 20px;
-  max-height: 650px;
+  max-height: 720px;
   flex: 1;
   color: rgba(0, 0, 0, 0.8);
   white-space: nowrap;

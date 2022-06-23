@@ -100,7 +100,7 @@ export default {
   //⽅法集合
   methods: {
     handleClick(row) {
-      console.log(row);
+      // console.log(row);
     },
     async getRecharge() {
       try {
@@ -117,17 +117,17 @@ export default {
         } else {
           this.$message('error', '获取充值记录失败');
         }
-        console.log("getRecharge res :>> ", res);
+        // console.log("getRecharge res :>> ", res);
       } catch (error) {
-        console.log("error :>> ", error);
+        // console.log("error :>> ", error);
         this.$message('error', error.errmsg || '获取充值记录失败');
       }
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      // console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      // console.log(`当前页: ${val}`);
     },
   },
   //⽣命周期，创建完成（可以访问当前this实例）

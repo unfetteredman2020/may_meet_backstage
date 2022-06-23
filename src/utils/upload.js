@@ -11,10 +11,10 @@ import { getFileType } from '@/utils/fileType.js'
 export const uploadFiles = async (file, uploadPath = '') => {
   try {
     const fileType = getFileType(file.name)
-    console.log('fileType', fileType)
+    // console.log('fileType', fileType)
     let path = uploadPath ? `backstage/${fileType ? fileType : 'unknowTypeFile'}/${uploadPath}` : `backstage/${file.name}`
     const res = await getALiUploadInfo()
-    console.log('getALiUploadInfo', res)
+    // console.log('getALiUploadInfo', res)
     if (res && res.errcode == 0 && res.data && res.data.tokeninfo) {
       const { AccessKeyId, AccessKeySecret, SecurityToken, Expiration, Bucket, Region } = res.data.tokeninfo
       const client = new OSS({
@@ -31,7 +31,7 @@ export const uploadFiles = async (file, uploadPath = '') => {
       });
       
       const result = await client.put(path, file);
-      console.log('result, path', result, path)
+      // console.log('result, path', result, path)
 
       if(result && result.res &&  result.res.status == 200) {
         return  Promise.resolve(result)
@@ -46,7 +46,7 @@ export const uploadFiles = async (file, uploadPath = '') => {
       return Promise.reject(res)
     }
   } catch (error) {
-    console.log('error', error)
+    // console.log('error', error)
     // Message({
     //   type: 'error',
     //   message: '上传失败，请重试！'

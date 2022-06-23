@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function  getVideoWidth(fileUrl) {
+      const that = this;
+      return new Promise((resolve, reject) => {
+        let aspectRatio = null;
+        let url = fileUrl;
+        const newvideoUrl = url;
+        const videoObj = document.createElement("video");
+        videoObj.preload = "metadata";
+        videoObj.src = newvideoUrl;
+        videoObj.onloadedmetadata = function (evt) {
+          URL.revokeObjectURL(newvideoUrl);
+          console.log('newvideoUrl', videoObj)
+          let videoTime = videoObj.duration; // 获取视频的时长
+          let width = videoObj.videoWidth; //获取视频的宽
+          let height = videoObj.videoHeight; //获取视频的高
+          resolve({ width, height });
+        };
+      });
+    }
+    getVideoWidth('https://cdn.51lm.tv/resource/web/site/background.mp4').then(res=> {
+      console.log('res', res)
+    })
+  </script>
+</body>
+</html>

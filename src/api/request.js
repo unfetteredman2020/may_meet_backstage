@@ -1,7 +1,9 @@
 import axios from 'axios'
+import { Loading } from 'element-ui';
 // import Qs from 'qs'
 import router from '@/router/index'
 // import  from '@/store/index'
+let loading = null
 
 const toLogin = () => {
     router.push({
@@ -11,9 +13,9 @@ const toLogin = () => {
         }
     })
 }
-// console.log('process.env.VUE_APP_BASE_URL', process.env)
+// // console.log('process.env.VUE_APP_BASE_URL', process.env)
 const api = axios.create({
-    baseURL: process.env.VUE_APP_BASE_URL, 
+    baseURL: process.env.VUE_APP_BASE_URL,
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
@@ -24,6 +26,13 @@ const api = axios.create({
 
 api.interceptors.request.use(
     request => {
+        loading = Loading.service({
+            fullscreen: true,
+            lock: true,
+            text: '加载中，请稍后......',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+        });
         /**store
          * 全局拦截请求发送前提交的参数
          * 以下代码为示例，在登录状态下，分别对 post 和 get 请求加上 token 参数
@@ -80,9 +89,15 @@ api.interceptors.response.use(
         // } else {
         //     toLogin()
         // }
+        console.log('this', this)
+        // this.$nextTick(() => { // 以服务的方式调用的 load =  需要异步关闭
+        loading.close();
+        // });
         return response.data
     },
     error => {
+        console.log('this', this)
+        loading.close();
         return Promise.reject(error)
     }
 )

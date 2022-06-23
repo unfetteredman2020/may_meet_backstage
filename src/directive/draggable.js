@@ -1,9 +1,9 @@
 const draggable = {
   inserted: function (el) {
-    // console.log('el', el)
+    // // console.log('el', el)
     el.style.cursor = 'move'
     el.onmousedown = function (e) {
-      console.log(el, e, 123)
+      // // console.log(el, e, 123)
       let disx = e.pageX - el.offsetLeft
       let disy = e.pageY - el.offsetTop
       document.onmousemove = function (e) {

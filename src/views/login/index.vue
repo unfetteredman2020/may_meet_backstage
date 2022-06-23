@@ -79,7 +79,7 @@ export default {
         if (valid) {
           this.submit();
         } else {
-          console.log("error submit!!");
+          // console.log("error submit!!");
           return false;
         }
       });
@@ -88,13 +88,13 @@ export default {
       try {
         // let user = Object.assign({...this.loginForm}, { pwd: getMd5(this.loginForm.pwd)})
          let user = Object.assign({...this.loginForm}, { pwd:'e10adc3949ba59abbe56e057f20f883e'})
-        console.log('user :>> ', user);
+        // console.log('user :>> ', user);
         // const res = await login(user);
         const res = await signLogin()
-        console.log("signLogin res :>> ", res);
+        // console.log("signLogin res :>> ", res);
         if(res && res.errcode === 0) {
           localStorage.setItem('storeUserInfo', JSON.stringify(res.data))
-          console.log('this.$store', SET_USERINFO)
+          // console.log('this.$store', SET_USERINFO)
           this.$store.commit(SET_USERINFO, { userInfo: res.data })
           // localStorage.setItem('userSing', res.data.sign)
           this.$message('success', '登录成功')
@@ -103,7 +103,7 @@ export default {
            this.$message( 'error', res.errmsg)
         }
       } catch (error) {
-        console.log("signLogin error :>> ", error);
+        // console.log("signLogin error :>> ", error);
       }
     },
   },
@@ -111,7 +111,7 @@ export default {
   created() {},
   //⽣命周期，挂载完成（可以访问dom元素）
   mounted() {
-    console.log('this.$stor1e', this.$store)
+    // console.log('this.$stor1e', this.$store)
   },
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前

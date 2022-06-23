@@ -49,7 +49,7 @@ export default {
   //⽅法集合
   methods: {
     handleClick(tab, event) {
-      console.log(tab, event);
+      // console.log(tab, event);
     },
   },
   //⽣命周期，创建完成（可以访问当前this实例）

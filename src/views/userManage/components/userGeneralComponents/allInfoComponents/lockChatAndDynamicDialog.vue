@@ -70,9 +70,9 @@ export default {
           dynamic: (data) => lockDynamic(data),
           withdrawal: (data) => lockWithdrawal(data),
         };
-        console.log("params", params);
+        // console.log("params", params);
         const res = await func[this.type](params);
-        console.log("submit res", res);
+        // console.log("submit res", res);
         if (res && res.errcode == 0) {
           this.$alert("操作成功！", "成功提示");
           this.resetForm("lockChatAndDynamicVisisble");
@@ -80,7 +80,7 @@ export default {
           this.$message("error", "修改失败！");
         }
       } catch (error) {
-        console.log("submit error", error);
+        // console.log("submit error", error);
         this.$message("error", "修改失败！");
       }
     },
@@ -89,7 +89,7 @@ export default {
         if (valid) {
           this.submit();
         } else {
-          console.log("error submit!!");
+          // console.log("error submit!!");
           return false;
         }
       });

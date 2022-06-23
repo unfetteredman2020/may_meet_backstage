@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import store from '@/store/index'
-// import NProgress from 'nprogress'
-// import 'nprogress/nprogress.css' // progress bar style
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css' // progress bar style
 
 Vue.use(VueRouter)
 
@@ -64,4 +64,12 @@ const router = new VueRouter({
 //     }
 // })
 
+
+router.beforeEach((to, from, next) => {
+    NProgress.start()
+    next()
+})
+router.afterEach((to, from) => {
+    NProgress.done()
+})
 export default router

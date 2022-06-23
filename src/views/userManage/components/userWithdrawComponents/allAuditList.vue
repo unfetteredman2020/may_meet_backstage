@@ -119,7 +119,7 @@ export default {
         if (valid) {
           alert("submit!");
         } else {
-          console.log("error submit!!");
+          // console.log("error submit!!");
           return false;
         }
       });
@@ -130,22 +130,22 @@ export default {
         let startTime = `${year}-${formateDate(month - 1)}-${formateDate(dayNumber)}`;
         let endTiem = fullDate;
         const res = await getAllAuditList(`userid=${10000}&starttime=${startTime}&endtime=${endTiem}`);
-        console.log("getAllAuditList res :>> ", res);
+        // console.log("getAllAuditList res :>> ", res);
         if (res && res.errcode == 0) {
           this.list = res.data || [];
         } else {
           this.$message("error", "获取充值记录失败");
         }
       } catch (error) {
-        console.log("error :>> ", error);
+        // console.log("error :>> ", error);
         this.$message("error", "获取充值记录失败");
       }
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      // console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      // console.log(`当前页: ${val}`);
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
