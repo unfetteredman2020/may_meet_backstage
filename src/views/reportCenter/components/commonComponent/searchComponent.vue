@@ -31,7 +31,8 @@ export default {
       // console.log('e', this.date)
       const starttime = getDate(this.date[0])
       const endtime = getDate(this.date[1])
-      this.$eventBus.$emit('reportSearch', {starttime: starttime.fullDate, endtime:  endtime.fullDate})
+      // this.$eventBus.$emit('reportSearch', {starttime: starttime.fullDate, endtime:  endtime.fullDate})
+      this.$parent.getTableData( {starttime: starttime.fullDate, endtime:  endtime.fullDate})
     }
   },
 };
