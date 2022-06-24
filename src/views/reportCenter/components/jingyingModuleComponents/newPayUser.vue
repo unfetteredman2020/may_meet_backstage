@@ -5,7 +5,7 @@ newPayUser
 </template>
 
 <script>
-
+import { firstPayUser } from '@/api/reportApi.js'
 export default {
   props: {
 
@@ -25,7 +25,9 @@ export default {
     
   },
   methods: {
-    
+    async getTableDatea(data) {
+
+    }
   },
 }
 </script>
