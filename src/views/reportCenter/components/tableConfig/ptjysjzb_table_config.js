@@ -1,6 +1,4 @@
-import { mockIntetface } from '@/mock/report.js'
-
-let obj = {
+export default  {
   'date': '日期',
   /**
    * 充值金币消耗
@@ -236,28 +234,3 @@ let obj = {
    */
   'zong_ke_ARPU': '总客ARPU',
 }
-
-let revers = []
-
-let a = {}
-for (const key in obj) {
-
-  let name = obj[key]
-  a[`${name}`] = key
-  revers.push({
-    text: name,
-    value: key,
-    width: '100'
-  })
-}
-console.log('a', a)
-let keys = Object.values(obj)
-const list = mockIntetface(Object.keys(obj))
-// // console.log('list--', list)
-export default {
-  origin: revers,
-  columms: revers,
-  ChineseKeys: a,
-  mockList: list || []
-}
-

@@ -16,7 +16,7 @@ const toLogin = () => {
 // // console.log('process.env.VUE_APP_BASE_URL', process.env)
 const api = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
-    timeout: 10000,
+    // timeout: 3000,
     headers: {
         'Content-Type': 'application/json',
         // "Access-Control-Allow-Origin": "*",

@@ -1,8 +1,22 @@
 // const { defineConfig } = require('@vue/cli-service')
 
-module.exports ={
+module.exports = {
+
   transpileDependencies: true,
   //关闭eslint校验
   lintOnSave: false,
-  // publicPath: './'
+  devServer: {
+    // host: '0.0.0.0',
+    // // https:true,
+    // port: 8080,
+    // // publicPath: './'
+    // client: {
+    //   webSocketURL: 'ws://0.0.0.0:8080/ws',
+    // },
+    // headers: {
+    //   'Access-Control-Allow-Origin': '*',
+    // }
+  },
+
+
 }

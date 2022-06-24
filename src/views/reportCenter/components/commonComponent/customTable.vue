@@ -5,8 +5,8 @@
       <el-button size="mini" type="primary" class="el-icon-download">下载</el-button>
     </download-excel>
     <!-- 表格  -->
-    <el-table border stripe :data="showList" style="width: 100%" max-height="670px" class="customTableStyle">
-      <el-table-column min-width="150px" sortable v-for="item in column" :key="item.value" :prop="item.value" :label="item.text"></el-table-column>
+    <el-table :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" border stripe :data="showList" style="width: 100%" max-height="680px" class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
+      <el-table-column label-class-name="labelClass" class-name="columnClass" min-width="150px" sortable v-for="item in column" :key="item.value" :prop="item.value" :label="item.text"></el-table-column>
     </el-table>
     <!-- 分页 -->
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total"></el-pagination>
@@ -29,67 +29,77 @@
 </template>
 
 <script>
-import { sumTableOfPlatformOpration } from "@/api/reportApi.js";
-import config from "./tableConfig.js";
-const { columms, mockList, ChineseKeys } = config;
-console.log("ChineseKeys", ChineseKeys);
 import { getDate } from "@/utils/date";
+
 export default {
-  props: {},
+  props: {
+    tableList: {
+      type: Array,
+      default: [],
+    },
+    customProps: {
+      type: Object,
+      required: true,
+      validator: function (value) {
+        //自定义验证函数
+        if(!(value.tableName && value.tableConfig)){
+          throw Error('请检查props中customProps字段是否传入')
+        }
+        return value
+      },
+    },
+  },
   components: {},
   data() {
     return {
       checkAll: false, // 是否全选
       checkedItem: [], // CheckBox 选中的数据
-      column: columms, //要展示的列配置数据
-      config: columms, //全部字段配置 [{text: '', value: '', width: ''},.....]
+      column: [], //要展示的列配置数据
+      config: [], //全部字段配置 [{text: '', value: '', width: ''},.....]
       isIndeterminate: true,
       showList: [], //每一页的数据，前端分页
       list: [], // 后端接口全部list数据
       currentPage: 1, //分页当前页
       total: 0, //总数
-      pageSize: 10, //每一页数据
+      pageSize: 50, //每一页数据
       selectTableColumnVisible: false,
       exportDataStandard: {}, //导出数据表头配置
-      exportData: mockList, // 导出数据
+      exportData: [], // 导出数据
       exportName: `报表数据${getDate().fullDate}-${getDate().fullTime}`, // 导出文件名字
       exportHeader: ["平台经营数据总表"], //页头
       exportFooter: [""],
       exportDefaultValue: "没有数据", // 每一列没有数据填充文字
+      headerStyle: {
+        height: "20px",
+        background: "#000",
+      },
     };
   },
   computed: {},
   mounted() {
-    let platformTableConfig = JSON.parse(localStorage.getItem("platformTableConfig"));
+    console.log("this.customProps", this.customProps);
+    let platformTableConfig = JSON.parse(localStorage.getItem(this.customProps.tableName));
     platformTableConfig && (this.column = platformTableConfig);
-    this.handleSelectedTableColumn();
-    this.getTableData();
-    // 先解绑事件，再绑定，避免多次触发绑定的事件
-    this.$eventBus.$off("reportSearch");
-    this.$eventBus.$on("reportSearch", this.getTableData);
+    Object.keys(this.customProps).length && this.formatTableConfig();
+  },
+  watch: {
+    tableList(newValue, oldValue) {
+      this.total = newValue.length;
+      this.list = newValue || [];
+      this.showList = newValue.slice(0, this.pageSize);
+    },
+    // 解决一些场景数据获取不到问题
+    customProps(newValue, oldValue) {
+      this.formatTableConfig();
+    },
   },
   methods: {
+    // 表格配置
     configCheckBox() {
       this.selectTableColumnVisible = true;
       this.handleSelectedTableColumn();
     },
-    async getTableData(data) {
-      try {
-        let params = {
-          starttime: getDate("2022-01-02").fullDate,
-          endtime: getDate().fullDate,
-        };
-        const res = await sumTableOfPlatformOpration(data || params);
-        if (res && res.errcode == 0) {
-          this.total = res.data.length;
-          this.list = res.data;
-          this.showList = res.data.slice(0, 20);
-        }
-        console.log("res", res);
-      } catch (error) {
-        console.log("error", error);
-      }
-    },
+    // CheckBox Dialog确认表头配置
     comfirm() {
       const { checkedItem } = this;
       if (!checkedItem.length) {
@@ -99,11 +109,10 @@ export default {
       this.selectTableColumnVisible = false;
     },
     handleClose() {},
+    // 全选
     handleCheckAllChange(val) {
-      console.log("val", val);
       let arr = [];
       val && (arr = this.config.map((item) => item.text));
-      console.log("arr", arr);
       this.checkedItem = arr;
       this.isIndeterminate = false;
     },
@@ -112,6 +121,7 @@ export default {
       this.checkAll = checkedCount === this.column.length;
       this.isIndeterminate = checkedCount > 0 && checkedCount < this.column.length;
     },
+    // 修改每一页的展示数据条数
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
       this.pageSize = val;
@@ -124,6 +134,7 @@ export default {
       let arr = list.slice(0, val);
       this.showList = arr;
     },
+    // 选择某一页
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
       this.currentPage = val;
@@ -145,18 +156,24 @@ export default {
         item && arr.push(item[0]);
       });
       this.column = arr;
-      localStorage.setItem("platformTableConfig", JSON.stringify(arr));
+      localStorage.setItem(this.customProps.tableName, JSON.stringify(arr));
     },
+    // 下载之前构造所需的表头和table数据
     createExportData() {
       // 点击导出按钮之后,开始导出数据之前的执行函数,返回值为需要下载的数据
       // TODO:构造需要下载的数据返回
+      /***
+       * 点击导出按钮之后,开始导出数据之前的执行函数,返回值为需要下载的数据
+       * TODO:
+       * 1,处理表头数据
+       * 2，返回当前表格的数据
+       */
       let obj = {};
       this.column.forEach((item) => {
         obj[item.text] = item.value;
       });
-      console.log("arr", obj);
       this.exportDataStandard = obj;
-      return this.showList;
+      return this.showList || [];
     },
     startDownload() {
       console.log("数据开始");
@@ -164,14 +181,29 @@ export default {
     finishDownload() {
       console.log("数据下载完成");
     },
+    formatTableConfig() {
+      let revers = [];
+      let tableConfig = { ...this.customProps.tableConfig };
+      for (const key in tableConfig) {
+        let name = tableConfig[key];
+        revers.push({
+          text: name,
+          value: key,
+          width: "100",
+        });
+      }
+      this.column = revers;
+      this.config = revers;
+    },
   },
-  destroyed() {
-    this.$eventBus.$off("reportSearch");
-  },
+  destroyed() {},
 };
 </script>
 
 <style scoped>
+.el-main {
+  line-height: 50px;
+}
 .downloadStyle {
   margin: 0 10px;
   /* border: 1px solid red; */
@@ -181,12 +213,16 @@ export default {
 .customTableStyle /deep/ .cell {
   white-space: nowrap;
 }
-.customTableStyle /deep/ th {
-  width: 2300px !important;
-}
+
 .checkboxGroup {
   /* border: 1px solid blue; */
   display: flex;
   flex-wrap: wrap;
+}
+.columnClass {
+  border: 1px solid blue !important;
+}
+.labelClass {
+  border: 1px solid orchid;
 }
 </style>
