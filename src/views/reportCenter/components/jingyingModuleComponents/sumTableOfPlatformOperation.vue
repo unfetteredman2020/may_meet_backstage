@@ -39,12 +39,15 @@ export default {
           endtime: getDate().fullDate,
         };
         const res = await sumTableOfPlatformOpration(data || params);
+        console.log(" sumTableOfPlatformOpration res", res);
         if (res && res.errcode == 0) {
           this.list = res.data;
+        }else{
+          this.$message('error', '获取列表失败，请稍后重试')
         }
-        console.log("res", res);
       } catch (error) {
         console.log("error", error);
+        this.$message('error', '获取列表失败，请稍后重试')
       }
     },
   },

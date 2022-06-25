@@ -13,3 +13,6 @@ export const sumTableOfPlatformOpration = data => request.get(`/bbzx/jymk/ptjysj
 
 // 首次付费用户留存
 export const firstPayUser = data => request.get(`/bbzx/jymk/scfflc?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+// 新增付费用户留存
+export const newPayUser = data => request.get(`/bbzx/jymk/xzffyhlc?starttime=${data.starttime}&endtime=${data.endtime}`)

@@ -70,21 +70,19 @@ export default {
       exportHeader: ["平台经营数据总表"], //页头
       exportFooter: [""],
       exportDefaultValue: "没有数据", // 每一列没有数据填充文字
-      headerStyle: {
-        height: "20px",
-        background: "#000",
-      },
     };
   },
   computed: {},
   mounted() {
     console.log("this.customProps", this.customProps);
     let platformTableConfig = JSON.parse(localStorage.getItem(this.customProps.tableName));
+    console.log("platformTableConfig", platformTableConfig);
     platformTableConfig && (this.column = platformTableConfig);
-    Object.keys(this.customProps).length && this.formatTableConfig();
+    !platformTableConfig && this.formatTableConfig();
   },
   watch: {
     tableList(newValue, oldValue) {
+      console.log("newValue", newValue);
       this.total = newValue.length;
       this.list = newValue || [];
       this.showList = newValue.slice(0, this.pageSize);
@@ -184,11 +182,10 @@ export default {
     },
     formatTableConfig() {
       let revers = [];
-      let tableConfig = { ...this.customProps.tableConfig };
+      let tableConfig = this.customProps.tableConfig;
       for (const key in tableConfig) {
-        let name = tableConfig[key];
         revers.push({
-          text: name,
+          text: tableConfig[key],
           value: key,
           width: "100",
         });

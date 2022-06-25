@@ -39,9 +39,8 @@ export default {
           starttime: getDate("2022-01-02").fullDate,
           endtime: getDate().fullDate,
         };
-
         const res = await firstPayUser(data || params);
-
+        console.log("firstPayUser res", res);
         if (res && res.errcode == 0) {
           customLoading = this.$loading({
             lock: true,
@@ -49,12 +48,13 @@ export default {
             spinner: "el-icon-loading",
             background: "rgba(0, 0, 0, 0.7)",
           });
-          
           this.formatColum(res.data);
+        }else {
+          this.$message('error', '获取列表失败，请稍后重试')
         }
-        console.log("firstPayUser res", res);
       } catch (error) {
         console.log("error", error);
+        this.$message('error', '获取列表失败，请稍后重试')
       }
     },
     formatColum(data) {

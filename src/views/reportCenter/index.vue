@@ -26,9 +26,10 @@
 import MenuTree from "@/components/menuTree.vue";
 import sumTableOfPlatformOperation from "./components/jingyingModuleComponents/sumTableOfPlatformOperation.vue";
 import firstPayUser from './components/jingyingModuleComponents/firstPayUser.vue'
+import newPayUser from './components/jingyingModuleComponents/newPayUser.vue'
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
-  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser },
+  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser,newPayUser },
   props: {},
   data() {
     //这⾥存放数据
