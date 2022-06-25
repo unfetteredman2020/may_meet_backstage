@@ -4,13 +4,17 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode development",
+    "dev": "webpack --mode production",
+    "generateAnalyzFile": "webpack --profile --json > stats.json",
     "build": "vue-cli-service build --mode production",
+    "analyz": "webpack-bundle-analyzer --port 8888 ./dist/stats.json",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "ali-oss": "^6.17.1",
     "awe-dnd": "^0.3.4",
     "axios": "^0.27.2",
+    "compression-webpack-plugin": "^10.0.0",
     "core-js": "^3.8.3",
     "element-ui": "^2.15.9",
     "js-md5": "^0.7.3",
@@ -28,11 +32,17 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "babel-loader": "^8.2.5",
+    "css-minimizer-webpack-plugin": "^4.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "mini-css-extract-plugin": "^2.6.1",
     "sass-loader": "^13.0.0",
-    "style-loader": "^3.3.1",
-    "vue-template-compiler": "^2.6.14"
+    "vue-template-compiler": "^2.6.14",
+    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dashboard": "^3.3.7",
+    "webpack-parallel-uglify-plugin": "^2.0.0"
   },
   "eslintConfig": {
     "root": true,

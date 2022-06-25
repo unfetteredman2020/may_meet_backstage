@@ -15,7 +15,7 @@ Vue.prototype.$message = function (type, message) {
     message: message
   })
 }
-Vue.prototype.$loading = Loading
+// Vue.prototype.$loading = Loading
 
 Vue.prototype.$eventBus = new Vue()
 

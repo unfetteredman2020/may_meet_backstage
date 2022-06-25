@@ -42,16 +42,17 @@ export default {
       required: true,
       validator: function (value) {
         //自定义验证函数
-        if(!(value.tableName && value.tableConfig)){
-          throw Error('请检查props中customProps字段是否传入')
+        if (!(value.tableName && value.tableConfig)) {
+          throw Error("请检查props中customProps字段是否传入");
         }
-        return value
+        return value;
       },
     },
   },
   components: {},
   data() {
     return {
+      isLoading: true,
       checkAll: false, // 是否全选
       checkedItem: [], // CheckBox 选中的数据
       column: [], //要展示的列配置数据
