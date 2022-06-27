@@ -74,6 +74,7 @@ export default {
   },
   computed: {},
   mounted() {
+    
     console.log("this.customProps", this.customProps);
     let platformTableConfig = JSON.parse(localStorage.getItem(this.customProps.tableName));
     console.log("platformTableConfig", platformTableConfig);
@@ -86,6 +87,7 @@ export default {
       this.total = newValue.length;
       this.list = newValue || [];
       this.showList = newValue.slice(0, this.pageSize);
+      // this.$set
     },
     // 解决一些场景数据获取不到问题
     customProps(newValue, oldValue) {

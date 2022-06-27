@@ -1,6 +1,6 @@
 <template>
   <div class="jingyingshujuzongbiao">
-    <Search />
+    <Search :text="'平台经营数据总表'"/>
     <SelectTableColumn :tableList="list" :customProps="customProps" />
   </div>
 </template>

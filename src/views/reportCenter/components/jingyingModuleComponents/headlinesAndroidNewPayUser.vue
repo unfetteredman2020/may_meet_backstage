@@ -1,3 +1,10 @@
+<!--
+ * @Author: unfetteredman weixw2014@qq.com
+ * @Date: 2022-06-27 09:40:27
+ * @LastEditors: unfetteredman weixw2014@qq.com
+ * @LastEditTime: 2022-06-27 09:40:48
+ * @FilePath: \may_meet_backstage\src\views\reportCenter\components\jingyingModuleComponents\headlinesAndroidNewPayUser.vue
+-->
 <template>
   <div class="jingyingshujuzongbiao">
     <Search :text="'新增付费用户留存'"/>

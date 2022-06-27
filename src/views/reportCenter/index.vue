@@ -2,12 +2,12 @@
   <div>
     <el-container>
       <el-aside width="220px">
-        <el-menu default-active="" class="el-menu-vertical-demo userManageMenu" @open="handleOpen" @close="handleClose" background-color="#000" text-color="#999999" active-text-color="#fff" @select="handleSelect">
+        <el-menu :default-active="activeMenu" class="el-menu-vertical-demo userManageMenu" @open="handleOpen" @close="handleClose" background-color="#000" text-color="#999999" active-text-color="#fff" @select="handleSelect">
           <MenuTree :menuData="leftMenuList" />
         </el-menu>
       </el-aside>
       <el-main class="userManageMain">
-        <el-tabs class="reportTabs" v-if="tabsValue" v-model="tabsValue" type="card" closable @tab-remove="removeTab">
+        <el-tabs class="reportTabs" v-if="tabsValue" @tab-click="clickTab" v-model="tabsValue" type="card" closable @tab-remove="removeTab">
           <el-tab-pane v-for="item in editableTabs" :key="item.label" :label="item.label" :name="item.component">
             <component :is="item.component" :name="item.component" />
           </el-tab-pane>
@@ -25,15 +25,16 @@
 <script>
 import MenuTree from "@/components/menuTree.vue";
 import sumTableOfPlatformOperation from "./components/jingyingModuleComponents/sumTableOfPlatformOperation.vue";
-import firstPayUser from './components/jingyingModuleComponents/firstPayUser.vue'
-import newPayUser from './components/jingyingModuleComponents/newPayUser.vue'
+import firstPayUser from "./components/jingyingModuleComponents/firstPayUser.vue";
+import newPayUser from "./components/jingyingModuleComponents/newPayUser.vue";
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
-  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser,newPayUser },
+  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser, newPayUser },
   props: {},
   data() {
     //这⾥存放数据
     return {
+      activeMenu: "",
       emptyImg: require("../../assets/empty.png"),
       tabsValue: "",
       editableTabs: [],
@@ -46,62 +47,62 @@ export default {
             {
               name: "平台经营数据总表",
               icon: "el-icon-odometer",
-              path: "/reportCenter/jingying/sumTableOfPlatformOperation",
+              path: "/jingying/sumTableOfPlatformOperation",
             },
             {
               name: "首次付费用户留存",
               icon: "el-icon-odometer",
-              path: "/reportCenter/jingying/firstPayUser",
+              path: "/jingying/firstPayUser",
             },
             {
               name: "新增付费用户留存",
               icon: "el-icon-odometer",
-              path: "/reportCenter/jingying/newPayUser",
+              path: "/jingying/newPayUser",
             },
             {
               name: "头条 安卓新增付费",
               icon: "el-icon-odometer",
-              path: "/reportCenter/jingying/headlinesAndroidNewPayUser",
+              path: "/jingying/headlinesAndroidNewPayUser",
             },
             {
               name: "快手 安卓新增付费用户",
               icon: "el-icon-odometer",
-              path: "/reportCenter/jingying/KwaiAndroidNewPayUser",
+              path: "/jingying/KwaiAndroidNewPayUser",
             },
             {
               name: "IOS 新增付费用户",
               icon: "el-icon-odometer",
-              path: "/reportCenter/jingying/iosNewPayUser",
+              path: "/jingying/iosNewPayUser",
             },
             {
               name: "近3日业务数据对比",
               icon: "el-icon-odometer",
-              path: "/reportCenter/jingying/thridDayBusinessCompare",
+              path: "/jingying/thridDayBusinessCompare",
             },
             {
               name: "年龄段每日数据",
               icon: "el-icon-odometer",
-              path: "/reportCenter/jingying/ageDailyCompare",
+              path: "/jingying/ageDailyCompare",
             },
             {
               name: "每日付费统计",
               icon: "el-icon-odometer",
-              path: "/reportCenter/jingying/dailyPayStatistic",
+              path: "/jingying/dailyPayStatistic",
             },
             {
               name: "业务看板",
               icon: "el-icon-odometer",
-              path: "/reportCenter/jingying/businessBoard",
+              path: "/jingying/businessBoard",
             },
             {
               name: "平台活跃每日数据",
               icon: "el-icon-odometer",
-              path: "/reportCenter/jingying/platformActiveDaysData",
+              path: "/jingying/platformActiveDaysData",
             },
             {
               name: "总览看板",
               icon: "el-icon-odometer",
-              path: "/reportCenter/jingying/allBoard",
+              path: "/jingying/allBoard",
             },
           ],
         },
@@ -127,6 +128,9 @@ export default {
   //⽅法集合
   methods: {
     handleSelect(key, keyPath) {
+
+      console.log('key', key)
+      this.activeMenu = key;
       console.log(key, keyPath);
       let component = key.split("/").pop();
       if (this.editableTabs.filter((item) => item.component == component).length) {
@@ -136,10 +140,18 @@ export default {
       let name = this.leftMenuList.filter((item) => item.path == keyPath[0])[0].children.filter((item) => item.path == key)[0].name;
       this.tabsValue = component;
       oldArr.push({
-        label: name,
+        label: name, 
         component,
       });
       this.editableTabs = oldArr;
+    },
+    setActiveMenu(str) {
+      let b = this.activeMenu.split("/");
+      console.log("b", b);
+      let a = b.reduce((pre, cur, idx) => {
+        return pre + cur;
+      });
+      console.log("a", a);
     },
     handleOpen(key, keyPath) {
       // console.log(key, keyPath);
@@ -147,8 +159,13 @@ export default {
     handleClose(key, keyPath) {
       // console.log(key, keyPath);
     },
-
+    clickTab(tab, event) {
+      console.log(tab, event);
+      console.log("this.tabsValue", this.tabsValue);
+    },
     removeTab(targetName) {
+      this.setActiveMenu();
+      console.log("activeMenu", this.activeMenu);
       console.log("targetName", targetName);
       console.log("this.editableTabs", this.editableTabs);
       let tabs = this.editableTabs;

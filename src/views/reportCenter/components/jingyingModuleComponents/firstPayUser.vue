@@ -1,6 +1,13 @@
+<!--
+ * @Author: unfetteredman weixw2014@qq.com
+ * @Date: 2022-06-25 15:12:06
+ * @LastEditors: unfetteredman weixw2014@qq.com
+ * @LastEditTime: 2022-06-27 09:33:43
+ * @FilePath: \may_meet_backstage\src\views\reportCenter\components\jingyingModuleComponents\firstPayUser.vue
+-->
 <template>
   <div class="jingyingshujuzongbiao">
-    <Search />
+    <Search :text="'首次付费用户留存'"/>
     <SelectTableColumn :tableList="list" :customProps="customProps" />
   </div>
 </template>
@@ -24,6 +31,7 @@ export default {
       customProps: {
         tableName: "firstPayUserTableConfig", // tableName： table标识，用来做table的key
         tableConfig, //table 每一列数据的key-value对应关系的Object；{key：value}；key指绑定column的英文名称，value指每一列的中文名称，不可为空
+        
       },
     };
   },
@@ -42,13 +50,14 @@ export default {
         const res = await firstPayUser(data || params);
         console.log("firstPayUser res", res);
         if (res && res.errcode == 0) {
-          customLoading = this.$loading({
-            lock: true,
-            text: "加载1123",
-            spinner: "el-icon-loading",
-            background: "rgba(0, 0, 0, 0.7)",
-          });
-          this.formatColum(res.data);
+          // customLoading = this.$loading({
+          //   lock: true,
+          //   text: "加载1123",
+          //   spinner: "el-icon-loading",
+          //   background: "rgba(0, 0, 0, 0.7)",
+          // });
+           this.list = res.data
+          // this.formatColum(res.data);
         }else {
           this.$message('error', '获取列表失败，请稍后重试')
         }
@@ -72,7 +81,7 @@ export default {
       }).then((res) => {
         // console.log("res---", res);
         customLoading.close();
-        this.list = res;
+       
       });
     },
     sum(arr) {
