@@ -26,13 +26,13 @@ const api = axios.create({
 
 api.interceptors.request.use(
     request => {
-        loading = Loading.service({
-            fullscreen: true,
-            lock: true,
-            text: '加载中，请稍后......',
-            spinner: 'el-icon-loading',
-            background: 'rgba(0, 0, 0, 0.7)'
-        });
+        // loading = Loading.service({
+        //     fullscreen: true,
+        //     lock: true,
+        //     text: '加载中，请稍后......',
+        //     spinner: 'el-icon-loading',
+        //     background: 'rgba(0, 0, 0, 0.7)'
+        // });
         /**store
          * 全局拦截请求发送前提交的参数
          * 以下代码为示例，在登录状态下，分别对 post 和 get 请求加上 token 参数
@@ -91,7 +91,8 @@ api.interceptors.response.use(
         // }
         console.log('this', this)
         // this.$nextTick(() => { // 以服务的方式调用的 load =  需要异步关闭
-        loading.close();
+        console.log('loading', loading)
+        // loading.close();
         // });
         return response.data
     },

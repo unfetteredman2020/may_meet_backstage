@@ -27,14 +27,18 @@ import MenuTree from "@/components/menuTree.vue";
 import sumTableOfPlatformOperation from "./components/jingyingModuleComponents/sumTableOfPlatformOperation.vue";
 import firstPayUser from "./components/jingyingModuleComponents/firstPayUser.vue";
 import newPayUser from "./components/jingyingModuleComponents/newPayUser.vue";
+import headlinesAndroidNewPayUser from "./components//jingyingModuleComponents/headlinesAndroidNewPayUser.vue";
+import kwaiAndroidNewPayUser from './components/jingyingModuleComponents/kwaiAndroidNewPayUser.vue'
+import iosNewPayUser from './components/jingyingModuleComponents/iosNewPayUser.vue'
+import thridDayBusinessCompare from './components/jingyingModuleComponents/thridDayBusinessCompare.vue'
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
-  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser, newPayUser },
+  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser, newPayUser, headlinesAndroidNewPayUser, kwaiAndroidNewPayUser,iosNewPayUser, thridDayBusinessCompare },
   props: {},
   data() {
     //这⾥存放数据
     return {
-      activeMenu: "",
+      activeMenu: "/jingying/sumTableOfPlatformOperation",
       emptyImg: require("../../assets/empty.png"),
       tabsValue: "",
       editableTabs: [],
@@ -60,14 +64,14 @@ export default {
               path: "/jingying/newPayUser",
             },
             {
-              name: "头条 安卓新增付费",
+              name: "头条 安卓新增付费用户",
               icon: "el-icon-odometer",
               path: "/jingying/headlinesAndroidNewPayUser",
             },
             {
               name: "快手 安卓新增付费用户",
               icon: "el-icon-odometer",
-              path: "/jingying/KwaiAndroidNewPayUser",
+              path: "/jingying/kwaiAndroidNewPayUser",
             },
             {
               name: "IOS 新增付费用户",
@@ -128,8 +132,7 @@ export default {
   //⽅法集合
   methods: {
     handleSelect(key, keyPath) {
-
-      console.log('key', key)
+      console.log("key", key);
       this.activeMenu = key;
       console.log(key, keyPath);
       let component = key.split("/").pop();
@@ -140,7 +143,7 @@ export default {
       let name = this.leftMenuList.filter((item) => item.path == keyPath[0])[0].children.filter((item) => item.path == key)[0].name;
       this.tabsValue = component;
       oldArr.push({
-        label: name, 
+        label: name,
         component,
       });
       this.editableTabs = oldArr;

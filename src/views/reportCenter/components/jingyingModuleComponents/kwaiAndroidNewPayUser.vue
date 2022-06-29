@@ -15,9 +15,9 @@
 <script>
 import Search from "../commonComponent/searchComponent.vue";
 import SelectTableColumn from "../commonComponent/customTable.vue";
-import { headlinesAndroidNewPayUser } from "@/api/reportApi.js";
+import { kwaiAndroidNewPayUser } from "@/api/reportApi.js";
 import { getDate } from "@/utils/date";
-import tableConfig from "../tableConfig/xzffyhlc_table_config";
+import tableConfig from "../tableConfig/xzffyhlc_table_config"; // 公用头条 安卓新增付费用户table 配置
 
 export default {
   props: {},
@@ -29,7 +29,7 @@ export default {
     return {
       list: [],
       customProps: {
-        tableName: "headlinesAndroidNewPayUserTableConfig", // tableName： table标识，用来做table的key
+        tableName: "kwaiAndroidNewPayUserTableConfig", // tableName： table标识，用来做table的key
         tableConfig, //table 每一列数据的key-value对应关系的Object；{key：value}；key指绑定column的英文名称，value指每一列的中文名称，不可为空
       },
     };
@@ -45,7 +45,7 @@ export default {
           starttime: getDate("2022-01-02").fullDate,
           endtime: getDate().fullDate,
         };
-        const res = await headlinesAndroidNewPayUser(data || params);
+        const res = await kwaiAndroidNewPayUser(data || params);
         console.log("headlinesAndroidNewPayUser res", res);
         if (res && res.errcode == 0) {
           this.list = res.data;
