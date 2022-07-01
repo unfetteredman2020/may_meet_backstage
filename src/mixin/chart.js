@@ -13,7 +13,11 @@ export default {
     // 此处id切记不可传重复
     id: {
       type: String,
-      default: ()=> ''
+      default: ()=> String(new Date())
+    },
+    width: {
+      type: String,
+      default:() => '700px'
     },
     legend: {
       type: Object,
@@ -23,9 +27,21 @@ export default {
       type: Array,
       default: ()=> []
     },
+    yAxis: {
+      type: Object,
+      default: ()=> {}
+    },
+    xAxis: {
+      type: Object,
+      default: ()=> {}
+    },
     downloadData: {
       type: Object,
       default: ()=> {}
+    },
+    formatter: {
+      type: Function,
+      default: ()=> new Function()
     }
   },
   data() {

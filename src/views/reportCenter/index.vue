@@ -28,12 +28,13 @@ import sumTableOfPlatformOperation from "./components/jingyingModuleComponents/s
 import firstPayUser from "./components/jingyingModuleComponents/firstPayUser.vue";
 import newPayUser from "./components/jingyingModuleComponents/newPayUser.vue";
 import headlinesAndroidNewPayUser from "./components//jingyingModuleComponents/headlinesAndroidNewPayUser.vue";
-import kwaiAndroidNewPayUser from './components/jingyingModuleComponents/kwaiAndroidNewPayUser.vue'
-import iosNewPayUser from './components/jingyingModuleComponents/iosNewPayUser.vue'
-import thridDayBusinessCompare from './components/jingyingModuleComponents/thridDayBusinessCompare.vue'
+import kwaiAndroidNewPayUser from "./components/jingyingModuleComponents/kwaiAndroidNewPayUser.vue";
+import iosNewPayUser from "./components/jingyingModuleComponents/iosNewPayUser.vue";
+import thridDayBusinessCompare from "./components/jingyingModuleComponents/thridDayBusinessCompare.vue";
+
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
-  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser, newPayUser, headlinesAndroidNewPayUser, kwaiAndroidNewPayUser,iosNewPayUser, thridDayBusinessCompare },
+  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser, newPayUser, headlinesAndroidNewPayUser, kwaiAndroidNewPayUser, iosNewPayUser, thridDayBusinessCompare },
   props: {},
   data() {
     //这⾥存放数据
@@ -188,8 +189,6 @@ export default {
           }
         });
       }
-
-      console.log("a", activeName);
       this.tabsValue = activeName;
       this.editableTabs = this.editableTabs.filter((tab) => tab.component !== targetName);
     },
@@ -220,7 +219,5 @@ export default {
   margin-top: 150px;
   /* border: 1px solid red; */
 }
-.reportTabs {
-  /* border: 1px solid orange; */
-}
+
 </style>
