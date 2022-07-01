@@ -31,10 +31,11 @@ import headlinesAndroidNewPayUser from "./components//jingyingModuleComponents/h
 import kwaiAndroidNewPayUser from "./components/jingyingModuleComponents/kwaiAndroidNewPayUser.vue";
 import iosNewPayUser from "./components/jingyingModuleComponents/iosNewPayUser.vue";
 import thridDayBusinessCompare from "./components/jingyingModuleComponents/thridDayBusinessCompare.vue";
+import ageDailyCompare from "./components/jingyingModuleComponents/ageDailyCompare.vue";
 
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
-  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser, newPayUser, headlinesAndroidNewPayUser, kwaiAndroidNewPayUser, iosNewPayUser, thridDayBusinessCompare },
+  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser, newPayUser, headlinesAndroidNewPayUser, kwaiAndroidNewPayUser, iosNewPayUser, thridDayBusinessCompare, ageDailyCompare },
   props: {},
   data() {
     //这⾥存放数据
@@ -219,5 +220,4 @@ export default {
   margin-top: 150px;
   /* border: 1px solid red; */
 }
-
 </style>

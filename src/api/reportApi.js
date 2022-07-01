@@ -29,3 +29,7 @@ export const iosNewPayUser = data => request.get(`/bbzx/jymk/ios_dzffyhlc?startt
 
 // 近三日业务数据对比
 export const thridDayBusinessCompare = data => request.get(`/bbzx/jymk/jsrywsjdb`)
+
+
+// 年龄段每日数据
+export const ageDailyCompare = data => request.get(`/bbzx/jymk/nldmrsj?starttime=${data.starttime}&endtime=${data.endtime}`)
