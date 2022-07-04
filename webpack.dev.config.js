@@ -1,3 +1,5 @@
+const path = require('path')
+const os = require('os')
 // const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin'); // 引入插件
 // const ExtractTextPlugin = require("extract-text-webpack-plugin");
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; //包大小分析工具
@@ -5,8 +7,37 @@ const TerserPlugin = require('terser-webpack-plugin') // 去掉console
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')   // 分离css
 // const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')  // 压缩css
 const webpack = require('webpack')
-module.exports  =  {
-  devtool:  'eval-source-map',
+// 导入速度分析插件
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const threadLoader = require('thread-loader');
+const smp = new SpeedMeasurePlugin();
+console.log('cups', os.cpus().length)
+const jsWorkerPool = {
+  // options
+
+  // 产生的 worker 的数量，默认是 (cpu 核心数 - 1)
+  // 当 require('os').cpus() 是 undefined 时，则为 1
+  workers: os.cpus().length,
+
+  // 闲置时定时删除 worker 进程
+  // 默认为 500ms
+  // 可以设置为无穷大， 这样在监视模式(--watch)下可以保持 worker 持续存在
+  poolTimeout: 2000
+};
+
+const cssWorkerPool = {
+  // 一个 worker 进程中并行执行工作的数量
+  // 默认为 20
+  workerParallelJobs: 2,
+  poolTimeout: 2000
+};
+
+threadLoader.warmup(jsWorkerPool, ['babel-loader']);
+threadLoader.warmup(cssWorkerPool, ['css-loader', 'postcss-loader']);
+
+module.exports = smp.wrap({
+
+  devtool: 'eval-source-map',
   //   externals: {
   //     vue: {
   //       root: "Vue",   //通过 script 标签引入，此时全局变量中可以访问的是 Vue
@@ -15,6 +46,62 @@ module.exports  =  {
   //       amd: "vue"   //类似于 commonjs，但使用 AMD 模块系统
   //     }
   //   },
+  resolve: {
+    // modules: ['node_modules'], // 指定import的最开始查找路径
+    // import导入时省略后缀
+    // 注意：尽可能的减少后缀尝试的可能性
+    extensions: ['.js', '.vue', '.css', '.json'],
+  },
+  module: {
+    rules: [
+      // {
+      //   test: /\.js$/,
+      //   exclude: /node_modules/,
+      //   use: [
+      //     {
+      //       loader: 'thread-loader',
+      //       options: jsWorkerPool
+      //     },
+      //     'babel-loader'
+      //   ]
+      // },
+      //  {
+      //   test: /\.(sass|scss)$/,
+      //   exclude: /node_modules/,
+      //   use: [
+          
+      //     {
+      //       loader: 'thread-loader',
+      //       options: cssWorkerPool
+      //     },
+      //     // 'style-loader',
+      //     // 'css-loader',
+      //     'sass-loader'
+      //   ]
+      // },
+      // {
+      //   test: /\.(sass|scss)$/,
+      //   exclude: /node_modules/,
+      //   use: [
+      //     // 'style-loader',
+      //     // {
+      //     //   loader: 'thread-loader',
+      //     //   options: cssWorkerPool
+      //     // },
+      //     // {
+      //     //   loader: 'css-loader',
+      //     //   options: {
+      //     //     modules: true,
+      //     //     localIdentName: '[name]__[local]--[hash:base64:5]',
+      //     //     importLoaders: 1
+      //     //   }
+      //     // },
+
+      //     'sass-loader'
+      //   ]
+      // }
+    ],
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(), // 热加载
     //     new CompressionPlugin({
@@ -105,4 +192,4 @@ module.exports  =  {
     }
   }
 
-}
+})

@@ -1,13 +1,59 @@
+const path = require('path')
+const webpack = require('webpack')
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin'); // 引入插件
-// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+// const ExtractTextPlugin = require("extract-text-webpack-plugin"); // webpack 3 css分离plugin
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; //包大小分析工具
 const TerserPlugin = require('terser-webpack-plugin') // 去掉console  
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')   // 分离css
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')  // 压缩css
-const webpack = require('webpack')
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");// 导入速度分析插件
+const os = require('os');
+const threadLoader = require('thread-loader');
+const smp = new SpeedMeasurePlugin();
 
-module.exports =  {
-  devtool: 'cheap-module-source-map' ,
+console.log('os.cpus().length', os.cpus().length)
+const jsWorkerPool = {
+  // options
+  
+  // 产生的 worker 的数量，默认是 (cpu 核心数 - 1)
+  // 当 require('os').cpus() 是 undefined 时，则为 1
+  workers: os.cpus().length,
+  
+  // 闲置时定时删除 worker 进程
+  // 默认为 500ms
+  // 可以设置为无穷大， 这样在监视模式(--watch)下可以保持 worker 持续存在
+  poolTimeout: 2000
+};
+
+const cssWorkerPool = {
+  // 一个 worker 进程中并行执行工作的数量
+  // 默认为 20
+  workerParallelJobs: 2,
+  poolTimeout: 2000
+};
+
+threadLoader.warmup(jsWorkerPool, ['babel-loader']);
+threadLoader.warmup(cssWorkerPool, ['css-loader', 'postcss-loader']);
+
+
+module.exports = smp.wrap({
+  output: {
+    // path 必须为绝对路径
+    // 输出文件路径
+    path: path.resolve(__dirname, './dist'),
+    // 包名称
+    filename: "./js/[name].bundle.js",
+    // 块名，公共块名(非入口)
+    chunkFilename: './js/[name].[chunkhash].bundle.js',
+    // 打包生成的 index.html 文件里面引用资源的前缀
+    // 也为发布到线上资源的 URL 前缀
+    // 使用的是相对路径，默认为 ''
+    // 一旦设置后该 bundle 将被处理为 library
+    library: 'webpackNumbers',
+    // export 的 library 的规范，有支持 var, this, commonjs,commonjs2,amd,umd
+    libraryTarget: 'umd',
+  },
+  devtool: 'cheap-module-source-map',
   //   externals: {
   //     vue: {
   //       root: "Vue",   //通过 script 标签引入，此时全局变量中可以访问的是 Vue
@@ -16,6 +62,47 @@ module.exports =  {
   //       amd: "vue"   //类似于 commonjs，但使用 AMD 模块系统
   //     }
   //   },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'thread-loader',
+            options: jsWorkerPool
+          },
+          'babel-loader'
+        ]
+      },
+      {
+        test: /\.s?css$/,
+        exclude: /node_modules/,
+        use: [
+          'style-loader',
+          {
+            loader: 'thread-loader',
+            options: cssWorkerPool
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+              importLoaders: 1
+            }
+          },
+          'postcss-loader'
+        ]
+      }
+    ],
+  },
+  resolve: {
+    // modules: ['node_modules'], // 指定import的最开始查找路径
+    // import导入时省略后缀
+    // 注意：尽可能的减少后缀尝试的可能性
+    extensions: ['.js', '.jsx', '.react.js', '.css', '.json'],
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(), // 热加载
     //     new CompressionPlugin({
@@ -24,11 +111,10 @@ module.exports =  {
     //       minRatio: 0.8,
     //     }),
     new MiniCssExtractPlugin({
-      ignoreOrder: true,
+      ignoreOrder: true, //ignoreOrder为true即可忽视掉打包过程中出现的冲突警告
       filename: 'css/[name]_[contenthash:3].css',
       chunkFilename: 'css/[name]_[contenthash:3].css'
     }),
-    //     new ExtractTextPlugin('styles.css'),
     new BundleAnalyzerPlugin(),
     //     // 使用 ParallelUglifyPlugin 并行压缩输出JS代码
     new ParallelUglifyPlugin({
@@ -95,15 +181,15 @@ module.exports =  {
     splitChunks: {
       chunks: 'all',
       maxInitialRequests: Infinity,
-      minSize: 20000,
+      minSize: 10,
       cacheGroups: {
         vendors: {
           chunks: 'all',
-          name: 'vendors',
+          // name: 'vendors',
           test: /[\\/]node_modules[\\/]/
         }
       }
     }
   }
 
-}
+})

@@ -33,3 +33,6 @@ export const thridDayBusinessCompare = data => request.get(`/bbzx/jymk/jsrywsjdb
 
 // 年龄段每日数据
 export const ageDailyCompare = data => request.get(`/bbzx/jymk/nldmrsj?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+// 每日付费统计
+export const dailyPayStatistic = data => request.get(`/bbzx/jymk/mrfftj?starttime=${data.starttime}&endtime=${data.endtime}`)

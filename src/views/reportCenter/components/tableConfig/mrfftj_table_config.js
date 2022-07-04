@@ -1,0 +1,23 @@
+export default {
+  "date": "日期",
+  "chong_zhi_jin_e": '重置金额',
+  "an_zhuo_chong_zhi_jin_e": '安卓重置金额',
+  "ping_guo_chong_zhi_jin_e": '苹果重置金额',
+  "chong_zhi_ren_shu": '重置人数',
+  "xin_zeng_fu_fei_ren_shu": '新增付费人数',
+  "xin_zeng_fu_fei_jin_e": '新增付费金额',
+  "dang_ri_xin_zeng_fu_fei_ren_shu": '当日新增付费人数',
+  "dang_ri_xin_zeng_fu_fei_jin_e": "当日新增付费金额",
+  "wen_zi_zhi_fu_ren_shu": "文字支付人数",
+  "wen_zi_chong_zhi_jin_bi_fu_fei_jin_e": "文字重置金币付费金额",
+  "wen_zi_zeng_song_jin_bi_fu_fei_jin_e": "文字赠送金币付费金额",
+  "yu_yin_zhi_fu_ren_shu": "语音支付人数",
+  "yu_yin_chong_zhi_jin_bi_fu_fei_jin_e": "语音重置金币付费金额",
+  "yu_yin_zeng_song_jin_bi_fu_fei_jin_e": "语音赠送金币付费金额",
+  "shi_pin_zhi_fu_ren_shu": "视频支付人数",
+  "shi_pin_chong_zhi_jin_bi_fu_fei_jin_e": "视频重置金币付费金额",
+  "shi_pin_zeng_song_jin_bi_fu_fei_jin_e": "视频赠送金币付费金额",
+  "li_wu_zhi_fu_ren_shu": "礼物支付人数",
+  "li_wu_chong_zhi_jin_bi_fu_fei_jin_e": "礼物重置金币付费金额",
+  "li_wu_zeng_song_jin_bi_fu_fei_jin_e": " 礼物赠送金币付费金额"
+}
