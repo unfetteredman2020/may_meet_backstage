@@ -67,3 +67,13 @@ export const registCount = data => request.get(`/bbzx/yymk/gsdzcs?${data}`)
 
 // 每日活跃用户统计 
 export const dayActiveUser = data => request.get(`/bbzx/yymk/mrhyyhtj?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+
+// 注册用户留存率 
+export const registRetention = data => request.get(`/bbzx/yymk/zcyhlcl?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+// 注册男用户留存率 
+export const manRegistRetention = data => request.get(`/bbzx/yymk/zcnyhlcl?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+// 注册用户留存率 
+export const guestRetention = data => request.get(`/bbzx/yymk/jblcl?starttime=${data.starttime}&endtime=${data.endtime}`)

@@ -40,15 +40,18 @@ import businessBoard from "./components/jingyingModuleComponents/businessBoard.v
 // 运营模块
 import registCount from './components/yunyingModuleComponents/registCount.vue'
 import dayActiveUserStatistics from './components/yunyingModuleComponents/dayActiveUserStatistics.vue'
+import registRetention from './components/yunyingModuleComponents/registRetention.vue'
+import manRegistRetention from './components/yunyingModuleComponents/manRegistRetention.vue'
+import guestRetention from './components/yunyingModuleComponents/guestRetention.vue'
 
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
-  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser, newPayUser, headlinesAndroidNewPayUser, kwaiAndroidNewPayUser, iosNewPayUser, thridDayBusinessCompare, ageDailyCompare, dailyPayStatistic, platformActiveDaysData, allBoard, businessBoard, registCount, dayActiveUserStatistics},
+  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser, newPayUser, headlinesAndroidNewPayUser, kwaiAndroidNewPayUser, iosNewPayUser, thridDayBusinessCompare, ageDailyCompare, dailyPayStatistic, platformActiveDaysData, allBoard, businessBoard, registCount, dayActiveUserStatistics, registRetention, manRegistRetention, guestRetention},
   props: {},
   data() {
     //这⾥存放数据
     return {
-      activeMenu: "/yunying/registCount",
+      activeMenu: "/product/voiceAndVideoCallData",
       emptyImg: require("../../assets/empty.png"),
       tabsValue: "",
       editableTabs: [],
@@ -173,7 +176,54 @@ export default {
           name: "产品模块",
           icon: "el-icon-set-up",
           path: "/reportCenter/product",
-          // children: [],
+          children: [
+            {
+              name: "视频、语音通话视频",
+              icon: "el-icon-odometer",
+              path: "/product/voiceAndVideoCallData",
+            },
+            {
+              name: "男用户任务完成情况",
+              icon: "el-icon-odometer",
+              path: "/product/manTaskCompletion",
+            },
+            {
+              name: "动态每日统计表",
+              icon: "el-icon-odometer",
+              path: "/product/dynamicDailyStatistics",
+            },
+
+            {
+              name: "女用户任务完成情况",
+              icon: "el-icon-odometer",
+              path: "/product/womanTaskCompletion",
+            },
+            {
+              name: "实名、真人认证数据",
+              icon: "el-icon-odometer",
+              path: "/product/realNameAuthenticationData",
+            },
+            {
+              name: "视频匹配",
+              icon: "el-icon-odometer",
+              path: "/product/videoMatching",
+            },
+             {
+              name: "视频专区接通情况",
+              icon: "el-icon-odometer",
+              path: "/product/videoConnectionData",
+            },
+             {
+              name: "每日金币数据",
+              icon: "el-icon-odometer",
+              path: "/product/dailyGoldData",
+            },
+             {
+              name: "每日赠送金币数据",
+              icon: "el-icon-odometer",
+              path: "/product/dailyGiveGoldData",
+            },
+          ],
         },
       ],
     };
