@@ -24,6 +24,7 @@
 
 <script>
 import MenuTree from "@/components/menuTree.vue";
+// 经营模块
 import sumTableOfPlatformOperation from "./components/jingyingModuleComponents/sumTableOfPlatformOperation.vue";
 import firstPayUser from "./components/jingyingModuleComponents/firstPayUser.vue";
 import newPayUser from "./components/jingyingModuleComponents/newPayUser.vue";
@@ -32,16 +33,22 @@ import kwaiAndroidNewPayUser from "./components/jingyingModuleComponents/kwaiAnd
 import iosNewPayUser from "./components/jingyingModuleComponents/iosNewPayUser.vue";
 import thridDayBusinessCompare from "./components/jingyingModuleComponents/thridDayBusinessCompare.vue";
 import ageDailyCompare from "./components/jingyingModuleComponents/ageDailyCompare.vue";
-import dailyPayStatistic from './components/jingyingModuleComponents/dailyPayStatistic.vue'
+import dailyPayStatistic from "./components/jingyingModuleComponents/dailyPayStatistic.vue";
+import platformActiveDaysData from "./components/jingyingModuleComponents/platformActiveDaysData.vue";
+import allBoard from "./components/jingyingModuleComponents/allBoard.vue";
+import businessBoard from "./components/jingyingModuleComponents/businessBoard.vue";
+// 运营模块
+import registCount from './components/yunyingModuleComponents/registCount.vue'
+import dayActiveUserStatistics from './components/yunyingModuleComponents/dayActiveUserStatistics.vue'
 
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
-  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser, newPayUser, headlinesAndroidNewPayUser, kwaiAndroidNewPayUser, iosNewPayUser, thridDayBusinessCompare, ageDailyCompare, dailyPayStatistic },
+  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser, newPayUser, headlinesAndroidNewPayUser, kwaiAndroidNewPayUser, iosNewPayUser, thridDayBusinessCompare, ageDailyCompare, dailyPayStatistic, platformActiveDaysData, allBoard, businessBoard, registCount, dayActiveUserStatistics},
   props: {},
   data() {
     //这⾥存放数据
     return {
-      activeMenu: "/jingying/sumTableOfPlatformOperation",
+      activeMenu: "/yunying/registCount",
       emptyImg: require("../../assets/empty.png"),
       tabsValue: "",
       editableTabs: [],
@@ -117,12 +124,55 @@ export default {
           name: "运营模块",
           icon: "el-icon-odometer",
           path: "/reportCenter/yunying",
-          // children: [],
+          children: [
+            {
+              name: "各时段注册数",
+              icon: "el-icon-odometer",
+              path: "/yunying/registCount",
+            },
+            {
+              name: "每日活跃用户统计",
+              icon: "el-icon-odometer",
+              path: "/yunying/dayActiveUserStatistics",
+            },
+            {
+              name: "注册用户留存率",
+              icon: "el-icon-odometer",
+              path: "/yunying/registRetention",
+            },
+            {
+              name: "注册男用户留存率",
+              icon: "el-icon-odometer",
+              path: "/yunying/manRegistRetention",
+            },
+            {
+              name: "嘉宾留存率",
+              icon: "el-icon-odometer",
+              path: "/yunying/guestRetention",
+            },
+             {
+              name: "付费用户留存率",
+              icon: "el-icon-odometer",
+              path: "/yunying/payUserRetention",
+            },
+
+             {
+              name: "注册用户登录方式",
+              icon: "el-icon-odometer",
+              path: "/yunying/registMode",
+            },
+          ],
         },
         {
           name: "渠道模块",
           icon: "el-icon-set-up",
           path: "/reportCenter/channel",
+          // children: [],
+        },
+        {
+          name: "产品模块",
+          icon: "el-icon-set-up",
+          path: "/reportCenter/product",
           // children: [],
         },
       ],

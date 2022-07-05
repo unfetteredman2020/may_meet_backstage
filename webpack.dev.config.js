@@ -103,7 +103,7 @@ module.exports = smp.wrap({
     ],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(), // 热加载
+    // new webpack.HotModuleReplacementPlugin(), // 热加载
     //     new CompressionPlugin({
     //       test: /\.(js|css|less|map)$/, // 匹配文件名
     //       threshold: 1024, // 对超过10k的数据压缩

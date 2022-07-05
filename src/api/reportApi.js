@@ -36,3 +36,34 @@ export const ageDailyCompare = data => request.get(`/bbzx/jymk/nldmrsj?starttime
 
 // 每日付费统计
 export const dailyPayStatistic = data => request.get(`/bbzx/jymk/mrfftj?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+// 总览看板
+export const allBoard = () => request.get(`/bbzx/jymk/zlkb`)
+
+// 业务看板/新老男女业务数据
+export const allPeopleData = data => request.get(`/bbzx/jymk/ywkb/xlnvywsj?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+// 业务看板/男女同时在线趋势
+export const peopleOnlineTrend = data => request.get(`/bbzx/jymk/ywkb/nvtszxqs?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+
+// 业务看板/发言次数
+export const speakTimes = data => request.get(`/bbzx/jymk/ywkb/fycs?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+
+// 业务看板/发言人数
+export const speakPersonCount = data => request.get(`/bbzx/jymk/ywkb/fycs?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+// 平台活跃每日数据 
+export const platformActiveDayData = data => request.get(`/bbzx/jymk/pthymrsj?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+/**
+ * 
+ * 运营模块
+ */
+
+// 各时段注册数
+export const registCount = data => request.get(`/bbzx/yymk/gsdzcs?${data}`)
+
+// 每日活跃用户统计 
+export const dayActiveUser = data => request.get(`/bbzx/yymk/mrhyyhtj?starttime=${data.starttime}&endtime=${data.endtime}`)
