@@ -8,7 +8,7 @@
 <script>
 import customSelect from "../commonComponent/customSelectDialog.vue";
 import customTable from '../commonComponent/customTable.vue'
-import tableConfig from "../tableConfig/zcyhdlfs_table_config.js"; // 公用头条 安卓新增付费用户table 配置
+import tableConfig from "../tableConfig/ffyhlcl_table_config.js"; // 公用头条 安卓新增付费用户table 配置
 import { payUserRetention } from '@/api/reportApi.js'
 import { getDate } from "@/utils/date";
 
@@ -35,11 +35,10 @@ export default {
     async getData(time, obj={}) {
       try {
         time['filter'] = JSON.stringify(obj)
-        console.log('params', time)
         const res = await payUserRetention(time)
         console.log('payUserRetention', res)
         if(res && res.errcode == 0) {
-          this.list = res.data
+          this.list = res.data || []
         }else {
           this.$message('error', '获取数据失败，请稍后重试！')
         }
@@ -53,3 +52,4 @@ export default {
 </script>
 
 <style scoped></style>
+

@@ -83,6 +83,7 @@ export default {
       this.value.length && (obj.acc_id = this.value);
       console.log("obj", obj);
       this.$parent.getData({ starttime: this.date[0], endtime: this.date[1] }, obj);
+      this.dialogVisible = false
     },
     mediaHandleChange(value) {
       this.getCompany(value);

@@ -82,7 +82,7 @@ export const guestRetention = data => request.get(`/bbzx/yymk/jblcl?starttime=${
 export const registMode =  params => request.get('/bbzx/yymk/zcyhdlfs',{params})
 
 // 付费用户留存率 
-export const payUserRetention = params => request.get(`/bbzx/yymk/jblcl`, {params})
+export const payUserRetention = params => request.get(`/bbzx/yymk/ffyhlcl`, {params})
 
 /**
  * 产品模块
