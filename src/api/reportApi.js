@@ -78,6 +78,12 @@ export const manRegistRetention = data => request.get(`/bbzx/yymk/zcnyhlcl?start
 // 注册用户留存率 
 export const guestRetention = data => request.get(`/bbzx/yymk/jblcl?starttime=${data.starttime}&endtime=${data.endtime}`)
 
+//注册用户登录率
+export const registMode =  params => request.get('/bbzx/yymk/zcyhdlfs',{params})
+
+// 付费用户留存率 
+export const payUserRetention = params => request.get(`/bbzx/yymk/jblcl`, {params})
+
 /**
  * 产品模块
  */
@@ -107,3 +113,12 @@ export const dailyGiveGoldData = data => request.get(`/bbzx/qdmk/mrzsjbsj?startt
 
 // 每日金币数据 
 export const dailyGoldData = data => request.get(`/bbzx/qdmk/mrjbsj?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+//获取媒体列表
+export const getMediaList = () => request.get(`/baseinfo/get_media_id`)
+
+//获取投放公司列表
+export const getLaunchCompany = (id = null) => request.get(`/baseinfo/get_corp_id`, { params: id || {} })
+
+//获取投放账户列表
+export const getReleaseAccountList = params => request.get(`/baseinfo/get_corp_account`, { params: params || {} })

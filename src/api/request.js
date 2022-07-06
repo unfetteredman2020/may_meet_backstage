@@ -89,16 +89,12 @@ api.interceptors.response.use(
         // } else {
         //     toLogin()
         // }
-        console.log('this', this)
         // this.$nextTick(() => { // 以服务的方式调用的 load =  需要异步关闭
-        console.log('loading', loading)
         // loading.close();
         // });
         return response.data
     },
     error => {
-        console.log('this', this)
-        loading.close();
         return Promise.reject(error)
     }
 )

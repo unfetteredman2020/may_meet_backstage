@@ -68,6 +68,7 @@ export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
   // components: modules,
   components: {
+    payUserRetention,
     registMode,
     dailyGiveGoldData,
     dailyGoldData,
