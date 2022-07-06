@@ -38,20 +38,69 @@ import platformActiveDaysData from "./components/jingyingModuleComponents/platfo
 import allBoard from "./components/jingyingModuleComponents/allBoard.vue";
 import businessBoard from "./components/jingyingModuleComponents/businessBoard.vue";
 // 运营模块
-import registCount from './components/yunyingModuleComponents/registCount.vue'
-import dayActiveUserStatistics from './components/yunyingModuleComponents/dayActiveUserStatistics.vue'
-import registRetention from './components/yunyingModuleComponents/registRetention.vue'
-import manRegistRetention from './components/yunyingModuleComponents/manRegistRetention.vue'
-import guestRetention from './components/yunyingModuleComponents/guestRetention.vue'
-
+import registCount from "./components/yunyingModuleComponents/registCount.vue";
+import dayActiveUserStatistics from "./components/yunyingModuleComponents/dayActiveUserStatistics.vue";
+import registRetention from "./components/yunyingModuleComponents/registRetention.vue";
+import manRegistRetention from "./components/yunyingModuleComponents/manRegistRetention.vue";
+import guestRetention from "./components/yunyingModuleComponents/guestRetention.vue";
+import registMode from './components/yunyingModuleComponents/registMode.vue'
+import payUserRetention from './components/yunyingModuleComponents/payUserRetention.vue'
+// 产品模块
+import voiceAndVideoCallData from "./components/productModuleComponents/voiceAndVideoCallData.vue";
+import manTaskCompletion from "./components/productModuleComponents/manTaskCompletion.vue";
+import dynamicDailyStatistics from "./components/productModuleComponents/dynamicDailyStatistics.vue";
+import womanTaskCompletion from "./components/productModuleComponents/womanTaskCompletion.vue";
+import realNameAuthenticationData from "./components/productModuleComponents/realNameAuthenticationData.vue";
+import videoConnectionData from "./components/productModuleComponents/videoConnectionData.vue";
+import dailyGoldData from "./components/productModuleComponents/dailyGoldData.vue";
+import dailyGiveGoldData from "./components/productModuleComponents/dailyGiveGoldData.vue";
+import { matchFileName } from '@/utils/fileType'
+// const path = require('path')
+// const files = require.context('./components', true, /\.vue$/)
+// const modules = {}
+// files.keys().forEach(key => {
+//  const name = matchFileName(key)
+//  console.log('name', name)
+//  modules[name] = files(key).default || files(key)
+// })
+// console.log('modules', modules)
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
-  components: { MenuTree, sumTableOfPlatformOperation, firstPayUser, newPayUser, headlinesAndroidNewPayUser, kwaiAndroidNewPayUser, iosNewPayUser, thridDayBusinessCompare, ageDailyCompare, dailyPayStatistic, platformActiveDaysData, allBoard, businessBoard, registCount, dayActiveUserStatistics, registRetention, manRegistRetention, guestRetention},
+  // components: modules,
+  components: {
+    registMode,
+    dailyGiveGoldData,
+    dailyGoldData,
+    videoConnectionData,
+    realNameAuthenticationData,
+    womanTaskCompletion,
+    dynamicDailyStatistics,
+    manTaskCompletion,
+    voiceAndVideoCallData,
+    MenuTree,
+    sumTableOfPlatformOperation,
+    firstPayUser,
+    newPayUser,
+    headlinesAndroidNewPayUser,
+    kwaiAndroidNewPayUser,
+    iosNewPayUser,
+    thridDayBusinessCompare,
+    ageDailyCompare,
+    dailyPayStatistic,
+    platformActiveDaysData,
+    allBoard,
+    businessBoard,
+    registCount,
+    dayActiveUserStatistics,
+    registRetention,
+    manRegistRetention,
+    guestRetention,
+  },
   props: {},
   data() {
     //这⾥存放数据
     return {
-      activeMenu: "/product/voiceAndVideoCallData",
+      activeMenu: "/yunying/payUserRetention",
       emptyImg: require("../../assets/empty.png"),
       tabsValue: "",
       editableTabs: [],
@@ -153,13 +202,13 @@ export default {
               icon: "el-icon-odometer",
               path: "/yunying/guestRetention",
             },
-             {
+            {
               name: "付费用户留存率",
               icon: "el-icon-odometer",
               path: "/yunying/payUserRetention",
             },
 
-             {
+            {
               name: "注册用户登录方式",
               icon: "el-icon-odometer",
               path: "/yunying/registMode",
@@ -208,17 +257,17 @@ export default {
               icon: "el-icon-odometer",
               path: "/product/videoMatching",
             },
-             {
+            {
               name: "视频专区接通情况",
               icon: "el-icon-odometer",
               path: "/product/videoConnectionData",
             },
-             {
+            {
               name: "每日金币数据",
               icon: "el-icon-odometer",
               path: "/product/dailyGoldData",
             },
-             {
+            {
               name: "每日赠送金币数据",
               icon: "el-icon-odometer",
               path: "/product/dailyGiveGoldData",

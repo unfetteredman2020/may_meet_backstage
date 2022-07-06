@@ -23,9 +23,9 @@
 <script>
 import Search from "../commonComponent/searchComponent.vue";
 import SelectTableColumn from "../commonComponent/customTable.vue";
-import { registCount } from "@/api/reportApi.js";
+import { dynamicDailyStatistics } from "@/api/reportApi.js";
 import { getDate } from "@/utils/date";
-import tableConfig from "../tableConfig/gsdzcs_table_config.js"; // 公用头条 安卓新增付费用户table 配置
+import tableConfig from "../tableConfig/dtmrtjb_table_config.js"; // 公用头条 安卓新增付费用户table 配置
 
 export default {
   props: {},
@@ -44,7 +44,7 @@ export default {
       ],
       date: [new Date("2022-01-01"), new Date()],
       customProps: {
-        tableName: "registCountTableConfig", // tableName： table标识，用来做table的key
+        tableName: "dynamicDailyStatisticsTableConfig", // tableName： table标识，用来做table的key
         tableConfig, //table 每一列数据的key-value对应关系的Object；{key：value}；key指绑定column的英文名称，value指每一列的中文名称，不可为空
       },
     };
@@ -61,7 +61,6 @@ export default {
       }, 2000);
     },
     search() {
-      // console.log('e', this.date)
       const starttime = getDate(this.date[0]).fullDate;
       const endtime = getDate(this.date[1]).fullDate;
       let url = `starttime=${starttime}&endtime=${endtime}`;
@@ -71,8 +70,8 @@ export default {
     async getTableData(url) {
       try {
         let starttime = getDate("2022-01-02").fullDate,endtime = getDate().fullDate;
-        const res = await registCount(url || `starttime=${starttime}&endtime=${endtime}`);
-        console.log("registCount res", res);
+        const res = await dynamicDailyStatistics(url || `starttime=${starttime}&endtime=${endtime}`);
+        console.log("dynamicDailyStatistics res", res);
         if (res && res.errcode == 0) {
           this.list = res.data;
         } else {

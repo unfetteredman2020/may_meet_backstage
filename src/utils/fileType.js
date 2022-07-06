@@ -1,4 +1,4 @@
-
+// const path = require('path')
 /*
   根据文件名称判断文件类型
   * @param: fileName - 文件名称
@@ -113,4 +113,14 @@ export const getFileType = function (fileName) {
   result = 'other';
   return result;
 
+}
+
+
+export const matchFileName = (str) => {
+  var idx = str.lastIndexOf('/')
+  idx = idx > -1 ? idx : str.lastIndexOf('\\')
+  if (idx < 0) {
+    return str
+  }
+  return str.substring(idx + 1);
 }

@@ -5,7 +5,7 @@
       <el-button size="mini" type="primary" class="el-icon-download">下载</el-button>
     </download-excel>
     <!-- 表格  -->
-    <el-table :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" border stripe :data="showList" style="width: 100%" max-height="680px" class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
+    <el-table :show-summary="customProps.show_summary || false" :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" border stripe :data="showList" style="width: 100%" max-height="680px" class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
       <el-table-column label-class-name="labelClass" class-name="columnClass" min-width="150px" sortable v-for="item in column" :key="item.value" :prop="item.value" :label="item.text"></el-table-column>
     </el-table>
     <!-- 分页 -->
@@ -74,12 +74,9 @@ export default {
   },
   computed: {},
   mounted() {
-    
-    console.log("this.customProps", this.customProps);
     let platformTableConfig = JSON.parse(localStorage.getItem(this.customProps.tableName));
-    console.log("platformTableConfig", platformTableConfig);
     platformTableConfig && (this.column = platformTableConfig);
-    !platformTableConfig && this.formatTableConfig();
+    this.formatTableConfig(!platformTableConfig);
   },
   watch: {
     tableList(newValue, oldValue) {
@@ -87,11 +84,10 @@ export default {
       this.total = newValue.length;
       this.list = newValue || [];
       this.showList = newValue.slice(0, this.pageSize);
-      // this.$set
     },
     // 解决一些场景数据获取不到问题
     customProps(newValue, oldValue) {
-      this.formatTableConfig();
+      this.formatTableConfig(true);
     },
   },
   methods: {
@@ -182,7 +178,7 @@ export default {
     finishDownload() {
       console.log("数据下载完成");
     },
-    formatTableConfig() {
+    formatTableConfig(bool) {
       let revers = [];
       let tableConfig = this.customProps.tableConfig;
       for (const key in tableConfig) {
@@ -192,7 +188,8 @@ export default {
           width: "100",
         });
       }
-      this.column = revers;
+
+      bool && (this.column = revers);
       this.config = revers;
     },
   },

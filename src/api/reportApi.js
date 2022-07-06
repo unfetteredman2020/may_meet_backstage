@@ -77,3 +77,33 @@ export const manRegistRetention = data => request.get(`/bbzx/yymk/zcnyhlcl?start
 
 // 注册用户留存率 
 export const guestRetention = data => request.get(`/bbzx/yymk/jblcl?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+/**
+ * 产品模块
+ */
+
+// 视频、语音通话视频 
+export const voiceAndVideoCallData = data => request.get(`/bbzx/qdmk/spyythsj?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+// 男用户任务完成情况 
+export const manTaskCompletion = data => request.get(`/bbzx/qdmk/nyhrwwcqk?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+// 动态每日统计表 
+export const dynamicDailyStatistics = data => request.get(`/bbzx/qdmk/dtmrtjb?${data}`)
+
+// 女用户任务完成情况 
+export const womanTaskCompletion = data => request.get(`/bbzx/qdmk/nvyhrwwcqk?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+// 实名、真人认证数据 
+export const realNameAuthenticationData = data => request.get(`/bbzx/qdmk/smzrrzsj?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+
+// 视频专区接通情况 
+export const videoConnectionData = data => request.get(`/bbzx/qdmk/spzqjtqk?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+
+// 每日赠送金币数据 
+export const dailyGiveGoldData = data => request.get(`/bbzx/qdmk/mrzsjbsj?starttime=${data.starttime}&endtime=${data.endtime}`)
+
+// 每日金币数据 
+export const dailyGoldData = data => request.get(`/bbzx/qdmk/mrjbsj?starttime=${data.starttime}&endtime=${data.endtime}`)

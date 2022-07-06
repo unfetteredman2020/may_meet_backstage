@@ -10,6 +10,8 @@ const webpack = require('webpack')
 // 导入速度分析插件
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const threadLoader = require('thread-loader');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
+
 const smp = new SpeedMeasurePlugin();
 console.log('cups', os.cpus().length)
 const jsWorkerPool = {
@@ -109,6 +111,7 @@ module.exports = smp.wrap({
     //       threshold: 1024, // 对超过10k的数据压缩
     //       minRatio: 0.8,
     //     }),
+    new NodePolyfillPlugin(),
     new MiniCssExtractPlugin({
       ignoreOrder: true,
       filename: 'css/[name]_[contenthash:3].css',
