@@ -43,8 +43,8 @@ import dayActiveUserStatistics from "./components/yunyingModuleComponents/dayAct
 import registRetention from "./components/yunyingModuleComponents/registRetention.vue";
 import manRegistRetention from "./components/yunyingModuleComponents/manRegistRetention.vue";
 import guestRetention from "./components/yunyingModuleComponents/guestRetention.vue";
-import registMode from './components/yunyingModuleComponents/registMode.vue'
-import payUserRetention from './components/yunyingModuleComponents/payUserRetention.vue'
+import registMode from "./components/yunyingModuleComponents/registMode.vue";
+import payUserRetention from "./components/yunyingModuleComponents/payUserRetention.vue";
 // 产品模块
 import voiceAndVideoCallData from "./components/productModuleComponents/voiceAndVideoCallData.vue";
 import manTaskCompletion from "./components/productModuleComponents/manTaskCompletion.vue";
@@ -54,7 +54,14 @@ import realNameAuthenticationData from "./components/productModuleComponents/rea
 import videoConnectionData from "./components/productModuleComponents/videoConnectionData.vue";
 import dailyGoldData from "./components/productModuleComponents/dailyGoldData.vue";
 import dailyGiveGoldData from "./components/productModuleComponents/dailyGiveGoldData.vue";
-import { matchFileName } from '@/utils/fileType'
+import { matchFileName } from "@/utils/fileType";
+// 渠道模块
+import promotionReport from './components/channelModuleComponents/promotionReport.vue'
+import IELTSAssistantActiveCount  from './components/channelModuleComponents/IELTSAssistantActiveCount.vue'
+import dailyChannelConsumRanking from './components/channelModuleComponents/dailyChannelConsumRanking.vue'
+import dailyChannelDataSum from './components/channelModuleComponents/dailyChannelDataSum.vue'
+import userChatState from './components/channelModuleComponents/userChatState.vue'
+
 // const path = require('path')
 // const files = require.context('./components', true, /\.vue$/)
 // const modules = {}
@@ -65,9 +72,12 @@ import { matchFileName } from '@/utils/fileType'
 // })
 // console.log('modules', modules)
 export default {
-  //import引⼊的组件需要注⼊到对象中才能使⽤
-  // components: modules,
   components: {
+    dailyChannelDataSum,
+    userChatState,
+    dailyChannelConsumRanking,
+    IELTSAssistantActiveCount,
+    promotionReport,
     payUserRetention,
     registMode,
     dailyGiveGoldData,
@@ -101,7 +111,7 @@ export default {
   data() {
     //这⾥存放数据
     return {
-      activeMenu: "/yunying/payUserRetention",
+      activeMenu: "/channel/promotionReport",
       emptyImg: require("../../assets/empty.png"),
       tabsValue: "",
       editableTabs: [],
@@ -220,7 +230,33 @@ export default {
           name: "渠道模块",
           icon: "el-icon-set-up",
           path: "/reportCenter/channel",
-          // children: [],
+          children: [
+            {
+              name: "推广数据报表",
+              icon: "el-icon-set-up",
+              path: "/channel/promotionReport",
+            },
+            {
+              name: "每日渠道数据总表",
+              icon: "el-icon-set-up",
+              path: "/channel/dailyChannelDataSum",
+            },
+            {
+              name: "雅思助手激活统计",
+              icon: "el-icon-set-up",
+              path: "/channel/IELTSAssistantActiveCount",
+            },
+            {
+              name: "用户聊天情况",
+              icon: "el-icon-set-up",
+              path: "/channel/userChatState",
+            },
+            {
+              name: "每日渠道消耗排名",
+              icon: "el-icon-set-up",
+              path: "/channel/dailyChannelConsumRanking",
+            },
+          ],
         },
         {
           name: "产品模块",

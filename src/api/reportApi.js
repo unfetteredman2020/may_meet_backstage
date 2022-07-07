@@ -114,11 +114,27 @@ export const dailyGiveGoldData = data => request.get(`/bbzx/qdmk/mrzsjbsj?startt
 // 每日金币数据 
 export const dailyGoldData = data => request.get(`/bbzx/qdmk/mrjbsj?starttime=${data.starttime}&endtime=${data.endtime}`)
 
-//获取媒体列表
+//***获取媒体列表***
 export const getMediaList = () => request.get(`/baseinfo/get_media_id`)
 
-//获取投放公司列表
+//***获取投放公司列表***
 export const getLaunchCompany = (id = null) => request.get(`/baseinfo/get_corp_id`, { params: id || {} })
 
-//获取投放账户列表
+//***获取投放账户列表***
 export const getReleaseAccountList = params => request.get(`/baseinfo/get_corp_account`, { params: params || {} })
+
+/**
+ * 渠道模块
+ */
+
+//渠道数据报表
+export const promotionReport = params => request.get(`/bbzx/qdmk/qdsjbb`, { params: params || {} })
+
+//每日渠道数据总表
+export const dailyChannelDataSum = params => request.get(`/bbzx/qdmk/mrqdzb`, { params: params || {} })
+
+//雅思助手激活统计
+export const IELTSAssistantActiveCount = params => request.get(`/bbzx/qdmk/aszsjhtj`, { params: params || {} })
+
+//每日渠道消耗排名
+export const dailyChannelConsumRanking = params => request.get(`/bbzx/qdmk/mrqdxhpm`, { params: params || {} })

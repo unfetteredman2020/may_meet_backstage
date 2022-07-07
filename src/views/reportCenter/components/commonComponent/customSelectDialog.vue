@@ -4,7 +4,7 @@
     <el-dialog :show-close="false" :close-on-click-modal="false" custom-class="customDialog" title="筛选" :visible.sync="dialogVisible" style="min-width: 1250px">
       <div class="times">
         <span>请选日期：</span>
-        <el-date-picker :clearable="false" v-model="date" size="mini" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="date" size="mini" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </div>
       <div class="left">
         <div class="first">
@@ -20,18 +20,16 @@
           </el-select>
         </div>
       </div>
-      <div class="right">
+      <div class="right" v-if="customConfig.isShowTransfer">
         <el-transfer
           style="text-align: left; display: inline-block"
           v-model="value"
           size="mini"
           filterable
-          :left-default-checked="[2, 3]"
-          :right-default-checked="[1]"
           :titles="['待选', '已选择']"
           :props="{
-            key: 'channelid',
-            label: 'marketstaffname',
+            key: 'acc_id',
+            label: 'name',
           }"
           :format="{
             noChecked: '${total}',
@@ -54,7 +52,14 @@ import { getMediaList, getLaunchCompany, getReleaseAccountList } from "@/api/rep
 import { getDate } from "@/utils/date";
 
 export default {
-  props: {},
+  props: {
+    customConfig: {
+      type: Object,
+      default: function () {
+        return {isShowTransfer: true}
+      }
+    }
+  },
   components: {},
   data() {
     return {

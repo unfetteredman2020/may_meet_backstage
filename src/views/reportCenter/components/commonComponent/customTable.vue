@@ -35,7 +35,7 @@ export default {
   props: {
     tableList: {
       type: Array,
-      default: [],
+      default: () => [],
     },
     customProps: {
       type: Object,
@@ -67,7 +67,7 @@ export default {
       exportDataStandard: {}, //导出数据表头配置
       exportData: [], // 导出数据
       exportName: `报表数据${getDate().fullDate}-${getDate().fullTime}`, // 导出文件名字
-      exportHeader: ["平台经营数据总表"], //页头
+      exportHeader: [getDate().fullDateType], //页头
       exportFooter: [""],
       exportDefaultValue: "没有数据", // 每一列没有数据填充文字
     };
