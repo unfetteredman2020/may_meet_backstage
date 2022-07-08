@@ -24,44 +24,43 @@
 </template>
 
 <script>
-import MenuTree from "@/components/menuTree.vue";
+const MenuTree = import("@/components/menuTree.vue");
 // 经营模块
-import sumTableOfPlatformOperation from "./components/jingyingModuleComponents/sumTableOfPlatformOperation.vue";
-import firstPayUser from "./components/jingyingModuleComponents/firstPayUser.vue";
-import newPayUser from "./components/jingyingModuleComponents/newPayUser.vue";
-import headlinesAndroidNewPayUser from "./components//jingyingModuleComponents/headlinesAndroidNewPayUser.vue";
-import kwaiAndroidNewPayUser from "./components/jingyingModuleComponents/kwaiAndroidNewPayUser.vue";
-import iosNewPayUser from "./components/jingyingModuleComponents/iosNewPayUser.vue";
-import thridDayBusinessCompare from "./components/jingyingModuleComponents/thridDayBusinessCompare.vue";
-import ageDailyCompare from "./components/jingyingModuleComponents/ageDailyCompare.vue";
-import dailyPayStatistic from "./components/jingyingModuleComponents/dailyPayStatistic.vue";
-import platformActiveDaysData from "./components/jingyingModuleComponents/platformActiveDaysData.vue";
-import allBoard from "./components/jingyingModuleComponents/allBoard.vue";
-import businessBoard from "./components/jingyingModuleComponents/businessBoard.vue";
+const sumTableOfPlatformOperation = import("./components/jingyingModuleComponents/sumTableOfPlatformOperation.vue");
+const firstPayUser = import("./components/jingyingModuleComponents/firstPayUser.vue");
+const newPayUser = import("./components/jingyingModuleComponents/newPayUser.vue");
+const headlinesAndroidNewPayUser = import("./components//jingyingModuleComponents/headlinesAndroidNewPayUser.vue");
+const kwaiAndroidNewPayUser = import("./components/jingyingModuleComponents/kwaiAndroidNewPayUser.vue");
+const iosNewPayUser = import("./components/jingyingModuleComponents/iosNewPayUser.vue");
+const thridDayBusinessCompare = import("./components/jingyingModuleComponents/thridDayBusinessCompare.vue");
+const ageDailyCompare = import("./components/jingyingModuleComponents/ageDailyCompare.vue");
+const dailyPayStatistic = import("./components/jingyingModuleComponents/dailyPayStatistic.vue");
+const platformActiveDaysData = import("./components/jingyingModuleComponents/platformActiveDaysData.vue");
+const allBoard = import("./components/jingyingModuleComponents/allBoard.vue");
+const businessBoard = import("./components/jingyingModuleComponents/businessBoard.vue");
 // 运营模块
-import registCount from "./components/yunyingModuleComponents/registCount.vue";
-import dayActiveUserStatistics from "./components/yunyingModuleComponents/dayActiveUserStatistics.vue";
-import registRetention from "./components/yunyingModuleComponents/registRetention.vue";
-import manRegistRetention from "./components/yunyingModuleComponents/manRegistRetention.vue";
-import guestRetention from "./components/yunyingModuleComponents/guestRetention.vue";
-import registMode from "./components/yunyingModuleComponents/registMode.vue";
-import payUserRetention from "./components/yunyingModuleComponents/payUserRetention.vue";
+const registCount = import("./components/yunyingModuleComponents/registCount.vue");
+const dayActiveUserStatistics = import("./components/yunyingModuleComponents/dayActiveUserStatistics.vue");
+const registRetention = import("./components/yunyingModuleComponents/registRetention.vue");
+const manRegistRetention = import("./components/yunyingModuleComponents/manRegistRetention.vue");
+const guestRetention = import("./components/yunyingModuleComponents/guestRetention.vue");
+const registMode = import("./components/yunyingModuleComponents/registMode.vue");
+const payUserRetention = import("./components/yunyingModuleComponents/payUserRetention.vue");
 // 产品模块
-import voiceAndVideoCallData from "./components/productModuleComponents/voiceAndVideoCallData.vue";
-import manTaskCompletion from "./components/productModuleComponents/manTaskCompletion.vue";
-import dynamicDailyStatistics from "./components/productModuleComponents/dynamicDailyStatistics.vue";
-import womanTaskCompletion from "./components/productModuleComponents/womanTaskCompletion.vue";
-import realNameAuthenticationData from "./components/productModuleComponents/realNameAuthenticationData.vue";
-import videoConnectionData from "./components/productModuleComponents/videoConnectionData.vue";
-import dailyGoldData from "./components/productModuleComponents/dailyGoldData.vue";
-import dailyGiveGoldData from "./components/productModuleComponents/dailyGiveGoldData.vue";
-import { matchFileName } from "@/utils/fileType";
+const voiceAndVideoCallData = import("./components/productModuleComponents/voiceAndVideoCallData.vue");
+const manTaskCompletion = import("./components/productModuleComponents/manTaskCompletion.vue");
+const dynamicDailyStatistics = import("./components/productModuleComponents/dynamicDailyStatistics.vue");
+const womanTaskCompletion = import("./components/productModuleComponents/womanTaskCompletion.vue");
+const realNameAuthenticationData = import("./components/productModuleComponents/realNameAuthenticationData.vue");
+const videoConnectionData = import("./components/productModuleComponents/videoConnectionData.vue");
+const dailyGoldData = import("./components/productModuleComponents/dailyGoldData.vue");
+const dailyGiveGoldData = import("./components/productModuleComponents/dailyGiveGoldData.vue");
 // 渠道模块
-import promotionReport from "./components/channelModuleComponents/promotionReport.vue";
-import IELTSAssistantActiveCount from "./components/channelModuleComponents/IELTSAssistantActiveCount.vue";
-import dailyChannelConsumRanking from "./components/channelModuleComponents/dailyChannelConsumRanking.vue";
-import dailyChannelDataSum from "./components/channelModuleComponents/dailyChannelDataSum.vue";
-import userChatState from "./components/channelModuleComponents/userChatState.vue";
+const promotionReport = import("./components/channelModuleComponents/promotionReport.vue");
+const IELTSAssistantActiveCount = import("./components/channelModuleComponents/IELTSAssistantActiveCount.vue");
+const dailyChannelConsumRanking = import("./components/channelModuleComponents/dailyChannelConsumRanking.vue");
+const dailyChannelDataSum = import("./components/channelModuleComponents/dailyChannelDataSum.vue");
+const userChatState = import("./components/channelModuleComponents/userChatState.vue");
 
 // const path = require('path')
 // const files = require.context('./components', true, /\.vue$/)
