@@ -8,7 +8,7 @@
       </div>
       <div>
         <span>用户类型选择</span>
-        <el-select style="width: 70px" size="mini" @change="selectChange" v-model="select" placeholder="请选择">
+        <el-select style="width: 85px" size="mini" @change="selectChange" v-model="select" placeholder="请选择">
           <el-option v-for="item in options" :key="item.label" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </div>
@@ -30,20 +30,21 @@
 </template>
 
 <script>
-import { allPeopleData, peopleOnlineTrend } from "@/api/reportApi.js";
+import { allPeopleData } from "@/api/reportApi.js";
+import { getDate } from "@/utils/date";
 export default {
   props: {},
   components: {},
   data() {
     return {
-      date: "",
-      select: "",
+      date: null,
+      select: null,
       options: [
-        { label: "全部", value: "" },
-        { label: "新男", value: "" },
-        { label: "新女", value: "" },
-        { label: "老男", value: "" },
-        { label: "老女", value: "" },
+        { label: "全部", value: "4" },
+        { label: "新男", value: "0" },
+        { label: "新女", value: "1" },
+        { label: "老男", value: "2" },
+        { label: "老女", value: "3" },
       ],
       newOrOldPeople: [],
     };
@@ -53,14 +54,17 @@ export default {
     this.getData();
   },
   methods: {
-    async getData() {
+    async getData(data) {
       try {
         let params = {
-          starttime: "2022-06-01",
-          endtime: "2022-07-04",
+          starttime: "2022-01-01",
+          endtime: getDate().fullDate,
         };
-        const res = await allPeopleData(params);
-        console.log("res", res);
+        this.date && ((params.starttime = this.date[0]), (params.endtime = this.date[1]));
+        console.log("this.select", this.select);
+        this.select && this.select == 4 ? null : (params.type = this.select);
+        const res = await allPeopleData(data || params);
+        console.log("allPeopleData res ", res);
         if (res && res.errcode == 0) {
           this.newOrOldPeople = res.data || [];
         } else {
@@ -78,9 +82,27 @@ export default {
     },
     tiemChange(value) {
       console.log("value", value);
+      let params = {
+        starttime: "2022-01-01",
+        endtime: getDate().fullDate,
+      };
+      value && ((params.starttime = value[0]), (params.endtime = value[1]));
+      console.log("this.select", this.select);
+      this.select && (this.select == 4 ? "" : (params.type = this.select));
+      console.log("params", params);
+      this.getData(params);
     },
     selectChange(value) {
+      console.log("this.date", this.date);
       console.log("value", value);
+      let params = {
+        starttime: "2022-01-01",
+        endtime: getDate().fullDate,
+      };
+      this.date && ((params.starttime = this.date[0]), (params.endtime = this.date[1]));
+      value == 4 ? null : (params.type = value);
+      // console.log("params", params);
+      this.getData(params);
     },
   },
 };

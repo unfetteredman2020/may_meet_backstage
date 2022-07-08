@@ -1,8 +1,9 @@
 <template>
   <div>
     <el-container>
-      <el-aside width="220px">
-        <el-menu :default-active="activeMenu" class="el-menu-vertical-demo userManageMenu" @open="handleOpen" @close="handleClose" background-color="#000" text-color="#999999" active-text-color="#fff" @select="handleSelect">
+      <el-aside class="reportAside" :width="collapse ? 'auto' : '220px'">
+        <i :class="[collapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']" class="collapseIcon" @click="isCollapse"></i>
+        <el-menu :collapse="collapse" :default-active="activeMenu" class="el-menu-vertical-demo userManageMenu" @open="handleOpen" @close="handleClose" background-color="#000" text-color="#999999" active-text-color="#fff" @select="handleSelect">
           <MenuTree :menuData="leftMenuList" />
         </el-menu>
       </el-aside>
@@ -56,11 +57,11 @@ import dailyGoldData from "./components/productModuleComponents/dailyGoldData.vu
 import dailyGiveGoldData from "./components/productModuleComponents/dailyGiveGoldData.vue";
 import { matchFileName } from "@/utils/fileType";
 // 渠道模块
-import promotionReport from './components/channelModuleComponents/promotionReport.vue'
-import IELTSAssistantActiveCount  from './components/channelModuleComponents/IELTSAssistantActiveCount.vue'
-import dailyChannelConsumRanking from './components/channelModuleComponents/dailyChannelConsumRanking.vue'
-import dailyChannelDataSum from './components/channelModuleComponents/dailyChannelDataSum.vue'
-import userChatState from './components/channelModuleComponents/userChatState.vue'
+import promotionReport from "./components/channelModuleComponents/promotionReport.vue";
+import IELTSAssistantActiveCount from "./components/channelModuleComponents/IELTSAssistantActiveCount.vue";
+import dailyChannelConsumRanking from "./components/channelModuleComponents/dailyChannelConsumRanking.vue";
+import dailyChannelDataSum from "./components/channelModuleComponents/dailyChannelDataSum.vue";
+import userChatState from "./components/channelModuleComponents/userChatState.vue";
 
 // const path = require('path')
 // const files = require.context('./components', true, /\.vue$/)
@@ -111,7 +112,8 @@ export default {
   data() {
     //这⾥存放数据
     return {
-      activeMenu: "/channel/promotionReport",
+      collapse: false,
+      activeMenu: "",
       emptyImg: require("../../assets/empty.png"),
       tabsValue: "",
       editableTabs: [],
@@ -289,11 +291,11 @@ export default {
               icon: "el-icon-odometer",
               path: "/product/realNameAuthenticationData",
             },
-            {
-              name: "视频匹配",
-              icon: "el-icon-odometer",
-              path: "/product/videoMatching",
-            },
+            // {
+            //   name: "视频匹配",
+            //   icon: "el-icon-odometer",
+            //   path: "/product/videoMatching",
+            // },
             {
               name: "视频专区接通情况",
               icon: "el-icon-odometer",
@@ -320,6 +322,9 @@ export default {
   computed: {},
   //⽅法集合
   methods: {
+    isCollapse() {
+      this.collapse = !this.collapse;
+    },
     handleSelect(key, keyPath) {
       console.log("key", key);
       this.activeMenu = key;
@@ -334,52 +339,55 @@ export default {
       oldArr.push({
         label: name,
         component,
+        menuKey: key,
       });
       this.editableTabs = oldArr;
     },
-    setActiveMenu(str) {
-      let b = this.activeMenu.split("/");
-      console.log("b", b);
-      let a = b.reduce((pre, cur, idx) => {
-        return pre + cur;
-      });
-      console.log("a", a);
-    },
+
     handleOpen(key, keyPath) {
       // console.log(key, keyPath);
     },
     handleClose(key, keyPath) {
       // console.log(key, keyPath);
+      return;
     },
     clickTab(tab, event) {
       console.log(tab, event);
-      console.log("this.tabsValue", this.tabsValue);
+      console.log("1", tab.name);
+      let tabs = this.editableTabs;
+      let menuKeys = tabs.filter((item) => item.component == tab.name)[0].menuKey;
+      // console.log("menuKeys", menuKeys);
+      this.activeMenu = menuKeys;
     },
     removeTab(targetName) {
-      this.setActiveMenu();
       console.log("activeMenu", this.activeMenu);
       console.log("targetName", targetName);
       console.log("this.editableTabs", this.editableTabs);
       let tabs = this.editableTabs;
-      let idx = this.editableTabs.findIndex((item) => item.label !== targetName);
       // console.log('index', index)
       let activeName = this.tabsValue;
+      let menuKey = this.activeMenu;
       console.log("activeName", activeName);
       if (activeName === targetName) {
         tabs.forEach((tab, index) => {
           if (tab.component === targetName) {
             let nextTab = tabs[index + 1] || tabs[index - 1];
+            console.log("nextTab", nextTab);
             if (nextTab) {
               activeName = nextTab.component;
+              menuKey = nextTab.menuKey;
             } else {
               activeName = "";
+              menuKey = "";
             }
           }
         });
       }
-      this.tabsValue = activeName;
+      this.tabsValue = activeName || "";
+      this.activeMenu = menuKey || "";
       this.editableTabs = this.editableTabs.filter((tab) => tab.component !== targetName);
     },
+    close() {},
   },
   //⽣命周期，创建完成（可以访问当前this实例）
   created() {},
@@ -394,17 +402,50 @@ export default {
   activated() {}, //如果页⾯有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 201px;
+  /* border: 1px solid red; */
+  box-sizing: border-box;
+}
+.el-menu-vertical-demo {
+  &:not(.el-menu--collapse) {
+    width: 200px;
+  }
+}
+.reportAside {
+  /* border: 1px solid orange; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.el-menu {
+  border: none !important;
+}
+.el-aside {
+  background-color: #000;
+  /* border: 1px solid blue; */
+  box-sizing: border-box;
+  // width: auto!important;
+}
 .userManageMain {
   /* border: 1px solid blue; */
   margin: 0;
   padding: 0 !important;
 }
 .userManageMenu {
-  height: calc(100vh - 70px);
+  height: calc(100vh - 70px - 20px);
 }
 .empty {
   margin-top: 150px;
   /* border: 1px solid red; */
+}
+.collapseIcon {
+  /* background-color: red; */
+  font-size: 20px !important;
+  margin: 0 0 0 25px;
+  font-size: 100%;
+  /* height: 100px; */
+  color: #fff;
 }
 </style>

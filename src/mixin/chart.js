@@ -29,7 +29,9 @@ export default {
     },
     yAxis: {
       type: Object,
-      default: ()=> {}
+      default: function () {
+        return {name: ''}
+      }
     },
     xAxis: {
       type: Object,

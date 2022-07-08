@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <fragment>
     <template v-for="(menu) in menuData">
       <el-submenu :key="menu.path" :index="menu.path" v-if="menu.children">
         <template slot="title">
@@ -13,7 +13,7 @@
         <span slot="title">{{ menu.name }}</span>
       </el-menu-item>
     </template>
-  </div>
+  </fragment>
 </template>
 
 <script>
@@ -47,4 +47,6 @@ export default {
   activated() {}, //如果页⾯有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style scoped></style>
+<style scoped>
+
+</style>

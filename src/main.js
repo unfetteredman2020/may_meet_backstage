@@ -6,8 +6,9 @@ import '@/style/css/theme.scss'
 import { Message, Loading } from "element-ui";
 import store from '@/store/index.js'
 import JsonExcel from "vue-json-excel";
-
+import Fragment from 'vue-fragment'
 Vue.use(ElementUI);
+Vue.use(Fragment.Plugin)
 
 Vue.prototype.$message = function (type, message) {
   Message({

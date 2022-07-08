@@ -1,137 +1,170 @@
 <template>
   <div class="first">
-    <span>新老男女业务数据</span>
     <div class="searchContainer">
       <div>
-        <span>日期选择</span>
+        <el-tag style="border-radius: none !important" effect="light" size="medium" :hit="true">日期选择：</el-tag>
+        <!-- <span>日期选择：</span> -->
         <el-date-picker size="mini" @change="tiemChange" v-model="date" type="daterange" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </div>
     </div>
-    <div id="speakTimes" class="speakTimes"></div>
+    <div :id="id" class="speakTimes"></div>
   </div>
 </template>
 
 <script>
 import * as echarts from "echarts/core";
-import { ToolboxComponent, TooltipComponent, GridComponent, LegendComponent } from "echarts/components";
+import { ToolboxComponent, TooltipComponent, GridComponent, LegendComponent, TitleComponent } from "echarts/components";
 import { BarChart, LineChart } from "echarts/charts";
-import { UniversalTransition } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
-import { speakTimes, peopleOnlineTrend } from "@/api/reportApi.js";
+import { speakPersonTimes } from "@/api/reportApi.js";
 var chartDom = null;
 var myChart = null;
 var option;
-
 export default {
-  props: {},
+  props: {
+    id: {
+      type: String,
+      default: "abc",
+    },
+    config: {
+      type: Object,
+      default: function () {
+        return {
+        id: '',
+        subText: '测试',
+        data: [],
+        methodName: ''
+      }
+      }
+    }
+  },
   components: {},
   data() {
     return {
-      date: "",
+      date: [],
     };
   },
   computed: {},
   mounted() {
-    this.getData();
   },
   methods: {
-    async getData() {
-      try {
-        let params = {
-          starttime: "2022-06-01",
-          endtime: "2022-07-04",
-        };
-        const res = await speakTimes(params);
-        console.log("speakTimes", res);
-        if (res && res.errcode == 0) {
-          this.newOrOldPeople = res.data || [];
-          this.init(res.data);
-        } else {
-          this.$message("error", "获取数据失败，请稍后重试！");
-        }
-      } catch (error) {
-        console.log("error", error);
-        this.$message("error", "获取数据失败，请稍后重试");
-      }
-    },
     tiemChange(value) {
       console.log("value", value);
+      this.$parent[this.config.methodName](value&&{starttime:value[0], endtime:value[1] || null})
     },
     init(list) {
+      
       let keys = [...new Set(list.map((item) => item["用户类型"]))];
-      console.log("keys", keys);
-      echarts.use([ToolboxComponent, TooltipComponent, GridComponent, LegendComponent, BarChart, LineChart, CanvasRenderer, UniversalTransition]);
-
-      chartDom = document.getElementById("speakTimes");
+      let date = [...new Set(list.map((item) => item.date))];
+      let newWoman = [];
+      let newMan = [];
+      let oldWoman = [];
+      let oldMan = [];
+      list.forEach((item) => {
+        let count = item[this.config.subText]
+        switch (item["用户类型"]) {
+          case "新女":
+            newWoman.push(count);
+            break;
+          case "新男":
+            newMan.push(count);
+            break;
+          case "老女":
+            oldWoman.push(count);
+            break;
+          case "老男":
+            oldMan.push(count);
+            break;
+        }
+      });
+      console.log('first', newWoman,newMan, oldWoman, oldMan )
+      console.log("keys ", keys);
+      echarts.use([ToolboxComponent, TooltipComponent, GridComponent, LegendComponent, BarChart, CanvasRenderer, TitleComponent, LineChart,ToolboxComponent]);
+      chartDom = document.getElementById(this.id);
       myChart = echarts.init(chartDom);
       option = {
         tooltip: {
           trigger: "axis",
           axisPointer: {
-            type: "cross",
-            crossStyle: {
-              color: "#999",
-            },
+            type: "shadow",
           },
         },
+        title: {
+          subtext: this.config.subText,
+        },
+        legend: {
+          data: ["新女", "新男", "老女", "老男"],
+          bottom: 10,
+        },
         toolbox: {
+          show: true,
           feature: {
             magicType: { show: true, type: ["line", "bar"] },
             restore: { show: true },
             saveAsImage: { show: true },
           },
+          right: "10%",
         },
-        legend: {
-          data: ["新男", "新女", "老男", "老女"],
-        },
-        xAxis: {
-          type: "category",
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-          axisPointer: {
-            type: "shadow",
-            
+        xAxis: [
+          {
+            type: "category",
+            axisTick: { show: false },
+            data: date,
           },
-        },
-        yAxis: {
-          type: "value",
-          name: "",
-          min: "0",
-          max: "dataMax",
-          axisLabel: {
-            color: "#444343",
+        ],
+        yAxis: [
+          {
+            type: "value",
           },
-          nameTextStyle: {
-            align: "center",
-          },
-        },
+        ],
         series: [
           {
-            name: "新男",
-            type: "bar",
-            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
-          },
-          {
             name: "新女",
-            type: "bar",
-            data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+            type: "line",
+            barGap: 0,
+            showSymbol: false,
+            emphasis: {
+              focus: "series",
+            },
+            data: newWoman,
           },
           {
-            name: "老男",
+            name: "新男",
             type: "line",
-            yAxisIndex: 1,
-            data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2],
+            showSymbol: false,
+            emphasis: {
+              focus: "series",
+            },
+            data: newMan,
           },
           {
             name: "老女",
-            type: "line",
-            yAxisIndex: 1,
-            data: [1.0, 5.2, 3.3, 9.5, 22.3, 12.2, 20.3, 23.4, 19.0, 16.5, 22.0, 19.2],
+            type: "bar",
+            emphasis: {
+              focus: "series",
+            },
+            data: oldWoman,
+          },
+          {
+            name: "老男",
+            type: "bar",
+            emphasis: {
+              focus: "series",
+            },
+            data: oldMan,
           },
         ],
       };
 
       option && myChart.setOption(option);
+      window.addEventListener("resize", this.resize);
     },
+    resize() {
+      myChart.resize();
+    },
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.resize);
   },
 };
 </script>
@@ -140,6 +173,7 @@ export default {
 .searchContainer {
   display: flex;
   margin: 20px 0;
+  background-color: #fff;
 }
 .searchContainer > div {
   margin: 0 10px;
@@ -147,19 +181,26 @@ export default {
   /* border: 1px solid red; */
   /* align-items: center; */
   justify-content: flex-start;
-  flex-direction: column;
+  align-items: center;
+  /* flex-direction: column; */
 }
 .searchContainer > div > span {
   font-size: 10px;
-  color: #051c32;
+  font-weight: 600;
+  /* color: #051c32; */
 }
 .first {
-  padding: 20px 0;
+  /* border: 1px solid red; */
+  box-sizing: border-box;
+  padding: 10px;
   background-color: #fff;
+  min-width: calc((100vw - 220px - 40px) / 2);
+  /* border: 1px solid blue; */
 }
 .speakTimes {
-  width: 100%;
+  /* width: 50%; */
   height: 300px;
-  border: 1px solid red;
+  width: calc((100vw - 220px - 150px) / 2);
+  /* border: 1px solid red; */
 }
 </style>

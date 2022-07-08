@@ -4,7 +4,7 @@
     <div class="searchContainer">
       <div>
         <span>日期选择</span>
-        <el-date-picker size="mini" @change="tiemChange" v-model="date" type="daterange" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker size="mini" @change="tiemChange" v-model="date" type="datetimerange" value-format="yyyy-MM-dd HH:MM:SS" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </div>
     </div>
     <div id="onlineBox" class="onlineBox"></div>
@@ -13,11 +13,12 @@
 
 <script>
 import * as echarts from "echarts/core";
-import { DatasetComponent, TitleComponent, TooltipComponent, GridComponent, TransformComponent, LegendComponent } from "echarts/components";
+import { DatasetComponent, TitleComponent, TooltipComponent, GridComponent, TransformComponent, LegendComponent, ToolboxComponent } from "echarts/components";
 import { LineChart } from "echarts/charts";
 import { LabelLayout, UniversalTransition } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
 import { peopleOnlineTrend } from "@/api/reportApi.js";
+import { getDate } from "@/utils/date";
 import axios from "axios";
 var chartDom = null;
 var myChart = null;
@@ -28,7 +29,7 @@ export default {
   components: {},
   data() {
     return {
-      date: "",
+      date: null,
     };
   },
   computed: {},
@@ -36,15 +37,16 @@ export default {
     this.getData();
   },
   methods: {
-    async getData() {
+    async getData(data) {
       try {
         let params = {
-          starttime: "2022-06-01",
-          endtime: "2022-07-04",
+          starttime: "2022-01-01 00:01:01",
+          endtime: `${getDate().fullDate} 00:01:01`,
         };
-        const onlineRes = await peopleOnlineTrend(params);
-        console.log("onlineRes ", onlineRes);
-
+        this.date && ((params.starttime = this.date[0]), (params.endtime = this.date[1]));
+        console.log("params ", params);
+        const onlineRes = await peopleOnlineTrend(data || params);
+        console.log("peopleOnlineTrend ", onlineRes);
         if (onlineRes && onlineRes.errcode == 0) {
           this.init(onlineRes.data);
           this.newOrOldPeople = onlineRes.data || [];
@@ -58,11 +60,18 @@ export default {
     },
     tiemChange(value) {
       console.log("value", value);
+      this.getData(
+        (value && {
+          starttime: value[0],
+          endtime: value[1],
+        }) ||
+          null
+      );
     },
     async init(data) {
       let date = [...new Set(data.map((item) => item.date))].sort();
       // console.log("date", date);
-      echarts.use([DatasetComponent, TitleComponent, TooltipComponent, GridComponent, TransformComponent, LineChart, CanvasRenderer, LabelLayout, UniversalTransition, LegendComponent]);
+      echarts.use([DatasetComponent, TitleComponent, TooltipComponent, GridComponent, TransformComponent, LineChart, CanvasRenderer, LabelLayout, UniversalTransition, LegendComponent, ToolboxComponent]);
       chartDom = document.getElementById("onlineBox");
       myChart = echarts.init(chartDom);
 
@@ -81,6 +90,19 @@ export default {
           right: "4%",
           bottom: "15%",
           containLabel: true,
+        },
+        toolbox: {
+          show: true,
+          // orient: "vertical",
+          // left: "right",
+          // top: "center",
+          feature: {
+            mark: { show: true },
+            dataView: { show: true, readOnly: false },
+            magicType: { show: true, type: ["line", "bar", "stack"] },
+            restore: { show: true },
+            saveAsImage: { show: true },
+          },
         },
         xAxis: {
           type: "category",
@@ -117,7 +139,6 @@ export default {
             symbol: "none",
             // stack: "Total",
             data: data.map((item) => item["女性在线人数"]),
-            
           },
           {
             name: "嘉宾S在线人数",
@@ -167,7 +188,14 @@ export default {
         ],
       };
       myChart.setOption(option);
+      window.addEventListener("resize", this.resize);
     },
+    resize() {
+      myChart.resize();
+    },
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.resize);
   },
 };
 </script>
