@@ -14,11 +14,11 @@ const smp = new SpeedMeasurePlugin();
 console.log('os.cpus().length', os.cpus().length)
 const jsWorkerPool = {
   // options
-  
+
   // 产生的 worker 的数量，默认是 (cpu 核心数 - 1)
   // 当 require('os').cpus() 是 undefined 时，则为 1
   workers: os.cpus().length,
-  
+
   // 闲置时定时删除 worker 进程
   // 默认为 500ms
   // 可以设置为无穷大， 这样在监视模式(--watch)下可以保持 worker 持续存在
@@ -77,22 +77,13 @@ module.exports = smp.wrap({
       },
       {
         test: /\.s?css$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         use: [
-          'style-loader',
           {
             loader: 'thread-loader',
             options: cssWorkerPool
           },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              localIdentName: '[name]__[local]--[hash:base64:5]',
-              importLoaders: 1
-            }
-          },
-          'postcss-loader'
+
         ]
       }
     ],
@@ -104,7 +95,7 @@ module.exports = smp.wrap({
     extensions: ['.js', '.jsx', '.react.js', '.css', '.json'],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(), // 热加载
+    // new webpack.HotModuleReplacementPlugin(), // 热加载
     //     new CompressionPlugin({
     //       test: /\.(js|css|less|map)$/, // 匹配文件名
     //       threshold: 1024, // 对超过10k的数据压缩
@@ -180,15 +171,32 @@ module.exports = smp.wrap({
     ],
     splitChunks: {
       chunks: 'all',
-      maxInitialRequests: Infinity,
-      minSize: 10,
       cacheGroups: {
-        vendors: {
-          chunks: 'all',
-          // name: 'vendors',
-          test: /[\\/]node_modules[\\/]/
+        libs: {
+          name: 'chunk-libs',
+          test: /[\\/]node_modules[\\/]/,
+          priority: 10,
+          chunks: 'initial' // only package third parties that are initially dependent
+        },
+        elementUI: {
+          name: 'chunk-elementUI', // split elementUI into a single package
+          priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+          test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+        },
+        aliyunOssSdk: {
+          name: 'chunk-aliyun-oss-sdk',
+          priority: 20,
+          test: /[\\/]node_modules[\\/]_?ali-oss(.*)/
+        },
+        commons: {
+          name: 'chunk-commons',
+          test: path.resolve('src/components'), // can customize your rules
+          minChunks: 3, //  minimum common number
+          priority: 5,
+          reuseExistingChunk: true
         }
       }
+
     }
   }
 

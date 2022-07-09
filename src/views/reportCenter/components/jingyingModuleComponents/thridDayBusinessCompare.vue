@@ -15,7 +15,7 @@
 
 <script>
 import { thridDayBusinessCompare } from "@/api/reportApi.js";
-import customChat from "@/components/lineCharts.vue";
+const customChat = () => import("@/components/lineCharts.vue");
 import { getDate } from "@/utils/date.js";
 export default {
   props: {},

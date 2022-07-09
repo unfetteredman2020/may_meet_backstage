@@ -10,6 +10,7 @@
 
 <script>
 import * as echarts from "echarts/core";
+
 import { TitleComponent, ToolboxComponent, TooltipComponent, GridComponent, LegendComponent } from "echarts/components";
 import { LineChart } from "echarts/charts";
 import { UniversalTransition } from "echarts/features";

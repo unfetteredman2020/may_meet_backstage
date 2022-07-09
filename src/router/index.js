@@ -29,19 +29,20 @@ routes.push({
     }
 })
 
+
 const router = new VueRouter({
     routes: routes.flat()
 })
 
 // 解决路由在 push/replace 了相同地址报错的问题
-// const originalPush = VueRouter.prototype.push
-// VueRouter.prototype.push = function push(location) {
-//     return originalPush.call(this, location).catch(err => err)
-// }
-// const originalReplace = VueRouter.prototype.replace
-// VueRouter.prototype.replace = function replace(location) {
-//     return originalReplace.call(this, location).catch(err => err)
-// }
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => console.log('err', err))
+}
+const originalReplace = VueRouter.prototype.replace
+VueRouter.prototype.replace = function replace(location) {
+    return originalReplace.call(this, location).catch(err => console.log('err', err))
+}
 
 // router.beforeEach((to, from, next) => {
 //     NProgress.start()
