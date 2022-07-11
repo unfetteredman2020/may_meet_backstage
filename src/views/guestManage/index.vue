@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-aside width="180px">
-        <el-menu default-active="/userManage/userGeneral" class="el-menu-vertical-demo userManageMenu" @open="handleOpen" @close="handleClose" background-color="#000" text-color="#999999" active-text-color="#fff" @select="handleSelect">
+        <el-menu default-active="/guestManage/guestGeneral" class="el-menu-vertical-demo userManageMenu" @open="handleOpen" @close="handleClose" background-color="#000" text-color="#999999" active-text-color="#fff" @select="handleSelect">
           <MenuTree :menuData="leftMenuList" />
         </el-menu>
       </el-aside>

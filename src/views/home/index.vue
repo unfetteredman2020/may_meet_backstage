@@ -197,7 +197,7 @@ export default {
 }
 
 .homeMenu {
-  border: 1px solid red;
+  border: 1px solid #000;
   display: flex;
   width: 100%;
 }

@@ -23,7 +23,7 @@ require_module.keys().forEach(file_name => {
 
 routes.push({
     path: '*',
-    component: () => import('@/views/404'),
+    component: () => import('@/views/404/index.vue'),
     meta: {
         title: '找不到页面'
     }

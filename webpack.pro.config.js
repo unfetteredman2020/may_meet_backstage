@@ -54,14 +54,20 @@ module.exports = smp.wrap({
     libraryTarget: 'umd',
   },
   devtool: 'cheap-module-source-map',
-  //   externals: {
-  //     vue: {
-  //       root: "Vue",   //通过 script 标签引入，此时全局变量中可以访问的是 Vue
-  //       commonjs: "vue",  //可以将vue作为一个 CommonJS 模块访问
-  //       commonjs2: "vue",  //和上面的类似，但导出的是 module.exports.default
-  //       amd: "vue"   //类似于 commonjs，但使用 AMD 模块系统
-  //     }
-  //   },
+  externals: {
+    //     vue: {
+    //       root: "Vue",   //通过 script 标签引入，此时全局变量中可以访问的是 Vue
+    //       commonjs: "vue",  //可以将vue作为一个 CommonJS 模块访问
+    //       commonjs2: "vue",  //和上面的类似，但导出的是 module.exports.default
+    //       amd: "vue"   //类似于 commonjs，但使用 AMD 模块系统
+    //     }
+    'vue': 'Vue',
+    'element-ui': 'ElementUI',
+    'vue-router': 'VueRouter',
+    'vuex': 'Vuex',
+    'axios': 'axios',
+    'ali-oss': 'OSS',
+  },
   module: {
     rules: [
       {

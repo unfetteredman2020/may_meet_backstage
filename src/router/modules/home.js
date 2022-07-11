@@ -62,7 +62,7 @@ export default [
           {
             path: 'guestGeneral',
             name: '综合管理',
-            component: ()=> import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/guestGeneral.vue'),
+            component: () => import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/guestGeneral.vue'),
             meta: {
               title: '综合管理'
             },
@@ -70,7 +70,7 @@ export default [
           {
             path: 'listOfWomen',
             name: 'listOfWomen',
-            component: ()=> import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/listOfWomen.vue'),
+            component: () => import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/listOfWomen.vue'),
             meta: {
               title: '女用户列表'
             },
@@ -78,11 +78,12 @@ export default [
           {
             path: 'overview',
             name: 'overview',
-            component: ()=> import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/overview.vue'),
+            component: () => import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/overview.vue'),
             meta: {
               title: '概览'
             },
           },
+          { path: '', redirect: 'guestGeneral' }
         ]
       },
       {
