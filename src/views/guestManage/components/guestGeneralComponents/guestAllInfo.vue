@@ -197,6 +197,7 @@ import { isTimeOut } from "@/utils/date";
 
 export default {
   props: {},
+  inject: ['searchData'],
   components: {},
   data() {
     return {
@@ -224,6 +225,9 @@ export default {
     };
   },
   computed: {
+    a() {
+      console.log('nl', this.searchData)
+    },
     isLockAccount() {
       const { frozen } = this.userInfo;
       if (this.userInfo.frozen && frozen.expiretime) {
@@ -277,7 +281,8 @@ export default {
     },
     async getData(data) {
       try {
-        const res = await getGuestAllInfo(data);
+        console.log('this.searchData', this.searchData)
+        const res = await getGuestAllInfo(this.searchData);
         console.log("getGuestAllInfo res", res);
         if (res && res.errcode == 0) {
           this.userInfo = res.data;

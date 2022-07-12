@@ -7,6 +7,9 @@
       <el-form-item label="流水号：">
         <el-input v-model="formInline.id" placeholder="流水号"></el-input>
       </el-form-item>
+      <el-form-item label="时间：" prop="date" v-if="activeName=='socialRecord'"  :rules="[{ required: true, message: '日期不能为空不能为空' }]">
+        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="formInline.date" size="mini" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
@@ -53,11 +56,18 @@ const withdrawalRecord = () => import("./guestGeneralComponents/withdrawalRecord
 export default {
   props: {},
   components: { guestAllInfo, incomeDetails, socialRecord, withdrawalRecord },
+  provide() {
+    return {
+      searchData: this.formInline,
+    };
+  },
+
   data() {
     return {
       formInline: {
-        userid: "",
-        id: "",
+        userid: null,
+        id: null,
+        date: null,
       },
       activeName: "guestAllInfo",
     };

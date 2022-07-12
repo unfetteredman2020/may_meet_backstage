@@ -15,3 +15,15 @@ export const chageRecommend = params => request.post('/jbgl/zhgl/jbzhxx/xgtjr', 
 
 // 修改嘉宾分成
 export const chageGuestShare = params => request.post('/jbgl/zhgl/jbzhxx/xgjbfc', params)
+
+//  聊天信息
+export const getChatInfo = data => request.get(`/jbgl/zhgl/sjjl/ltxx`, { params: data || {} })
+
+//  通话记录
+export const getCallLog = data => request.get(`/jbgl/zhgl/sjjl/thjl`, { params: data || {} })
+
+//  收礼信息
+export const getReceiveGift = data => request.get(`/jbgl/zhgl/sjjl/slxx`, { params: data || {} })
+
+//  收益明细
+export const incomeDetail = data => request.get(`/jbgl/zhgl/symx`, { params: data || {} })

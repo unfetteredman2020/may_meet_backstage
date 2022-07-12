@@ -19,5 +19,8 @@ $--font-path: "~element-ui/lib/theme-chalk/fonts";
   border-radius: 10px;
   background: rgba(57, 176, 255, 0.288);
 }
-
+// 全局修改element-ui tab组件的margin问题，如果需要margin，可自定义
+.el-tabs__header {
+  margin-bottom: 5px!important;
+}
 @import "~element-ui/packages/theme-chalk/src/index";

@@ -6,7 +6,7 @@
           <img :src="logo" />
         </div>
         <div class="topMenu">
-          <el-menu :default-active="$route.path == '/userGeneral' ? '/userManage': $route.path" class="homeMenu" mode="horizontal" @select="handleSelect" background-color="#000" text-color="#999999" active-text-color="#fff">
+          <el-menu :default-active="$route.path == '/userGeneral' ? '/userManage' : fixPath" class="homeMenu" mode="horizontal" @select="handleSelect" background-color="#000" text-color="#999999" active-text-color="#fff">
             <MenuTree class="homeMenuTree" :menuData="menu" />
           </el-menu>
         </div>
@@ -80,6 +80,11 @@ export default {
   //计算属性，类似于data概念
   computed: {
     ...mapState(["storeUserInfo"]),
+    fixPath() {
+      let path = this.$route.path.split("/")[1];
+      console.log("abc", path);
+      return '/'+path;
+    },
   },
   //⽅法集合
   methods: {
@@ -96,7 +101,7 @@ export default {
   created() {},
   //⽣命周期，挂载完成（可以访问dom元素）
   mounted() {
-   
+    console.log("$route.path", this.$route);
   },
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前
