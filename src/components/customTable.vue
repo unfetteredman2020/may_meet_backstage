@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="list" stripe style="width: 100%" max-height="700px">
+    <el-table :data="list" stripe style="width: 100%" max-height="750px" border :header-cell-style="{background: '#f2f3f4',border:'1px solid #fff', height: '35px', 'line-height': '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
       <el-table-column v-for="item in tableConfig.column" :prop="item.value" :label="item.label" :key="item.value"></el-table-column>
     </el-table>
   </div>

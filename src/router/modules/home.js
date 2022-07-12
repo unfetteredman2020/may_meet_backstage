@@ -16,7 +16,7 @@ export default [
         },
         children: [
           {
-            path: "/userGeneral",
+            path: "userGeneral",
             name: "userGeneral",
             component: () => import(/* webpackChunkName: 'home/userManage/userGeneral' */ '@/views/userManage/components/userGeneral.vue'),
             meta: {
@@ -47,7 +47,7 @@ export default [
               title: '综合管理'
             },
           },
-          { path: '/', redirect: '/userGeneral' }
+          { path: '', redirect: 'userGeneral' }
         ]
 
       },

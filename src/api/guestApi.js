@@ -27,3 +27,6 @@ export const getReceiveGift = data => request.get(`/jbgl/zhgl/sjjl/slxx`, { para
 
 //  收益明细
 export const incomeDetail = data => request.get(`/jbgl/zhgl/symx`, { params: data || {} })
+
+//  收益明细
+export const getwithdrawalRecord = data => request.get(`/jbgl/zhgl/txjl`, { params: data || {} })

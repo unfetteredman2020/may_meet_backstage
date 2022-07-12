@@ -14,7 +14,7 @@
       <el-table-column prop="提现时间" label="提现时间" width="100px"></el-table-column>
       <el-table-column prop="我方订单号" label="我方订单号" width="100px"></el-table-column>
       <el-table-column label="银行账户ID" width="100px">
-        <template slot-scope="scope"></template>
+        <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.bankinfo.id_card }}</span>
         </template>
       </el-table-column>
