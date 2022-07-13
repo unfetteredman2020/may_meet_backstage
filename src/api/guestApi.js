@@ -30,3 +30,13 @@ export const incomeDetail = data => request.get(`/jbgl/zhgl/symx`, { params: dat
 
 //  收益明细
 export const getwithdrawalRecord = data => request.get(`/jbgl/zhgl/txjl`, { params: data || {} })
+
+/**
+ * 女用户列表
+ */
+ 
+ //  女用户列表
+export const getWomenList = data => request.get(`/jbgl/nyhlb`, { params: data || {} })
+
+// 修改推荐专区权限
+export const setRecommendRole = params => request.post('/jbgl/nyhlb/xgtjzqqx', params)
