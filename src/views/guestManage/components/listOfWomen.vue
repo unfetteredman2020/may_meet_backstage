@@ -70,6 +70,7 @@
 <script>
 import { getWomenList, setRecommendRole } from "@/api/guestApi.js";
 import { isTimeOut } from "@/utils/date";
+import { clearEmptyObj } from "@/utils/formatData.js";
 
 export default {
   props: {},
@@ -131,7 +132,7 @@ export default {
       }
     },
     onSubmit() {
-      this.getData(this.searchForm);
+      this.getData(clearEmptyObj(this.searchForm));
     },
     set(user) {
       console.log("user", user);

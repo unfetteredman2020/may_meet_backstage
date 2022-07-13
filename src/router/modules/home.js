@@ -83,6 +83,30 @@ export default [
               title: '概览'
             },
           },
+          {
+            path: 'listOfAgents',
+            name: 'listOfAgents',
+            component: () => import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/listOfAgents.vue'),
+            meta: {
+              title: '代理人列表'
+            },
+          },
+          {
+            path: 'agentGuest',
+            name: 'agentGuest',
+            component: () => import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/agentGuest.vue'),
+            meta: {
+              title: '代理人嘉宾'
+            },
+          },
+          {
+            path: 'agencyIncome',
+            name: 'agencyIncome',
+            component: () => import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/agencyIncome.vue'),
+            meta: {
+              title: '代理收益'
+            },
+          },
           { path: '', redirect: 'guestGeneral' }
         ]
       },
