@@ -47,7 +47,7 @@ export default {
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", error.errmsg || "当前用户数据不存在");
+        this.$message("error", error.errmsg || error.errmsg || "当前用户数据不存在");
       }
     },
   },

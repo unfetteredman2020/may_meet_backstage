@@ -72,7 +72,7 @@ export default {
           this.speakTime.data = res.data || [];
           this.$refs.speakTimes.init(res.data);
         } else {
-          this.$message("error", "获取数据失败，请稍后重试！");
+                    this.$message("error", res.errmsg || "获取数据失败，请稍后重试！");
         }
       } catch (error) {
         console.log("speakTimes error", error);
@@ -91,7 +91,7 @@ export default {
           this.speakCount.data = res.data || [];
           this.$refs.speakCount.init(res.data);
         } else {
-          this.$message("error", "获取数据失败，请稍后重试！");
+                    this.$message("error", res.errmsg || "获取数据失败，请稍后重试！");
         }
       } catch (error) {
         console.log("speakPersonCount error", error);
@@ -109,11 +109,11 @@ export default {
         if (res && res.errcode == 0) {
           this.newOrOldPeople = res.data || [];
         } else {
-          this.$message("error", "获取数据失败，请稍后重试！");
+                    this.$message("error", res.errmsg || "获取数据失败，请稍后重试！");
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", "获取数据失败，请稍后重试！");
+        this.$message("error", error.errmsg || errormsg ||  "获取数据失败，请稍后重试！");
       }
     },
 

@@ -298,7 +298,7 @@ export default {
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", "数据获取失败，请稍后重试！");
+        this.$message("error", error.errmsg || "数据获取失败，请稍后重试！");
       }
     },
   },

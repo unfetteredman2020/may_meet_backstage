@@ -23,7 +23,7 @@
     <el-table @expand-change="expandChange" :data="data" style="width: 100%" max-height="750px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
       <el-table-column type="expand">
         <template slot-scope="props">
-          <el-form label-position="left" class="demo-table-expand" style="margin: 0 20px;font-size: 12px;">
+          <el-form label-position="left" class="demo-table-expand" style="margin: 0 20px; font-size: 12px">
             <el-form-item label="主页封面:">
               <el-image :preview-src-list="coverPreview" v-for="item in props.row['主页封面']" :key="item.id" style="width: 50px; hfeight: 50px; margin: 0 5px" :src="BASE_CDN_DOMAIN + item.filename"></el-image>
               <span v-if="!props.row['主页封面']">暂无封面图</span>
@@ -108,7 +108,7 @@ export default {
         { label: "注册时间", value: "注册时间" },
         { label: "推荐人", value: "推荐人" },
       ],
-      coverPreview: []
+      coverPreview: [],
     };
   },
   computed: {},
@@ -117,11 +117,11 @@ export default {
   },
   methods: {
     expandChange(row, a) {
-      row['主页封面'] && this.setPreview(row['主页封面'])
+      row["主页封面"] && this.setPreview(row["主页封面"]);
     },
-    setPreview(item){
-      console.log('item', item)
-      this.coverPreview= item.map(item=>this.BASE_CDN_DOMAIN+item.filename)
+    setPreview(item) {
+      console.log("item", item);
+      this.coverPreview = item.map((item) => this.BASE_CDN_DOMAIN + item.filename);
     },
     isLockAccount(userInfo) {
       const { frozen } = userInfo;
@@ -165,7 +165,7 @@ export default {
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", "修改失败，请稍后重试");
+        this.$message("error", error.errmsg || "修改失败，请稍后重试");
       }
     },
     async getData(data = {}) {
@@ -175,11 +175,11 @@ export default {
         if (res && res.errcode == 0) {
           this.data = res.data;
         } else {
-          this.$message("error", "获取数据失败，请稍后重试！");
+          this.$message("error", res.errmsg || "获取数据失败，请稍后重试！");
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", "获取数据失败，请稍后重试！");
+        this.$message("error", error.errmsg ||  "获取数据失败，请稍后重试！");
       }
     },
     resetForm() {

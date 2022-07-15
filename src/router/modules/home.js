@@ -75,14 +75,14 @@ export default [
               title: '女用户列表'
             },
           },
-          {
-            path: 'overview',
-            name: 'overview',
-            component: () => import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/overview.vue'),
-            meta: {
-              title: '概览'
-            },
-          },
+          // {
+          //   path: 'overview',
+          //   name: 'overview',
+          //   component: () => import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/overview.vue'),
+          //   meta: {
+          //     title: '概览'
+          //   },
+          // },
           {
             path: 'listOfAgents',
             name: 'listOfAgents',
@@ -105,6 +105,46 @@ export default [
             component: () => import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/agencyIncome.vue'),
             meta: {
               title: '代理收益'
+            },
+          },
+          {
+            path: 'recommendTeamGuestList',
+            name: 'recommendTeamGuestList',
+            component: () => import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/recommendTeamGuestList.vue'),
+            meta: {
+              title: '推荐团队嘉宾列表'
+            },
+          },
+          {
+            path: 'guestIncome',
+            name: 'guestIncome',
+            component: () => import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/guestIncome.vue'),
+            meta: {
+              title: '嘉宾收益'
+            },
+          },
+          {
+            path: 'activeData',
+            name: 'activeData',
+            component: () => import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/activeData.vue'),
+            meta: {
+              title: '活跃数据'
+            },
+          },
+          {
+            path: 'transferManagement',
+            name: 'transferManagement',
+            component: () => import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/transferManagement.vue'),
+            meta: {
+              title: '转账管理'
+            },
+          },
+          {
+            path: 'violateGuest',
+            name: 'violateGuest',
+            component: () => import(/* webpackChunkName: 'home/guestManage/guestGeneral' */'@/views/guestManage/components/violateGuest.vue'),
+            meta: {
+              title: '违规嘉宾'
             },
           },
           { path: '', redirect: 'guestGeneral' }

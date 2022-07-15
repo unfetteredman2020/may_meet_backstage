@@ -42,7 +42,7 @@ export default {
         await export_json_to_excel({ ...this.downloadData });
       } catch (error) {
         console.log("error", error);
-        this.$message("error", "下载失败，请稍后重试！");
+        this.$message("error", error.errmsg || "下载失败，请稍后重试！");
       }
     },
     async init() {

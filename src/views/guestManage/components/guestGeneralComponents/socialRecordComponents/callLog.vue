@@ -66,11 +66,11 @@ export default {
         if (res && res.errcode == 0) {
           this.data = res.data || [];
         } else {
-          this.$message("error", "获取数据失败，请稍后重试！");
+          this.$message("error", res.errmsg || "获取数据失败，请稍后重试！");
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", "获取数据失败，请稍后重试！");
+        this.$message("error", error.errmsg ||  "获取数据失败，请稍后重试！");
       }
     },
   },

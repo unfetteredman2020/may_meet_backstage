@@ -1,11 +1,10 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
     <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm" size="mini" ref="agentGuestRef">
-      
       <el-form-item label="代理人ID：" prop="proxy_id">
         <el-input v-model="searchForm.proxy_id" placeholder="代理人ID"></el-input>
       </el-form-item>
-      <el-form-item label="统计日期：" prop="date" :rules="[{required: true, message: '请选择统计日期'}]">
+      <el-form-item label="统计日期：" prop="date" :rules="[{ required: true, message: '请选择统计日期' }]">
         <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date" size="mini" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </el-form-item>
       <el-form-item>
@@ -38,14 +37,13 @@ export default {
       data: [],
       searchForm: {
         date: null,
-        proxy_id: null
+        proxy_id: null,
       },
       BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`,
     };
   },
   computed: {},
-  mounted() {
-  },
+  mounted() {},
   methods: {
     onSubmit() {
       let params = clearEmptyObj(this.searchForm);
@@ -82,25 +80,24 @@ export default {
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", "修改失败，请稍后重试");
+        this.$message("error", error.errmsg || "修改失败，请稍后重试");
       }
     },
     async getData(data = {}) {
       try {
-        const { date, rs} = data
-
-        let params = rs || {}
-        date && (params.starttime = date[0] , params.endtime = date[1])
+        const { date, ...rs } = data;
+        let params = rs || {};
+        date && ((params.starttime = date[0]), (params.endtime = date[1]));
         const res = await getAgencyIncome(params);
         console.log("getAgencyIncome", res);
         if (res && res.errcode == 0) {
           this.data = res.data;
         } else {
-          this.$message("error", "获取数据失败，请稍后重试！");
+          this.$message("error", res.errmsg || "获取数据失败，请稍后重试！");
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", "获取数据失败，请稍后重试！");
+        this.$message("error", error.errmsg ||  "获取数据失败，请稍后重试！");
       }
     },
     resetForm() {

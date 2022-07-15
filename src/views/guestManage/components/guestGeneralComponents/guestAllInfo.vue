@@ -291,7 +291,7 @@ export default {
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", res.errmsg || "当前用户数据不存在");
+        this.$message("error", error.errmsg || res.errmsg || "当前用户数据不存在");
       }
     },
     async changeUserInfoForms(that) {

@@ -215,7 +215,7 @@ export default {
         }
       } catch (error) {
         // console.log("error", error);
-        this.$message("error", error.errmsg || "修改用户信息失败！");
+        this.$message("error", error.errmsg || error.errmsg || "修改用户信息失败！");
       }
     },
     del(index) {
