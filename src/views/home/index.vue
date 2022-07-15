@@ -52,6 +52,10 @@ export default {
           name: "嘉宾管理",
         },
         {
+          path: "/recommenderManage",
+          name: "推荐人管理",
+        },
+        {
           path: "/projectSetting",
           name: "产品配置",
         },

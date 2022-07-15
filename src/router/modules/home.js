@@ -159,6 +159,52 @@ export default [
         },
       },
       {
+        path: "/recommenderManage",
+        name: "recommenderManage",
+        component: () => import(/* webpackChunkName: 'home/recommenderManage' */ '@/views/recommenderManage/index.vue'),
+        meta: {
+          title: '推荐人管理'
+        },
+        children: [
+          {
+            path: "recommendList",
+            name: "recommendList",
+            component: () => import(/* webpackChunkName: 'home/recommendList' */ '@/views/recommenderManage/components/recommendList.vue'),
+            meta: {
+              title: '推荐人列表'
+            },
+    
+          },
+          {
+            path: "recommendTeam",
+            name: "recommendTeam",
+            component: () => import(/* webpackChunkName: 'home/recommendTeam' */ '@/views/recommenderManage/components/recommendTeam.vue'),
+            meta: {
+              title: '推荐团队'
+            },
+    
+          },
+          {
+            path: "recommendTeamIncome",
+            name: "recommendTeamIncome",
+            component: () => import(/* webpackChunkName: 'home/recommendTeamIncome' */ '@/views/recommenderManage/components/recommendTeamIncome.vue'),
+            meta: {
+              title: '推荐团队收益'
+            },
+    
+          },
+          {
+            path: "operateData",
+            name: "operateData",
+            component: () => import(/* webpackChunkName: 'home/operateData' */ '@/views/recommenderManage/components/operateData.vue'),
+            meta: {
+              title: '运营数据'
+            },
+    
+          },
+        ]
+      },
+      {
         path: "/contentSafe",
         name: "contentSafe",
         component: () => import(/* webpackChunkName: 'home/contentSafe' */ '@/views/contentSafe/index.vue'),
