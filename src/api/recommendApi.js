@@ -18,3 +18,6 @@ export const getRevenueRecord = data => request.get('/tjrgl/tjtdsy/syjl', {param
 
 // 获取结算记录
 export const getSettlementRecord = data => request.get('/tjrgl/tjtdsy/jsjl', {params: data || {}})
+
+// 运营数据
+export const getOperateData = data => request.get('/tjrgl/yysj', {params: data || {}})
