@@ -21,3 +21,6 @@ export const getSettlementRecord = data => request.get('/tjrgl/tjtdsy/jsjl', {pa
 
 // 运营数据
 export const getOperateData = data => request.get('/tjrgl/yysj', {params: data || {}})
+
+// 运营关系
+export const getOperateRelationship = data => request.get('/tjrgl/yygx', {params: data || {}})

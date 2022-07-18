@@ -1,6 +1,6 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
-    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm" size="mini" ref="settlementRecordRef">
+    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm" size="mini" ref="operateRef">
       <el-form-item label="推荐团队：" prop="group_id" :rules="[{ required: true, message: '请选择推荐团队' }]">
         <el-select v-model="searchForm.group_id" placeholder="请选择推荐团队">
           <el-option v-for="item in selectOption" :key="item.value" :label="item.groupname" :value="item.groupid"></el-option>
@@ -77,7 +77,7 @@ export default {
       }
     },
     onSubmit() {
-      this.$refs["settlementRecordRef"].validate((valid) => {
+      this.$refs["operateRef"].validate((valid) => {
         if (valid) {
           this.getData(clearEmptyObj(this.searchForm));
         } else {
@@ -138,7 +138,7 @@ export default {
       }
     },
     resetForm() {
-      this.$refs.settlementRecordRef.resetFields();
+      this.$refs.operateRef.resetFields();
     },
   },
 };
