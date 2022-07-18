@@ -169,39 +169,37 @@ export default [
           {
             path: "recommendList",
             name: "recommendList",
-            component: () => import(/* webpackChunkName: 'home/recommendList' */ '@/views/recommenderManage/components/recommendList.vue'),
+            component: () => import(/* webpackChunkName: 'home/recommenderManage/recommendList' */ '@/views/recommenderManage/components/recommendList.vue'),
             meta: {
               title: '推荐人列表'
             },
-    
           },
-          {
-            path: "recommendTeam",
-            name: "recommendTeam",
-            component: () => import(/* webpackChunkName: 'home/recommendTeam' */ '@/views/recommenderManage/components/recommendTeam.vue'),
-            meta: {
-              title: '推荐团队'
-            },
-    
-          },
+          
           {
             path: "recommendTeamIncome",
             name: "recommendTeamIncome",
-            component: () => import(/* webpackChunkName: 'home/recommendTeamIncome' */ '@/views/recommenderManage/components/recommendTeamIncome.vue'),
+            component: () => import(/* webpackChunkName: 'home/recommenderManage/recommendTeamIncome' */ '@/views/recommenderManage/components/recommendTeamIncome.vue'),
             meta: {
               title: '推荐团队收益'
             },
-    
+          },
+          {
+            path: "operateRelationship",
+            name: "operateRelationship",
+            component: () => import(/* webpackChunkName: 'home/recommenderManage/operateRelationship' */ '@/views/recommenderManage/components/operateRelationship.vue'),
+            meta: {
+              title: '运营关系'
+            },
           },
           {
             path: "operateData",
             name: "operateData",
-            component: () => import(/* webpackChunkName: 'home/operateData' */ '@/views/recommenderManage/components/operateData.vue'),
+            component: () => import(/* webpackChunkName: 'home/recommenderManage/operateData' */ '@/views/recommenderManage/components/operateData.vue'),
             meta: {
               title: '运营数据'
             },
-    
           },
+          { path: '', redirect: 'recommendList' }
         ]
       },
       {

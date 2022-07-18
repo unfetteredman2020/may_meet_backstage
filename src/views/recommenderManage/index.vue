@@ -15,8 +15,8 @@
 
 <script>
 import MenuTree from "@/components/menuTree.vue";
+
 export default {
-  //import引⼊的组件需要注⼊到对象中才能使⽤
   components: { MenuTree: MenuTree },
   props: {},
   data() {
@@ -29,11 +29,6 @@ export default {
           icon: "el-icon-s-custom",
         },
         {
-          name: "推荐团队",
-          icon: "el-icon-files",
-          path: "/recommenderManage/recommendTeam",
-        },
-        {
           name: "推荐团队收益",
           icon: "el-icon-money",
           path: "/recommenderManage/recommendTeamIncome",
@@ -42,6 +37,12 @@ export default {
           name: "运营数据",
           icon: "el-icon-notebook-2",
           path: "/recommenderManage/operateData",
+          // children: [],
+        },
+        {
+          name: "运营关系",
+          icon: "el-icon-notebook-2",
+          path: "/recommenderManage/operateRelationship",
           // children: [],
         }
       ],
