@@ -56,7 +56,7 @@ export default {
           name: "推荐人管理",
         },
         {
-          path: "/projectSetting",
+          path: "/productConfig",
           name: "产品配置",
         },
         {

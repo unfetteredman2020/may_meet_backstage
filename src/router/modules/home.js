@@ -151,12 +151,23 @@ export default [
         ]
       },
       {
-        path: "/projectSetting",
-        name: "projectSetting",
-        component: () => import(/* webpackChunkName: 'home/projectSetting' */ '@/views/projectSetting/index.vue'),
+        path: "/productConfig",
+        name: "productConfig",
+        component: () => import(/* webpackChunkName: 'home/productConfig/' */ '@/views/productConfig/index.vue'),
         meta: {
           title: '产品配置'
         },
+        children: [
+          {
+            path: "operateInfo",
+            name: "operateInfo",
+            component: () => import(/* webpackChunkName: 'home/productConfig/operateInfo' */ '@/views/productConfig/components/operateInfo.vue'),
+            meta: {
+              title: '运营消息'
+            },
+          },
+          { path: '', redirect: 'operateInfo' }
+        ]
       },
       {
         path: "/recommenderManage",
