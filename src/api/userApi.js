@@ -41,3 +41,9 @@ export const lockDynamic = data => request.post('/yhgl/zhgl/zhxx/jfdt', data)
 
 // 封禁提现
 export const lockWithdrawal = data => request.post('/yhgl/zhgl/zhxx/fjtx', data)
+
+/**
+ * 奖惩管理
+ */
+//奖励记录
+ export const getRewardRecord = data => request.get(`/yhgl/jcgl/jljl`, {params: data || {}})
