@@ -9,3 +9,9 @@ export const getSystemInfo = data => request.get('/cppz/yyxx/xtxx', { params: da
 
 //发布消息
 export const publicMsg = data => request.post('/cppz/yyxx/xtxx/fbxx', data)
+
+// 弹窗配置
+export const getPopupConfig = data => request.get('/cppz/tcpz', { params: data || {} })
+
+// 弹窗配置
+export const createPopup = data => request.post('/cppz/tcpz/xjtc', data)

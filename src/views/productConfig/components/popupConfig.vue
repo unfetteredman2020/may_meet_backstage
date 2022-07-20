@@ -1,31 +1,31 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
     <div class="box" style="background-color: #eee">
-      <el-form style="background-color: #eee; padding: 15px 0 0" :inline="true" :model="searchForm" size="mini" ref="systemInfoRef">
-        <el-form-item label="标题：" prop="title">
+      <el-form style="background-color: #eee; padding: 15px 0 0" :inline="true" :model="searchForm" size="mini" ref="popupConfigSearchRef">
+        <el-form-item label="消息标题：" prop="title">
           <el-input v-model="searchForm.title" placeholder="请输入标题"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">查询</el-button>
-          <el-button @click="resetForm('systemInfoRef')">重置</el-button>
+          <el-button @click="resetForm('popupConfigSearchRef')">重置</el-button>
         </el-form-item>
       </el-form>
-      <el-button class="el-icon-plus" type="primary" size="mini" @click="dialogVisible = true">发布消息</el-button>
+      <el-button class="el-icon-plus" type="primary" size="mini" @click="dialogVisible = true">新建弹窗</el-button>
     </div>
 
     <el-table :data="data" style="width: 100%" max-height="750px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
-      <el-table-column label="记录id" prop="记录id" width="70"></el-table-column>
-      <el-table-column label="消息类型" prop="消息类型" width="100">
+      <el-table-column label="ID" prop="id" width="70"></el-table-column>
+      <el-table-column label="标题" prop="标题"></el-table-column>
+      <el-table-column label="跳转页面" prop="topage"></el-table-column>
+      <el-table-column label="生效时间" prop="生效时间" width="100"></el-table-column>
+      <el-table-column label="失效时间" prop="失效时间" width="100"></el-table-column>
+      <el-table-column label="弹窗图片" prop="imageurl" width="100">
         <template slot-scope="scope">
-          {{ scope.row["消息类型"] == 1 ? "系统消息" : "未知消息" }}
+          <div class="imgBox">
+            <el-image style="width: 40px; height: 40px"  :src="BASE_CDN_DOMAIN + scope.row['imageurl']" :preview-src-list="[BASE_CDN_DOMAIN + scope.row['imageurl']]"></el-image>
+          </div>
         </template>
       </el-table-column>
-      <el-table-column label="发送者" prop="发送者" width="70"></el-table-column>
-      <el-table-column label="接受者" prop="接受者" width="70"></el-table-column>
-      <el-table-column label="标题" prop="标题"></el-table-column>
-      <el-table-column label="内容" prop="内容"></el-table-column>
-      <el-table-column label="跳转页面" prop="跳转页面"></el-table-column>
-      <el-table-column label="发送时间" prop="发送时间"></el-table-column>
       <!-- <el-table-column fixed="right" label="操作" width="50">
         <template slot-scope="scope">
           <el-popconfirm :title="'暂无功能'" @confirm="changeStatus(scope.row)">
@@ -35,21 +35,28 @@
       </el-table-column> -->
     </el-table>
 
-    <el-dialog title="发布消息" :visible.sync="dialogVisible" width="40%" :before-close="handleClose">
+    <el-dialog title="新建弹窗" :visible.sync="dialogVisible" width="50%" :before-close="handleClose">
       <el-form :model="publishNewsForm" :rules="rules" ref="publishNewsFormRef" label-width="100px" class="demo-ruleForm" size="mini">
         <el-form-item label="标题:" prop="title">
-          <el-input v-model="publishNewsForm.title" autocomplete="off" placeholder="请输入标题"></el-input>
+          <el-input v-model.number="publishNewsForm.title" autocomplete="off" placeholder="请输入标题"></el-input>
         </el-form-item>
         <el-form-item label="跳转页面:" prop="topage">
           <el-select v-model="publishNewsForm.topage" placeholder="请选择跳转页面">
             <el-option v-for="item in selectOptions" :key="item.topageid" :label="item.describe" :value="item.topageid"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="用户id数组:" prop="dst_userid">
-          <el-input class="warm" v-model="publishNewsForm.dst_userid" placeholder="如需输入多个id，请用英文&符号隔开;例如：10000&100001"></el-input>
+        <el-form-item label="过期天数:" prop="expire">
+          <el-input type="number" v-model.number="publishNewsForm.expire" placeholder="请输入过期天数"></el-input>
         </el-form-item>
-        <el-form-item label="内容：" prop="content">
-          <el-input type="textarea" v-model="publishNewsForm.content" placeholder="请输入内容"></el-input>
+        <el-form-item label="弹窗图片:" prop="imageurl">
+          <el-upload :before-remove="clearFiles" class="avatar-uploader customUpload" ref="upload" action="string" accept="image/jpeg,image/png,image/jpg" list-type="picture-card" :before-upload="onBeforeUploadImage" :http-request="UploadImage" :on-change="fileChange" :file-list="fileList">
+            <!-- <el-button size="small" type="primary">点击上传</el-button> -->
+            <i class="el-icon-plus"></i>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/jpeg/png文件，且不超过10M</div>
+          </el-upload>
+        </el-form-item>
+        <el-form-item label="描述:" prop="describe">
+          <el-input type="textarea" v-model="publishNewsForm.describe" placeholder="请输入描述，最多可输入256个字符"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -62,22 +69,25 @@
 </template>
 
 <script>
-import { getSystemInfo, publicMsg } from "@/api/productApi.js";
+import { getPopupConfig, createPopup } from "@/api/productApi.js";
 import { getJumpPagePath } from "@/api/baseInfoApi.js";
 import { clearEmptyObj } from "@/utils/formatData.js";
-import { isTimeOut } from "@/utils/date";
+import { uploadFiles } from "@/utils/upload.js";
+import { getFileType } from '@/utils/fileType.js'
 
 export default {
   props: {},
   components: {},
   data() {
     return {
+      fileList: [],
       data: [],
       publishNewsForm: {
         title: "",
         topage: "",
-        dst_userid: "",
-        content: "",
+        expire: "",
+        describe: "",
+        imageurl: null,
       },
       searchForm: {
         title: null,
@@ -85,8 +95,9 @@ export default {
       rules: {
         title: [{ required: true, message: "标题不能为空" }],
         topage: [{ required: true, message: "跳转页面不能为空" }],
-        dst_userid: [{ required: true, message: "用户ID不能为空" }],
-        content: [{ required: true, message: "内容不能为空" }],
+        expire: [{ required: true, message: "过期天数不能为空" }],
+        describe: [{ required: true, message: "描述不能为空" }],
+        imageurl: [{ required: true, message: "弹窗图片不能为空" }],
       },
       BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`,
       coverPreview: [],
@@ -100,6 +111,30 @@ export default {
     this.getPagePath();
   },
   methods: {
+    onBeforeUploadImage(file) {
+      const isIMAGE = file.type === "image/jpeg" || "image/jpg" || "image/png";
+      const isLt1M = file.size / 1024 / 1024 < 10;
+      if (!isIMAGE) {
+        this.$message.error("上传文件只能是图片格式!");
+      }
+      if (!isLt1M) {
+        this.$message.error("上传文件大小不能超过 10MB!");
+      }
+      return isIMAGE && isLt1M;
+    },
+    // 上传图片
+    UploadImage(param) {
+      this.publishNewsForm.imageurl = param.file;
+    },
+    fileChange(file) {
+      console.log("file", file);
+      this.$refs.upload.clearFiles(); //清除文件对象
+      this.logo = file.raw; // 取出上传文件的对象，在其它地方也可以使用
+      this.fileList = [{ name: file.name, url: file.url }]; // 重新手动赋值filstList， 免得自定义上传成功了, 而fileList并没有动态改变， 这样每次都是上传一个对象
+    },
+    clearFiles(e) {
+      this.publishNewsForm.imageurl = null;
+    },
     async getPagePath() {
       try {
         const res = await getJumpPagePath();
@@ -117,25 +152,28 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log("publishNewsForm.", this.publishNewsForm);
-          let params = this.publishNewsForm;
-          params.dst_userid = params.dst_userid.split("&");
-          console.log("params", params);
-          this.publicMsgs(params);
+          this.creatPopup();
         } else {
           console.log("error submit!!");
           return false;
         }
       });
     },
-    async publicMsgs(data) {
+    async creatPopup() {
       try {
-        const res = await publicMsg(data);
+        const file = this.publishNewsForm.imageurl;
+        console.log('file', file)
+        const filePath = `productConfig/${file.name}`;
+        const imgRes = await uploadFiles(file, filePath);
+        console.log('imgRes', imgRes)
+        let params = this.publishNewsForm;
+        params.imageurl = imgRes.name;
+        const res = await createPopup(params);
+        console.log('createPopup res', res)
         if (res && res.errcode == 0) {
           this.resetForm('publishNewsFormRef')
           this.getData();
-          this.selectOptions = res.data;
-          this.$message("success", "发布成功！");
+          this.$message("success", "添加成功！");
           this.dialogVisible = false;
         } else {
           this.$message("error", res.errmsg || "发布消息失败，请稍后重试！");
@@ -174,8 +212,8 @@ export default {
 
     async getData(data = {}) {
       try {
-        const res = await getSystemInfo(data);
-        console.log("getSystemInfo", res);
+        const res = await getPopupConfig(data);
+        console.log("getPopupConfig", res);
         if (res && res.errcode == 0) {
           this.data = res.data;
         } else {
@@ -187,6 +225,8 @@ export default {
       }
     },
     resetForm(formName) {
+      this.clearFiles()
+      this.$refs.upload.clearFiles();
       this.$refs[formName].resetFields();
     },
   },
@@ -203,26 +243,23 @@ export default {
   /* border: 1px solid blue; */
   height: 40px;
 }
-
-.warm /deep/.el-input__inner {
-  &::placeholder {
-    color: rgb(230, 110, 110);
-    // font-size: 12px;
-  }
-}
-// 不同浏览器样式兼容
-.warm .el-input input::-webkit-input-placeholder {
-  color: #aeabab;
-}
-.warm .el-input input::-moz-input-placeholder {
-  color: #aeabab;
-}
-.warm .el-input input::-ms-input-placeholder {
-  color: #aeabab;
-}
 .box {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.customUpload /deep/ .el-upload--picture-card {
+  width: 100px !important;
+  height: 100px !important;
+  line-height: 100px;
+}
+.customUpload /deep/.el-upload-list--picture-card .el-upload-list__item-action {
+  width: 100px !important;
+  height: 100px !important;
+}
+.customUpload /deep/ .el-upload-list--picture-card .el-upload-list__item {
+  width: 100px !important;
+  height: 100px !important;
 }
 </style>

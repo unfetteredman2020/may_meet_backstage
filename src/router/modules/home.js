@@ -166,6 +166,14 @@ export default [
               title: '运营消息'
             },
           },
+          {
+            path: "popupConfig",
+            name: "popupConfig",
+            component: () => import(/* webpackChunkName: 'home/productConfig/popupConfig' */ '@/views/productConfig/components/popupConfig.vue'),
+            meta: {
+              title: '弹窗配置'
+            },
+          },
           { path: '', redirect: 'operateInfo' }
         ]
       },
