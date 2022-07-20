@@ -193,7 +193,7 @@ export default [
               title: '推荐人列表'
             },
           },
-          
+
           {
             path: "recommendTeamIncome",
             name: "recommendTeamIncome",
@@ -237,7 +237,17 @@ export default [
         meta: {
           title: '渠道管理'
         },
-
+        children: [
+          {
+            path: "channelList",
+            name: "channelList",
+            component: () => import(/* webpackChunkName: 'home/channelManage/channelList' */ '@/views/channelManage/components/channelList.vue'),
+            meta: {
+              title: '内容安全'
+            },
+          },
+          { path: '', redirect: 'channelList' }
+        ]
       },
       {
         path: "/reportCenter",
