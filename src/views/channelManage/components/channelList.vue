@@ -1,83 +1,62 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
     <div class="box" style="background-color: #eee">
-      <el-form style="background-color: #eee; padding: 15px 0 0" :inline="true" :model="searchForm" size="mini" ref="popupConfigSearchRef">
-        <el-form-item label="消息标题：" prop="title">
-          <el-input v-model="searchForm.title" placeholder="请输入标题"></el-input>
+      <el-form style="background-color: #eee; padding: 15px 0 0" :inline="true" :model="searchForm" size="mini" ref="channelListRef">
+        <el-form-item label="渠道ID：" prop="chan_id">
+          <el-input v-model="searchForm.chan_id" placeholder="请输入标题"></el-input>
+        </el-form-item>
+        <el-form-item label="渠道名称：" prop="chan_name">
+          <el-input v-model="searchForm.chan_name" placeholder="请输入标题"></el-input>
+        </el-form-item>
+        <el-form-item label="状态：" prop="state">
+          <el-select v-model="searchForm.state" placeholder="请选择">
+            <el-option label="正常" value="1"></el-option>
+            <el-option label="冻结" value="0"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">查询</el-button>
-          <el-button @click="resetForm('popupConfigSearchRef')">重置</el-button>
+          <el-button @click="resetForm('channelListRef')">重置</el-button>
         </el-form-item>
       </el-form>
-      <el-button class="el-icon-plus" type="primary" size="mini" @click="dialogVisible = true">新建弹窗</el-button>
+      <el-button size="mini" @click="edit(null)" type="primary" class="el-icon-plus">添加渠道</el-button>
     </div>
 
     <el-table :data="data" style="width: 100%" max-height="750px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
-      <el-table-column label="ID" prop="id" width="70"></el-table-column>
-      <el-table-column label="标题" prop="标题"></el-table-column>
-      <el-table-column label="跳转页面" prop="topage"></el-table-column>
-      <el-table-column label="生效时间" prop="生效时间" width="100"></el-table-column>
-      <el-table-column label="失效时间" prop="失效时间" width="100"></el-table-column>
-      <el-table-column label="弹窗图片" prop="imageurl" width="100">
+      <el-table-column label="ID" prop="id"></el-table-column>
+      <el-table-column label="一级" prop="一级"></el-table-column>
+      <el-table-column label="二级" prop="二级"></el-table-column>
+      <el-table-column label="三级" prop="三级"></el-table-column>
+      <el-table-column label="渠道代码" prop="渠道代码"></el-table-column>
+      <el-table-column label="渠道名称" prop="渠道名称"></el-table-column>
+      <el-table-column label="状态" prop="enable">
         <template slot-scope="scope">
-          <div class="imgBox">
-            <el-image style="width: 40px; height: 40px"  :src="BASE_CDN_DOMAIN + scope.row['imageurl']" :preview-src-list="[BASE_CDN_DOMAIN + scope.row['imageurl']]"></el-image>
-          </div>
+          <el-tag size="mini" :type="scope.row['enable'] == 1 ? 'success' : 'danger'" effect="dark">
+            {{ scope.row["enable"] == 1 ? "正常" : "冻结" }}
+          </el-tag>
         </template>
       </el-table-column>
-      <!-- <el-table-column fixed="right" label="操作" width="50">
+      <el-table-column fixed="right" label="操作" width="50">
         <template slot-scope="scope">
-          <el-popconfirm :title="'暂无功能'" @confirm="changeStatus(scope.row)">
-            <i slot="reference" class="el-icon-s-tools setting"></i>
-          </el-popconfirm>
+          <i slot="reference" class="el-icon-edit setting" @click="edit(scope.row)"></i>
         </template>
-      </el-table-column> -->
+      </el-table-column>
     </el-table>
-
-    <el-dialog title="新建弹窗" :visible.sync="dialogVisible" width="50%" :before-close="handleClose">
-      <el-form :model="publishNewsForm" :rules="rules" ref="publishNewsFormRef" label-width="100px" class="demo-ruleForm" size="mini">
-        <el-form-item label="标题:" prop="title">
-          <el-input v-model.number="publishNewsForm.title" autocomplete="off" placeholder="请输入标题"></el-input>
-        </el-form-item>
-        <el-form-item label="跳转页面:" prop="topage">
-          <el-select v-model="publishNewsForm.topage" placeholder="请选择跳转页面">
-            <el-option v-for="item in selectOptions" :key="item.topageid" :label="item.describe" :value="item.topageid"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="过期天数:" prop="expire">
-          <el-input type="number" v-model.number="publishNewsForm.expire" placeholder="请输入过期天数"></el-input>
-        </el-form-item>
-        <el-form-item label="弹窗图片:" prop="imageurl">
-          <el-upload :before-remove="clearFiles" class="avatar-uploader customUpload" ref="upload" action="string" accept="image/jpeg,image/png,image/jpg" list-type="picture-card" :before-upload="onBeforeUploadImage" :http-request="UploadImage" :on-change="fileChange" :file-list="fileList">
-            <!-- <el-button size="small" type="primary">点击上传</el-button> -->
-            <i class="el-icon-plus"></i>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/jpeg/png文件，且不超过10M</div>
-          </el-upload>
-        </el-form-item>
-        <el-form-item label="描述:" prop="describe">
-          <el-input type="textarea" v-model="publishNewsForm.describe" placeholder="请输入描述，最多可输入256个字符"></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button size="mini" @click="resetForm('publishNewsFormRef')">重置</el-button>
-        <el-button size="mini" @click="dialogVisible = false">取 消</el-button>
-        <el-button size="mini" type="primary" @click="submitForm('publishNewsFormRef')">提交</el-button>
-      </span>
-    </el-dialog>
+    <selectMediaAndCompanyAndAccount ref="selectMediaAndCompanyAndAccountRef" />
   </div>
 </template>
 
 <script>
-import { getPopupConfig, createPopup } from "@/api/productApi.js";
+import selectMediaAndCompanyAndAccount from "@/views/channelManage/components/commonComponents/selectMediaAndCompanyAndAccount.vue";
+import { getChannelList } from "@/api/channelApi.js";
 import { getJumpPagePath } from "@/api/baseInfoApi.js";
 import { clearEmptyObj } from "@/utils/formatData.js";
 import { uploadFiles } from "@/utils/upload.js";
-import { getFileType } from '@/utils/fileType.js'
+import { getFileType } from "@/utils/fileType.js";
 
 export default {
   props: {},
-  components: {},
+  components: { selectMediaAndCompanyAndAccount },
   data() {
     return {
       fileList: [],
@@ -90,7 +69,9 @@ export default {
         imageurl: null,
       },
       searchForm: {
-        title: null,
+        state: null,
+        chan_id: null,
+        chan_name: null,
       },
       rules: {
         title: [{ required: true, message: "标题不能为空" }],
@@ -162,16 +143,16 @@ export default {
     async creatPopup() {
       try {
         const file = this.publishNewsForm.imageurl;
-        console.log('file', file)
+        console.log("file", file);
         const filePath = `productConfig/${file.name}`;
         const imgRes = await uploadFiles(file, filePath);
-        console.log('imgRes', imgRes)
+        console.log("imgRes", imgRes);
         let params = this.publishNewsForm;
         params.imageurl = imgRes.name;
         const res = await createPopup(params);
-        console.log('createPopup res', res)
+        console.log("createPopup res", res);
         if (res && res.errcode == 0) {
-          this.resetForm('publishNewsFormRef')
+          this.resetForm("publishNewsFormRef");
           this.getData();
           this.$message("success", "添加成功！");
           this.dialogVisible = false;
@@ -191,19 +172,9 @@ export default {
         })
         .catch((_) => {});
     },
-    async changeStatus(item) {
-      try {
-        console.log("item", item);
-        // const res = await changeStatus({ group_id: item["推荐团队id"] });
-        // if (res && res.errcode == 0) {
-        //   this.$message("success", "修改成功！");
-        // } else {
-        //   this.$message("error", res.errmsg || "修改失败，请稍后重试！");
-        // }
-      } catch (error) {
-        console.log("error", error);
-        this.$message("error", error.errmsg || "修改失败，请稍后重试！");
-      }
+    edit(item) {
+      console.log("item", item);
+      this.$refs.selectMediaAndCompanyAndAccountRef.open(item || '');
     },
     onSubmit() {
       let params = clearEmptyObj(this.searchForm);
@@ -212,8 +183,8 @@ export default {
 
     async getData(data = {}) {
       try {
-        const res = await getPopupConfig(data);
-        console.log("getPopupConfig", res);
+        const res = await getChannelList(data);
+        console.log("getChannelList", res);
         if (res && res.errcode == 0) {
           this.data = res.data;
         } else {
@@ -225,7 +196,7 @@ export default {
       }
     },
     resetForm(formName) {
-      this.clearFiles()
+      this.clearFiles();
       this.$refs.upload.clearFiles();
       this.$refs[formName].resetFields();
     },

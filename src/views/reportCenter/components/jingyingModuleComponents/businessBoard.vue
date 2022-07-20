@@ -113,7 +113,7 @@ export default {
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", error.errmsg || errormsg ||  "获取数据失败，请稍后重试！");
+        this.$message("error", error.errmsg ||  "获取数据失败，请稍后重试！");
       }
     },
 
