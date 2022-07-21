@@ -3,24 +3,24 @@
     <div class="seatch">
       <el-form :rules="rules" :inline="true" :model="searchForm" class="userGeneralForm" ref="auditSearchForm">
         <el-form-item label-width="80px" inline-message required label="用户ID" prop="id">
-          <el-input size="mini" v-model="searchForm.id" placeholder="用户ID"></el-input>
+          <el-input  v-model="searchForm.id" placeholder="用户ID"></el-input>
         </el-form-item>
         <el-form-item label-width="50px" label="时间">
-          <el-date-picker size="mini" v-model="selectTime" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+          <el-date-picker  v-model="selectTime" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
         </el-form-item>
         <el-form-item label-width="120px" label="提现状态" prop="withdrawalStatus">
-          <el-select size="mini" v-model="searchForm.withdrawalStatus" placeholder="提现状态">
+          <el-select  v-model="searchForm.withdrawalStatus" placeholder="提现状态">
             <el-option v-for="item in withdrawalOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
             <!-- <el-option label="区域二" value="beijing"></el-option> -->
           </el-select>
         </el-form-item>
         <el-form-item label-width="80px" label="订单号" prop="SerialNumber">
-          <el-input size="mini" v-model="searchForm.SerialNumber" placeholder="订单号"></el-input>
+          <el-input  v-model="searchForm.SerialNumber" placeholder="订单号"></el-input>
         </el-form-item>
 
         <el-form-item style="margin: 0 20px">
-          <el-button class="el-icon-search" type="primary" @click="onSubmit" size="mini">搜索</el-button>
-          <el-button class="el-icon-refresh-left" size="mini" @click="resetForm('auditSearchForm')">重置</el-button>
+          <el-button class="el-icon-search" type="primary" @click="onSubmit" >搜索</el-button>
+          <el-button class="el-icon-refresh-left"  @click="resetForm('auditSearchForm')">重置</el-button>
         </el-form-item>
       </el-form>
     </div>

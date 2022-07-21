@@ -54,6 +54,7 @@ const element = {
     Vue.prototype.$confirm = MessageBox.confirm;
     Vue.prototype.$prompt = MessageBox.prompt;
     Vue.prototype.$notify = Notification;
+    Vue.prototype.$ELEMENT = { size: 'mini' };
     Vue.prototype.$message = function (type, message) {
       Message({
         type,

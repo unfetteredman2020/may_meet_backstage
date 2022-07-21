@@ -3,17 +3,17 @@
     <div class="seatch">
       <el-form :rules="rules" :inline="true" :model="searchForm" class="userGeneralForm" ref="searchForm">
         <el-form-item label="可遇ID" prop="id">
-          <el-input size="mini" v-model="searchForm.id" placeholder="可遇ID"></el-input>
+          <el-input  v-model="searchForm.id" placeholder="可遇ID"></el-input>
         </el-form-item>
         <el-form-item label="流水号" prop="serialNumber">
-          <el-input size="mini" v-model="searchForm.serialNumber" placeholder="流水号"></el-input>
+          <el-input  v-model="searchForm.serialNumber" placeholder="流水号"></el-input>
         </el-form-item>
         <el-form-item label="时间" prop="selectTime">
-          <el-date-picker size="mini" v-model="searchForm.selectTime" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+          <el-date-picker  v-model="searchForm.selectTime" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit" size="mini">查询</el-button>
-          <el-button @click="resetForm('searchForm')" size="mini">重置</el-button>
+          <el-button type="primary" @click="onSubmit" >查询</el-button>
+          <el-button @click="resetForm('searchForm')" >重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -155,7 +155,7 @@ export default {
 <style scoped>
 .userGeneral {
   box-sizing: border-box;
-  border: 1px solid red;
+  /* border: 1px solid rgb(17, 255, 0); */
   width: 100%;
   height: calc(100vh - 70px);
   overflow: hidden;
@@ -169,10 +169,11 @@ export default {
   background-color: #f2f2f2;
 }
 .settingBox {
+  /* border: 1px solid red; */
   box-sizing: border-box;
-  padding: 20px 20px 0;
+  padding: 20px 0 0;
   margin: 8px 0 0 0;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 140px);
   /* border: 1px solid blue; */
   background-color: #ffffff;
 }

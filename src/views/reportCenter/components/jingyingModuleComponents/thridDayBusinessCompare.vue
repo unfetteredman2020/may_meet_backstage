@@ -1,7 +1,7 @@
 <template>
   <div class="chartContainer">
     <header class="headers">
-      <el-button size="mini" @click="getDate">
+      <el-button  @click="getDate">
         <i class="el-icon-refresh active"></i>
         刷新
       </el-button>

@@ -2,7 +2,7 @@
   <div class="activePlatformBox">
     <header class="customHeader">
       <span style="font-size: 12px">业务看板</span>
-      <el-button size="mini" class="el-icon-refresh" type="primary" @click="refresh" :loading="loading">refresh</el-button>
+      <el-button  class="el-icon-refresh" type="primary" @click="refresh" :loading="loading">refresh</el-button>
     </header>
     <main>
       <allPeopleBusinessData />

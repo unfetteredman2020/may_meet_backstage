@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form :inline="true" :model="formInline" class="guestGeneralForm" size="mini" ref="guestSearchRef">
+    <el-form :inline="true" :model="formInline" class="guestGeneralForm"  ref="guestSearchRef">
       <el-form-item label="可遇ID：" prop="userid" :rules="[{ required: true, message: 'ID不能为空' }]">
         <el-input v-model="formInline.userid" placeholder="可遇ID"></el-input>
       </el-form-item>
@@ -8,7 +8,7 @@
         <el-input v-model="formInline.id" placeholder="流水号"></el-input>
       </el-form-item>
       <el-form-item label="时间：" prop="date" v-if="activeName !=='guestAllInfo'"  :rules="[{ required: true, message: '日期不能为空不能为空' }]">
-        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="formInline.date" size="mini" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="formInline.date"  type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>

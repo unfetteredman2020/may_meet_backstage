@@ -1,6 +1,6 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
-    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm" size="mini" ref="womenListRef">
+    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm"  ref="womenListRef">
       <el-form-item label="可遇ID：" prop="userid">
         <el-input v-model="searchForm.userid" placeholder="可遇ID"></el-input>
       </el-form-item>
@@ -47,7 +47,7 @@
       </el-table-column>
       <el-table-column label="状态" prop="状态">
         <template slot-scope="scope">
-          <el-tag size="mini" :type="isLockAccount(scope.row['状态']) ? 'success' : 'danger'" effect="dark">
+          <el-tag  :type="isLockAccount(scope.row['状态']) ? 'success' : 'danger'" effect="dark">
             {{ isLockAccount(scope.row["状态"]) ? "正常" : "封禁" }}
           </el-tag>
         </template>

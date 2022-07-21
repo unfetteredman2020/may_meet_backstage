@@ -13,8 +13,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="resetForm('lockChatAndDynamicForm')" size="mini">取消</el-button>
-        <el-button type="primary" @click="submitForm('lockChatAndDynamicForm')" size="mini">确定</el-button>
+        <el-button @click="resetForm('lockChatAndDynamicForm')" >取消</el-button>
+        <el-button type="primary" @click="submitForm('lockChatAndDynamicForm')" >确定</el-button>
       </div>
     </el-dialog>
   </div>

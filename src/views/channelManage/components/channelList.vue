@@ -1,7 +1,7 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
     <div class="box" style="background-color: #eee">
-      <el-form style="background-color: #eee; padding: 15px 0 0" :inline="true" :model="searchForm" size="mini" ref="channelListRef">
+      <el-form style="background-color: #eee; padding: 15px 0 0" :inline="true" :model="searchForm"  ref="channelListRef">
         <el-form-item label="渠道ID：" prop="chan_id">
           <el-input v-model="searchForm.chan_id" placeholder="请输入标题"></el-input>
         </el-form-item>
@@ -19,7 +19,7 @@
           <el-button @click="resetForm('channelListRef')">重置</el-button>
         </el-form-item>
       </el-form>
-      <el-button size="mini" @click="edit(null)" type="primary" class="el-icon-plus">添加渠道</el-button>
+      <el-button  @click="edit(null)" type="primary" class="el-icon-plus">添加渠道</el-button>
     </div>
 
     <el-table :data="data" style="width: 100%" max-height="750px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
@@ -31,7 +31,7 @@
       <el-table-column label="渠道名称" prop="渠道名称"></el-table-column>
       <el-table-column label="状态" prop="enable">
         <template slot-scope="scope">
-          <el-tag size="mini" :type="scope.row['enable'] == 1 ? 'success' : 'danger'" effect="dark">
+          <el-tag  :type="scope.row['enable'] == 1 ? 'success' : 'danger'" effect="dark">
             {{ scope.row["enable"] == 1 ? "正常" : "冻结" }}
           </el-tag>
         </template>

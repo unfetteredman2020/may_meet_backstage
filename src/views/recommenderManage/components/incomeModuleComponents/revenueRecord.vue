@@ -1,6 +1,6 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
-    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm" size="mini" ref="revenueRecordRef">
+    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm"  ref="revenueRecordRef">
       <el-form-item label="团队名称：" prop="group_name">
         <el-input v-model="searchForm.group_name" placeholder="团队名称"></el-input>
       </el-form-item>
@@ -8,7 +8,7 @@
         <el-input v-model="searchForm.group_id" placeholder="嘉宾ID"></el-input>
       </el-form-item>
       <el-form-item label="时间：" prop="date">
-        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date" size="mini" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date"  type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -23,7 +23,7 @@
       <el-table-column label="收益金额（元）" prop="收益金额"></el-table-column>
       <el-table-column label="结算状态" prop="结算状态">
         <template slot-scope="scope">
-          <el-tag size="mini" :type=" scope.row.结算状态 !== 0 ? 'success' : 'info'" effect="dark">
+          <el-tag  :type=" scope.row.结算状态 !== 0 ? 'success' : 'info'" effect="dark">
             {{ scope.row["结算状态"] == 0 ? "未结算" : "已结算" }}
           </el-tag>
         </template>

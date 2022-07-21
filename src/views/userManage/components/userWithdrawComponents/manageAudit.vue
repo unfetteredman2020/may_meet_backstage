@@ -10,14 +10,14 @@
       >
         <el-form-item label="用户ID" prop="id">
           <el-input
-            size="mini"
+            
             v-model="searchForm.id"
             placeholder="用户ID"
           ></el-input>
         </el-form-item>
         <el-form-item label="时间">
           <el-date-picker
-            size="mini"
+            
             v-model="searchForm.selectTime"
             type="datetimerange"
             range-separator="至"
@@ -27,17 +27,17 @@
         </el-form-item>
         <el-form-item label="订单号" prop="SerialNumber">
           <el-input
-            size="mini"
+            
             v-model="searchForm.SerialNumber"
             placeholder="订单号"
           ></el-input>
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="onSubmit" size="mini"
+          <el-button type="primary" @click="onSubmit" 
             >搜索</el-button
           >
-          <el-button @click="resetForm('auditSearchForm')" size="mini"
+          <el-button @click="resetForm('auditSearchForm')" 
             >重置</el-button
           >
         </el-form-item>

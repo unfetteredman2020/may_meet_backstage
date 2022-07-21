@@ -4,15 +4,15 @@
       <span style="font-size: 14px; font-weight: 800">{{ "各时段注册数" }}</span>
       <div class="second">
         <div class="msg">
-          <el-button size="mini" type="info">查看报表说明</el-button>
+          <el-button  type="info">查看报表说明</el-button>
           <p style="font-size: 12px; margin: 5px 10px; font-weight: 600">数据源：誓聊只读库</p>
         </div>
         <div class="form">
-          <el-date-picker @change="dateChange" v-model="date" size="mini" type="daterange" value-format="yyyy-MM-dd" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
-          <el-select style="width: 85px; margin: 0 10px" clearable size="mini" v-model="sex" placeholder="请选择">
+          <el-date-picker @change="dateChange" v-model="date"  type="daterange" value-format="yyyy-MM-dd" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+          <el-select style="width: 85px; margin: 0 10px" clearable  v-model="sex" placeholder="请选择">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
-          <el-button type="primary" icon="el-icon-search" size="mini" @click="search">查询</el-button>
+          <el-button type="primary" icon="el-icon-search"  @click="search">查询</el-button>
         </div>
       </div>
     </div>

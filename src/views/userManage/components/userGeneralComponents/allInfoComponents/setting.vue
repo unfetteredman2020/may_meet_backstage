@@ -1,10 +1,10 @@
 <template>
   <div class="settingBoxs">
-    <el-button size="mini" type="primary" plain icon="el-icon-user" @click="changeUserInfo">修改资料</el-button>
-    <el-button size="mini" type="primary" plain icon="el-icon-view" @click="sensitiveInfoVisible = true">敏感信息</el-button>
+    <el-button  type="primary" plain icon="el-icon-user" @click="changeUserInfo">修改资料</el-button>
+    <el-button  type="primary" plain icon="el-icon-view" @click="sensitiveInfoVisible = true">敏感信息</el-button>
     <el-button
       type="primary"
-      size="mini"
+      
       plain
       :icon="isTimeOut((userInfo.frozen && userInfo.frozen.expiretime) || '') ? 'el-icon-lock' : 'el-icon-unlock'"
       @click="
@@ -15,7 +15,7 @@
       {{ isTimeOut((userInfo.frozen && userInfo.frozen.expiretime) || "") ? "封禁账号" : "解封账号" }}
     </el-button>
     <el-button
-      size="mini"
+      
       type="primary"
       plain
       :icon="isTimeOut((userInfo.frozen_device && userInfo.frozen_device.expiretime) || '') ? 'el-icon-lock' : 'el-icon-unlock'"
@@ -27,7 +27,7 @@
       {{ isTimeOut((userInfo.frozen_device && userInfo.frozen_device.expiretime) || "") ? "封禁设备" : "解封设备" }}
     </el-button>
     <el-button
-      size="mini"
+      
       type="primary"
       plain
       :icon="isTimeOut((userInfo.frozen_chat && userInfo.frozen_chat.expiretime) || '') ? 'el-icon-document-delete' : 'el-icon-unlock'"
@@ -39,7 +39,7 @@
       {{ isTimeOut((userInfo.frozen_chat && userInfo.frozen_chat.expiretime) || "") ? "禁用私聊" : "解除私聊禁用" }}
     </el-button>
     <el-button
-      size="mini"
+      
       type="primary"
       plain
       :icon="isTimeOut((userInfo.frozen_post && userInfo.frozen_post.expiretime) || '') ? 'el-icon-circle-close' : 'el-icon-unlock'"
@@ -51,7 +51,7 @@
       {{ isTimeOut((userInfo.frozen_post && userInfo.frozen_post.expiretime) || "") ? "禁用动态" : "解除禁用动态" }}
     </el-button>
     <el-button
-      size="mini"
+      
       type="primary"
       plain
       :icon="isTimeOut((userInfo.frozen_withdraw && userInfo.frozen_withdraw.expiretime) || '') ? 'el-icon-money' : 'el-icon-unlock'"
@@ -62,14 +62,14 @@
     >
       {{ isTimeOut((userInfo.frozen_withdraw && userInfo.frozen_withdraw.expiretime) || "") ? "禁用提现" : "解除禁用提现" }}
     </el-button>
-    <el-button size="mini" type="primary" plain icon="el-icon-cpu">解绑功能</el-button>
-    <el-button size="mini" type="primary" plain icon="el-icon-message-solid">系统提醒</el-button>
-    <el-button size="mini" type="primary" plain icon="el-icon-switch-button">注销账号</el-button>
-    <el-button size="mini" type="primary" plain icon="el-icon-edit">标记为秘书</el-button>
-    <el-button size="mini" type="primary" plain icon="el-icon-s-promotion">发送客诉沟通消息</el-button>
+    <el-button  type="primary" plain icon="el-icon-cpu">解绑功能</el-button>
+    <el-button  type="primary" plain icon="el-icon-message-solid">系统提醒</el-button>
+    <el-button  type="primary" plain icon="el-icon-switch-button">注销账号</el-button>
+    <el-button  type="primary" plain icon="el-icon-edit">标记为秘书</el-button>
+    <el-button  type="primary" plain icon="el-icon-s-promotion">发送客诉沟通消息</el-button>
     <!-- 修改资料 -->
     <el-dialog title="修改资料" :visible.sync="changeUserInfoVisible" class="userInfoDialog" width="700px" :close-on-click-modal="false">
-      <el-form :model="changeUserInfoForm" :rules="changeUserInfoRules" ref="changeUserInfoForm" label-width="120px" class="demo-changeUserInfoForm" size="mini">
+      <el-form :model="changeUserInfoForm" :rules="changeUserInfoRules" ref="changeUserInfoForm" label-width="120px" class="demo-changeUserInfoForm" >
         <el-form-item label="用户昵称：" prop="nickname">
           <el-input v-model="changeUserInfoForm.nickname" auto-complete="false"></el-input>
         </el-form-item>
@@ -92,8 +92,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="changeUserInfoVisible = false" size="mini">取 消</el-button>
-        <el-button type="primary" @click="submitChange('changeUserInfoForm')" size="mini">确 定</el-button>
+        <el-button @click="changeUserInfoVisible = false" >取 消</el-button>
+        <el-button type="primary" @click="submitChange('changeUserInfoForm')" >确 定</el-button>
       </div>
     </el-dialog>
     <!-- 敏感信息 -->

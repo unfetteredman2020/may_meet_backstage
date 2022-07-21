@@ -40,7 +40,7 @@
             <span>首次登录类型：{{ regTypes[userInfo.regtype] }}</span>
             <span>
               状态：
-              <el-tag size="mini" :type="isLockAccount ? 'success' : 'danger'" effect="dark">
+              <el-tag  :type="isLockAccount ? 'success' : 'danger'" effect="dark">
                 {{ isLockAccount ? "正常" : "禁用" }}
               </el-tag>
             </span>
@@ -102,8 +102,8 @@
         </div>
       </div>
     </div>
-    <div class="setting">
-      <UserSetting :userInfo="userInfo" />
+    <div class="setting" v-if="userInfo.userid">
+      <UserSetting :userInfo="userInfo"/>
     </div>
   </div>
 </template>
@@ -244,7 +244,7 @@ export default {
   box-sizing: border-box;
   /* border: 3px solid orchid; */
   padding: 0 0 120px 20px;
-  max-height: 720px;
+  max-height: 740px;
   flex: 1;
   color: rgba(0, 0, 0, 0.8);
   white-space: nowrap;

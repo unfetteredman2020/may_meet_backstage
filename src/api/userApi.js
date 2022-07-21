@@ -47,3 +47,16 @@ export const lockWithdrawal = data => request.post('/yhgl/zhgl/zhxx/fjtx', data)
  */
 //奖励记录
  export const getRewardRecord = data => request.get(`/yhgl/jcgl/jljl`, {params: data || {}})
+
+ //审核管理
+ export const getAuditManage = data => request.get(`/yhgl/jcgl/shgl`, {params: data || {}})
+// 审核
+export const audit = data => request.post('/yhgl/jcgl/shgl/sh', data)
+
+// 添加奖励
+export const addReward = data => request.post('/yhgl/jcgl/shgl/wjjl', data)
+
+// 扣除奖励
+export const revokeReward = data => request.post('/yhgl/jcgl/shgl/cx', data)
+
+

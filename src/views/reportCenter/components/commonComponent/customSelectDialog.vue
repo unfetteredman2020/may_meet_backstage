@@ -1,21 +1,21 @@
 <template>
   <div class="customSelect">
-    <el-button size="mini" type="primary" @click="dialogVisible = true">筛选</el-button>
+    <el-button  type="primary" @click="dialogVisible = true">筛选</el-button>
     <el-dialog :show-close="false" :close-on-click-modal="false" custom-class="customDialog" title="筛选" :visible.sync="dialogVisible" style="min-width: 1250px">
       <div class="times">
         <span>请选日期：</span>
-        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="date" size="mini" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="date"  type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </div>
       <div class="left">
         <div class="first">
           <span>媒体列表：</span>
-          <el-select clearable @change="mediaHandleChange" v-model="mediaid" placeholder="请选择媒体" size="mini" style="width: 160px">
+          <el-select clearable @change="mediaHandleChange" v-model="mediaid" placeholder="请选择媒体"  style="width: 160px">
             <el-option v-for="item in mediaList" :key="item.mediaid" :label="item.name" :value="item.mediaid"></el-option>
           </el-select>
         </div>
         <div class="second">
           <span>投放公司列表：</span>
-          <el-select clearable @change="companyHandleChange" v-model="corpid" placeholder="请选择投放公司" size="mini" style="width: 160px">
+          <el-select clearable @change="companyHandleChange" v-model="corpid" placeholder="请选择投放公司"  style="width: 160px">
             <el-option v-for="item in companyList" :key="item.marketagentid" :label="item.name" :value="item.marketagentid"></el-option>
           </el-select>
         </div>
@@ -24,7 +24,7 @@
         <el-transfer
           style="text-align: left; display: inline-block"
           v-model="value"
-          size="mini"
+          
           filterable
           :titles="['待选', '已选择']"
           :props="{
@@ -40,8 +40,8 @@
         ></el-transfer>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button size="mini" @click="dialogVisible = false">取 消</el-button>
-        <el-button size="mini" type="primary" @click="confirm">筛选</el-button>
+        <el-button  @click="dialogVisible = false">取 消</el-button>
+        <el-button  type="primary" @click="confirm">筛选</el-button>
       </span>
     </el-dialog>
   </div>

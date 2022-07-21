@@ -4,7 +4,7 @@
     <div class="searchContainer">
       <div>
         <span>日期选择</span>
-        <el-date-picker size="mini" @change="tiemChange" v-model="date" type="datetimerange" value-format="yyyy-MM-dd HH:MM:SS" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker  @change="tiemChange" v-model="date" type="datetimerange" value-format="yyyy-MM-dd HH:MM:SS" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </div>
     </div>
     <div id="onlineBox" class="onlineBox"></div>

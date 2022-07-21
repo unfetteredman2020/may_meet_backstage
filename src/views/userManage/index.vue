@@ -3,7 +3,7 @@
     <el-container>
       <el-aside width="180px">
         <el-menu
-          default-active="/userManage/userGeneral"
+          :default-active="$route.path"
           class="el-menu-vertical-demo userManageMenu"
           @open="handleOpen"
           @close="handleClose"
@@ -93,7 +93,9 @@ export default {
   //⽣命周期，创建完成（可以访问当前this实例）
   created() {},
   //⽣命周期，挂载完成（可以访问dom元素）
-  mounted() {},
+  mounted() {
+    console.log('this.', this.$route.path)
+  },
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前
   beforeUpdate() {}, //⽣命周期 - 更新之后

@@ -1,11 +1,11 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
-    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm" size="mini" ref="agentGuestRef">
+    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm"  ref="agentGuestRef">
       <el-form-item label="代理人ID：" prop="proxy_id">
         <el-input v-model="searchForm.proxy_id" placeholder="代理人ID"></el-input>
       </el-form-item>
       <el-form-item label="统计日期：" prop="date" :rules="[{ required: true, message: '请选择统计日期' }]">
-        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date" size="mini" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date"  type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>

@@ -1,9 +1,9 @@
 <template>
   <div class="rechargeRecord">
-    <el-table :data="list" border style="width: 100%">
-      <el-table-column type="expand">
+    <el-table :data="list" border style="width: 100%" max-height="690">
+      <el-table-column type="expand" >
         <template slot-scope="props">
-          <el-form label-position="left" class="demo-table-expand">
+          <el-form label-position="left" class="demo-table-expand" style="margin: 0 0 0 50px">
             <el-form-item label="客户端类型">
               <span>{{ props.row.ostype }}</span>
             </el-form-item>
@@ -65,7 +65,7 @@
       </el-table-column>
     </el-table>
     <div class="rechargeFooter">
-      <span>充值总金额：99999 元</span>
+      <span></span>
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

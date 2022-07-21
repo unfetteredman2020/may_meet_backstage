@@ -3,18 +3,18 @@
     <div class="seatch">
       <el-form :rules="rules" :inline="true" :model="searchForm" class="userGeneralForm" ref="auditSearchForm">
         <el-form-item label="用户ID" prop="id">
-          <el-input size="mini" v-model="searchForm.id" placeholder="用户ID"></el-input>
+          <el-input  v-model="searchForm.id" placeholder="用户ID"></el-input>
         </el-form-item>
         <el-form-item label="时间" prop="selectTime">
-          <el-date-picker size="mini" v-model="searchForm.selectTime" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" />
+          <el-date-picker  v-model="searchForm.selectTime" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" />
         </el-form-item>
         <el-form-item label="订单号" prop="SerialNumber">
-          <el-input size="mini" v-model="searchForm.SerialNumber" placeholder="订单号"></el-input>
+          <el-input  v-model="searchForm.SerialNumber" placeholder="订单号"></el-input>
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="onSubmit" size="mini">搜索</el-button>
-          <el-button @click="resetForm('auditSearchForm')" size="mini">重置</el-button>
+          <el-button type="primary" @click="onSubmit" >搜索</el-button>
+          <el-button @click="resetForm('auditSearchForm')" >重置</el-button>
         </el-form-item>
       </el-form>
     </div>

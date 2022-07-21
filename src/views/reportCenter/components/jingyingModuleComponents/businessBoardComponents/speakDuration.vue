@@ -4,7 +4,7 @@
     <div class="searchContainer">
       <div>
         <span>日期选择</span>
-        <el-date-picker size="mini" @change="tiemChange" v-model="date" type="daterange" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker  @change="tiemChange" v-model="date" type="daterange" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </div>
     </div>
     <el-table :row-style="{ height: '20px', border: '1px solid red' }" max-height="320px" :cell-style="{ padding: '0 10px', 'font-size': '12px' }" :data="newOrOldPeople" stripe style="width: 100%" :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }">

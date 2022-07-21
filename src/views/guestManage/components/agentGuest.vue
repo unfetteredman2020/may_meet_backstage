@@ -1,6 +1,6 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
-    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm" size="mini" ref="agentGuestRef">
+    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm"  ref="agentGuestRef">
       <el-form-item label="嘉宾ID" prop="guest_id">
         <el-input v-model="searchForm.guest_id" placeholder="嘉宾ID"></el-input>
       </el-form-item>

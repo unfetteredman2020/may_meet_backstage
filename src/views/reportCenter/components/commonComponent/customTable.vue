@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-button size="mini" type="primary" @click="configCheckBox" class="el-icon-s-data">表格配置</el-button>
+    <el-button  type="primary" @click="configCheckBox" class="el-icon-s-data">表格配置</el-button>
     <download-excel class="downloadStyle" :fields="exportDataStandard" :data="exportData" type="xls" :name="exportName" :header="exportHeader" :footer="exportFooter" :defaultValue="exportDefaultValue" :fetch="createExportData" :before-generate="startDownload" :before-finish="finishDownload" worksheet="导出信息">
-      <el-button size="mini" type="primary" class="el-icon-download">下载</el-button>
+      <el-button  type="primary" class="el-icon-download">下载</el-button>
     </download-excel>
     <!-- 表格  -->
     <el-table :show-summary="customProps.show_summary || false" :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" border stripe :data="showList" style="width: 100%" max-height="680px" class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
@@ -17,7 +17,7 @@
       <el-checkbox-group v-model="checkedItem" @change="handleCheckedChange" class="checkboxGroup">
         <el-checkbox style="min-width: 20%" v-for="item in config" :label="item.text" :key="item.value">
           {{ item.text }}
-          <!-- <el-input-number size="mini" v-model="item.width" style="width: 100px" controls-position="right" :min="10" :max="300"></el-input-number> -->
+          <!-- <el-input-number  v-model="item.width" style="width: 100px" controls-position="right" :min="10" :max="300"></el-input-number> -->
         </el-checkbox>
       </el-checkbox-group>
       <span slot="footer" class="dialog-footer">

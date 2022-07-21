@@ -1,9 +1,9 @@
 <template>
   <div class="customSelect">
     <el-dialog width="40%" :show-close="false" :close-on-click-modal="false" custom-class="customDialog" :title="editData['渠道名称'] ? '编辑渠道' : '添加渠道'" :visible.sync="dialogVisible" style="min-width: 1250px">
-      <el-form label-position="right" label-width="125px" :rules="rules" :model="searchForm" size="mini" ref="channelListRef">
+      <el-form label-position="right" label-width="125px" :rules="rules" :model="searchForm"  ref="channelListRef">
         <el-form-item label="系统：" prop="os" v-if="!editData['渠道名称']">
-          <el-select clearable v-model="searchForm.os" placeholder="请选择系统" size="mini" style="width: 300px">
+          <el-select clearable v-model="searchForm.os" placeholder="请选择系统"  style="width: 300px">
             <el-option label="苹果" value="2"></el-option>
             <el-option label="安卓" value="1"></el-option>
           </el-select>
@@ -12,24 +12,24 @@
           <el-input v-model="searchForm.chan_name" style="width: 300px" placeholder="请输入渠道名称"></el-input>
         </el-form-item>
         <el-form-item label="投放媒体列表：" prop="media_id">
-          <el-select clearable @change="mediaHandleChange" v-model="searchForm.media_id" placeholder="请选择投放媒体" size="mini" style="width: 300px">
+          <el-select clearable @change="mediaHandleChange" v-model="searchForm.media_id" placeholder="请选择投放媒体"  style="width: 300px">
             <el-option v-for="item in mediaList" :key="item.mediaid" :label="item.name" :value="item.mediaid"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="投放公司列表：" prop="corp_id">
-          <el-select clearable @change="companyHandleChange" v-model="searchForm.corp_id" placeholder="请选择投放公司" size="mini" style="width: 300px">
+          <el-select clearable @change="companyHandleChange" v-model="searchForm.corp_id" placeholder="请选择投放公司"  style="width: 300px">
             <el-option v-for="item in companyList" :key="item.name" :label="item.name" :value="item.marketagentid"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="投放账户列表：" prop="acc_id">
-          <el-select clearable v-model="searchForm.acc_id" placeholder="请选择投放账户" size="mini" style="width: 300px">
+          <el-select clearable v-model="searchForm.acc_id" placeholder="请选择投放账户"  style="width: 300px">
             <el-option v-for="item in companyCountList" :key="item.channelid" :label="item.name" :value="item.acc_id"></el-option>
           </el-select>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button size="mini" @click="resetForm('channelListRef')">取 消</el-button>
-        <el-button size="mini" type="primary" @click="confirm('channelListRef')">提交</el-button>
+        <el-button  @click="resetForm('channelListRef')">取 消</el-button>
+        <el-button  type="primary" @click="confirm('channelListRef')">提交</el-button>
       </span>
     </el-dialog>
   </div>

@@ -4,11 +4,11 @@
     <div class="searchContainer">
       <div>
         <span>日期选择</span>
-        <el-date-picker size="mini" @change="tiemChange" v-model="date" type="daterange" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker  @change="tiemChange" v-model="date" type="daterange" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </div>
       <div>
         <span>用户类型选择</span>
-        <el-select style="width: 85px" size="mini" @change="selectChange" v-model="select" placeholder="请选择">
+        <el-select style="width: 85px"  @change="selectChange" v-model="select" placeholder="请选择">
           <el-option v-for="item in options" :key="item.label" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </div>

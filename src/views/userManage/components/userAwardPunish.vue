@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form :inline="true" :rules="rules" :model="formInline" class="guestGeneralForm" size="mini" ref="userAwardPunishSearchRef">
+    <el-form  :inline="true" :rules="rules" :model="formInline" class="guestGeneralForm"  ref="userAwardPunishSearchRef">
       <el-form-item label="可遇ID：" prop="userid">
         <el-input v-model="formInline.userid" placeholder="可遇ID"></el-input>
       </el-form-item>
@@ -13,7 +13,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="时间：" prop="date" >
-        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="formInline.date" size="mini" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="formInline.date"  type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>

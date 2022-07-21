@@ -2,10 +2,10 @@
   <div class="allBoardBox">
     <header class="customHeader">
       <span>总览看板</span>
-      <el-button size="mini" class="el-icon-refresh">refresh</el-button>
+      <el-button  class="el-icon-refresh">refresh</el-button>
     </header>
     <main class="customMain">
-      <el-descriptions class="descriptions" title="在线人数" :column="1" size="mini" border>
+      <el-descriptions class="descriptions" title="在线人数" :column="1"  border>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-discount"></i>
@@ -35,7 +35,7 @@
           {{ boardData["男性在线人数"] / boardData["女性在线人数"] }}
         </el-descriptions-item>
       </el-descriptions>
-      <el-descriptions class="descriptions" title="男优质女比例" :column="1" size="mini" border>
+      <el-descriptions class="descriptions" title="男优质女比例" :column="1"  border>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-discount"></i>
@@ -61,7 +61,7 @@
           <template slot="label"><i class="el-icon-c-scale-to-original"></i>男女比例</template>{{ boardData["男性在线人数"] / boardData["女性在线人数"] }}
         </el-descriptions-item> -->
       </el-descriptions>
-      <el-descriptions class="descriptions" title="在线优质女年龄段" :column="1" size="mini" border>
+      <el-descriptions class="descriptions" title="在线优质女年龄段" :column="1"  border>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-discount"></i>
@@ -91,7 +91,7 @@
           {{ boardData["优质女40岁以上在线人数"] }}
         </el-descriptions-item>
       </el-descriptions>
-      <el-descriptions class="descriptions" title="付费男性年龄段" :column="1" size="mini" border>
+      <el-descriptions class="descriptions" title="付费男性年龄段" :column="1"  border>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-discount"></i>
@@ -121,7 +121,7 @@
           {{ boardData["男性40岁以上付费金额"] }}
         </el-descriptions-item>
       </el-descriptions>
-      <el-descriptions class="descriptions" title="社交收益女性年龄段" :column="1" size="mini" border>
+      <el-descriptions class="descriptions" title="社交收益女性年龄段" :column="1"  border>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-discount"></i>
@@ -151,7 +151,7 @@
           {{ boardData["女性40岁以上社交收益"] }}
         </el-descriptions-item>
       </el-descriptions>
-      <el-descriptions class="descriptions" title="在线男性年龄段" :column="1" size="mini" border>
+      <el-descriptions class="descriptions" title="在线男性年龄段" :column="1"  border>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-discount"></i>
@@ -181,7 +181,7 @@
           {{ boardData["男性40岁以上在线人数"] }}
         </el-descriptions-item>
       </el-descriptions>
-      <el-descriptions class="descriptions" title="付费女性年龄段" :column="1" size="mini" border>
+      <el-descriptions class="descriptions" title="付费女性年龄段" :column="1"  border>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-discount"></i>
@@ -211,7 +211,7 @@
           {{ boardData["女性40岁以上付费金额"] }}
         </el-descriptions-item>
       </el-descriptions>
-      <el-descriptions class="descriptions" title="真人认证" :column="1" size="mini" border>
+      <el-descriptions class="descriptions" title="真人认证" :column="1"  border>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-discount"></i>
@@ -234,7 +234,7 @@
           {{ boardData["女性真人认证人数"] }}
         </el-descriptions-item>
       </el-descriptions>
-      <el-descriptions class="descriptions" title="真人女性年龄段" :column="1" size="mini" border>
+      <el-descriptions class="descriptions" title="真人女性年龄段" :column="1"  border>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-discount"></i>

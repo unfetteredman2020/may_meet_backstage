@@ -49,7 +49,7 @@
         </p>
         <p>
           <span>状态：</span>
-          <el-tag size="mini" :type="isLockAccount ? 'success' : 'danger'" effect="dark">
+          <el-tag  :type="isLockAccount ? 'success' : 'danger'" effect="dark">
             {{ isLockAccount ? "正常" : "禁用" }}
           </el-tag>
         </p>
@@ -139,14 +139,14 @@
     </div>
     <footer v-if="userInfo.ID">
       <div class="footer">
-        <el-button size="mini" type="primary" @click="changeUserInfo">修改资料</el-button>
-        <el-button size="mini" type="primary" @click="changeRecommendTeam">修改推荐团队</el-button>
-        <el-button size="mini" type="primary" @click="changeGuestShare">修改嘉宾分成</el-button>
+        <el-button  type="primary" @click="changeUserInfo">修改资料</el-button>
+        <el-button  type="primary" @click="changeRecommendTeam">修改推荐团队</el-button>
+        <el-button  type="primary" @click="changeGuestShare">修改嘉宾分成</el-button>
       </div>
     </footer>
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" class="userInfoDialog" width="700px" :close-on-click-modal="false">
       <!-- 修改资料 -->
-      <el-form v-if="changeUserInfoVisible" :model="changeUserInfoForm" :rules="changeUserInfoRules" ref="changeUserInfoForms" label-width="120px" class="demo-changeUserInfoForm" size="mini">
+      <el-form v-if="changeUserInfoVisible" :model="changeUserInfoForm" :rules="changeUserInfoRules" ref="changeUserInfoForms" label-width="120px" class="demo-changeUserInfoForm" >
         <el-form-item label="用户昵称：" prop="nickname">
           <el-input v-model="changeUserInfoForm.nickname" auto-complete="false"></el-input>
         </el-form-item>
@@ -184,8 +184,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="close" size="mini">取 消</el-button>
-        <el-button type="primary" @click="submitChange" size="mini">确 定</el-button>
+        <el-button @click="close" >取 消</el-button>
+        <el-button type="primary" @click="submitChange" >确 定</el-button>
       </div>
     </el-dialog>
   </div>

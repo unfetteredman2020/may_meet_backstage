@@ -1,7 +1,7 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
     <div class="box" style="background-color: #eee">
-      <el-form style="background-color: #eee; padding: 15px 0 0" :inline="true" :model="searchForm" size="mini" ref="systemInfoRef">
+      <el-form style="background-color: #eee; padding: 15px 0 0" :inline="true" :model="searchForm"  ref="systemInfoRef">
         <el-form-item label="标题：" prop="title">
           <el-input v-model="searchForm.title" placeholder="请输入标题"></el-input>
         </el-form-item>
@@ -10,7 +10,7 @@
           <el-button @click="resetForm('systemInfoRef')">重置</el-button>
         </el-form-item>
       </el-form>
-      <el-button class="el-icon-plus" type="primary" size="mini" @click="dialogVisible = true">发布消息</el-button>
+      <el-button class="el-icon-plus" type="primary"  @click="dialogVisible = true">发布消息</el-button>
     </div>
 
     <el-table :data="data" style="width: 100%" max-height="750px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
@@ -36,7 +36,7 @@
     </el-table>
 
     <el-dialog title="发布消息" :visible.sync="dialogVisible" width="40%" :before-close="handleClose">
-      <el-form :model="publishNewsForm" :rules="rules" ref="publishNewsFormRef" label-width="100px" class="demo-ruleForm" size="mini">
+      <el-form :model="publishNewsForm" :rules="rules" ref="publishNewsFormRef" label-width="100px" class="demo-ruleForm" >
         <el-form-item label="标题:" prop="title">
           <el-input v-model="publishNewsForm.title" autocomplete="off" placeholder="请输入标题"></el-input>
         </el-form-item>
@@ -53,9 +53,9 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button size="mini" @click="resetForm('publishNewsFormRef')">重置</el-button>
-        <el-button size="mini" @click="dialogVisible = false">取 消</el-button>
-        <el-button size="mini" type="primary" @click="submitForm('publishNewsFormRef')">提交</el-button>
+        <el-button  @click="resetForm('publishNewsFormRef')">重置</el-button>
+        <el-button  @click="dialogVisible = false">取 消</el-button>
+        <el-button  type="primary" @click="submitForm('publishNewsFormRef')">提交</el-button>
       </span>
     </el-dialog>
   </div>
