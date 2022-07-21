@@ -2,14 +2,14 @@
   <div class="userGeneral">
     <div class="seatch">
       <el-form :rules="rules" :inline="true" :model="searchForm" class="userGeneralForm" ref="searchForm">
-        <el-form-item label="可遇ID" prop="id">
-          <el-input  v-model="searchForm.id" placeholder="可遇ID"></el-input>
+        <el-form-item label="可遇ID" prop="userid">
+          <el-input  v-model="searchForm.userid" placeholder="可遇ID"></el-input>
         </el-form-item>
-        <el-form-item label="流水号" prop="serialNumber">
-          <el-input  v-model="searchForm.serialNumber" placeholder="流水号"></el-input>
+        <el-form-item label="流水号" prop="tradeno">
+          <el-input  v-model="searchForm.tradeno" placeholder="流水号"></el-input>
         </el-form-item>
         <el-form-item label="时间" prop="selectTime">
-          <el-date-picker  v-model="searchForm.selectTime" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+          <el-date-picker value-format="yyyy-MM-dd"  v-model="searchForm.selectTime" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit" >查询</el-button>
@@ -18,7 +18,7 @@
       </el-form>
     </div>
     <div class="settingBox">
-      <el-tabs v-model="activeName" type="card" @tab-click="handleClick" style="margin: 0; padding: 0" max-height="850">
+      <el-tabs v-model="activeName" type="card" @tab-click="handleClick" style="margin: 0; padding: 0" >
         <el-tab-pane name="allInfo">
           <span slot="label">
             <i class="el-icon-user"></i>
@@ -68,6 +68,7 @@ import ConsumeRecord from "./userGeneralComponents/consumeRecord.vue";
 import { getDate } from "@/utils/date.js";
 import draggable from "@/directive/draggable.js";
 import { mapState } from "vuex";
+
 export default {
   directives: {
     draggable,
@@ -85,12 +86,12 @@ export default {
     return {
       activeName: "allInfo",
       searchForm: {
-        selectTime: [new Date(2020, 1, 2), new Date()],
-        id: "",
-        serialNumber: "",
+        selectTime: [getDate('2022-01-01').fullDate, getDate().fullDate],
+        userid: "",
+        tradeno: "",
       },
       rules: {
-        id: [{ required: true, message: "请输入可遇ID", trigger: "blur" }],
+        userid: [{ required: true, message: "请输入可遇ID" }],
       },
     };
   },
@@ -103,21 +104,18 @@ export default {
   //⽅法集合
   methods: {
     onSubmit() {
-      this.$refs["searchForm"].validate((valid) => {
+      this.$refs.searchForm.validate((valid) => {
         if (valid) {
-          // alert("submit!");
-          let { selectTime, id, serialNumber } = this.searchForm;
+          let { selectTime, userid, tradeno } = this.searchForm;
           let starttime = getDate(selectTime[0]).fullDate;
           let endtime = getDate(selectTime[1]).fullDate;
           let params = {};
-          id && Object.assign(params, { id });
+          userid && Object.assign(params, { userid });
           starttime && Object.assign(params, { starttime });
           endtime && Object.assign(params, { endtime });
-          serialNumber && Object.assign(params, { serialNumber });
-          // console.log("this.activeName", this.activeName);
-          this.$refs[this.activeName].$emit("search", params);
+          tradeno && Object.assign(params, { tradeno });
+          this.$refs[this.activeName].getData(params);
         } else {
-          // console.log("error submit!!");
           return false;
         }
       });
@@ -169,7 +167,7 @@ export default {
   background-color: #f2f2f2;
 }
 .settingBox {
-  /* border: 1px solid red; */
+  /* border: 2px solid red; */
   box-sizing: border-box;
   padding: 20px 0 0;
   margin: 8px 0 0 0;

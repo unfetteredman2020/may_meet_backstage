@@ -7,13 +7,13 @@ export const login = data => request.post('/login_by_userid', data)
 export const signLogin = () => request.post('/logon/login_by_sign')
 
 //获取-综合信息
-export const getAllInfo = userid => request.get(`/yhgl/zhgl/zhxx?userid=${userid}`)
+export const getAllInfo = data => request.get(`/yhgl/zhgl/zhxx`, { params: data || {} })
 
 //获取-充值记录
-export const getRechargeRecord = data => request.get(`/yhgl/zhgl/czjl?${data}`)
+export const getRechargeRecord = data => request.get(`/yhgl/zhgl/czjl`, { params: data || {} })
 
 //获取-消费记录
-export const getConsumeRecord = data => request.get(`/yhgl/zhgl/xfjl?${data}`)
+export const getConsumeRecord = data => request.get(`/yhgl/zhgl/xfjl`, { params: data || {} })
 
 //获取-零钱异动
 export const getMoneyChange = data => request.get(`/yhgl/zhgl/xfjl?${data}`)
@@ -46,10 +46,10 @@ export const lockWithdrawal = data => request.post('/yhgl/zhgl/zhxx/fjtx', data)
  * 奖惩管理
  */
 //奖励记录
- export const getRewardRecord = data => request.get(`/yhgl/jcgl/jljl`, {params: data || {}})
+export const getRewardRecord = data => request.get(`/yhgl/jcgl/jljl`, { params: data || {} })
 
- //审核管理
- export const getAuditManage = data => request.get(`/yhgl/jcgl/shgl`, {params: data || {}})
+//审核管理
+export const getAuditManage = data => request.get(`/yhgl/jcgl/shgl`, { params: data || {} })
 // 审核
 export const audit = data => request.post('/yhgl/jcgl/shgl/sh', data)
 
@@ -60,7 +60,7 @@ export const addReward = data => request.post('/yhgl/jcgl/shgl/wjjl', data)
 export const revokeReward = data => request.post('/yhgl/jcgl/shgl/cx', data)
 
 //退款管理列表
-export const refundManage = data => request.get(`/yhgl/tkgl`, {params: data || {}})
+export const refundManage = data => request.get(`/yhgl/tkgl`, { params: data || {} })
 
 // 退款审核
 export const refundAudit = data => request.post('/yhgl/tkgl/sh', data)

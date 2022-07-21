@@ -40,7 +40,7 @@
             <span>首次登录类型：{{ regTypes[userInfo.regtype] }}</span>
             <span>
               状态：
-              <el-tag  :type="isLockAccount ? 'success' : 'danger'" effect="dark">
+              <el-tag v-if="show" :type="isLockAccount ? 'success' : 'danger'" effect="dark">
                 {{ isLockAccount ? "正常" : "禁用" }}
               </el-tag>
             </span>
@@ -103,7 +103,7 @@
       </div>
     </div>
     <div class="setting" v-if="userInfo.userid">
-      <UserSetting :userInfo="userInfo"/>
+      <UserSetting :userInfo="userInfo" />
     </div>
   </div>
 </template>
@@ -155,6 +155,16 @@ export default {
   watch: {},
   //计算属性，类似于data概念
   computed: {
+    show() {
+      const { frozen } = this.userInfo;
+      if (frozen) {
+        console.log('true', true)
+        return true;
+      }else {
+        console.log('false', false)
+        return false
+      }
+    },
     isLockAccount() {
       const { frozen } = this.userInfo;
       if (this.userInfo.frozen && frozen.expiretime) {
@@ -164,9 +174,7 @@ export default {
       }
     },
   },
-  mounted() {
-    this.$on("search", this.search);
-  },
+  mounted() {},
   //⽅法集合
   methods: {
     // 图片预览
@@ -179,15 +187,11 @@ export default {
       newArr.forEach((item) => a.push(`${this.BASE_CDN_DOMAIN + item.filename}`));
       this.previewList = a;
     },
-    search(params) {
-      this.getUserInfo(params.id);
-    },
-
     // 获取用户信息
-    async getUserInfo(id) {
+    async getData(data) {
       try {
-        const res = await getAllInfo(id);
-        // console.log("getAllInfo :>> ", res);
+        const res = await getAllInfo(data);
+        console.log("getAllInfo :>> ", res);
         if (res && res.errcode == 0) {
           !res.data && this.$message("info", "用户不存在！");
           this.userInfo = res.data || {};
@@ -195,6 +199,7 @@ export default {
           this.$message("error", "获取用户信息失败！");
         }
       } catch (error) {
+        console.log("error", error);
         this.$message("error", error.errmsg || "获取用户信息失败！");
       }
     },
@@ -214,7 +219,9 @@ export default {
 </script>
 <style scoped>
 .container {
-  /* border: 1px solid blue; */
+  /* border: 3px solid blue; */
+  height: 100% !important;
+  height: calc(100vh - 140px);
   /* display: flex;
   flex-direction: column; */
   min-width: 1400px;
@@ -243,8 +250,8 @@ export default {
   position: relative;
   box-sizing: border-box;
   /* border: 3px solid orchid; */
-  padding: 0 0 120px 20px;
-  max-height: 740px;
+  padding: 0 0 100px 20px;
+  max-height: calc(100vh - 210px);
   flex: 1;
   color: rgba(0, 0, 0, 0.8);
   white-space: nowrap;

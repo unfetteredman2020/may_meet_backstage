@@ -1,6 +1,6 @@
 <template>
   <div class="serviceChange">
-    <el-table :data="list" border style="width: 100%" max-height="850">
+    <el-table :data="list" border style="width: 100%" >
       <el-table-column prop="id" label="流水号" width="100"></el-table-column>
       <el-table-column prop="dst_user" label="业务代码" width="190"></el-table-column>
       <el-table-column prop="product" label="属性名称" width="200"></el-table-column>

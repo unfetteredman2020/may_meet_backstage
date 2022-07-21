@@ -1,6 +1,6 @@
 <template>
   <div class="rechargeRecord">
-    <el-table :data="list" border style="width: 100%" max-height="850">
+    <el-table :data="list" border style="width: 100%" max-height="720">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" class="demo-table-expand">
@@ -25,34 +25,23 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column prop="id" label="流水号" width="100"> </el-table-column>
-      <el-table-column prop="dst_user" label="接收人【ID】" width="190">
-      </el-table-column>
-      <el-table-column prop="product" label="商品名称" width="200">
-      </el-table-column>
-      <el-table-column prop="content" label="内容"> </el-table-column>
-      <el-table-column prop="amount" label="扣费数量" width="100">
-      </el-table-column>
-      <el-table-column prop="cost_freegold" label="使用赠送金币" width="120">
-      </el-table-column>
-      <el-table-column prop="cost_gold" label="支付总金币" width="120">
-      </el-table-column>
-      <el-table-column prop="rebate" label="提成" width="120">
-      </el-table-column>
-      <el-table-column prop="inserttime" label="创建时间" width="120">
-      </el-table-column>
+      <el-table-column prop="id" label="流水号" width="100"></el-table-column>
+      <el-table-column prop="dst_user" label="接收人【ID】" width="190"></el-table-column>
+      <el-table-column prop="product" label="商品名称" width="200"></el-table-column>
+      <el-table-column prop="content" label="内容"></el-table-column>
+      <el-table-column prop="amount" label="扣费数量" width="100"></el-table-column>
+      <el-table-column prop="cost_freegold" label="使用赠送金币" width="120"></el-table-column>
+      <el-table-column prop="cost_gold" label="支付总金币" width="120"></el-table-column>
+      <el-table-column prop="rebate" label="提成" width="120"></el-table-column>
+      <el-table-column prop="inserttime" label="创建时间" width="120"></el-table-column>
     </el-table>
     <div class="rechargeFooter">
-      <span>充值总金额：<b>99999</b> 元</span>
-      <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
-    </el-pagination>
+      <span>
+        充值总金额：
+        <b>99999</b>
+        元
+      </span>
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400"></el-pagination>
     </div>
   </div>
 </template>
@@ -80,47 +69,19 @@ export default {
     handleClick(row) {
       // console.log(row);
     },
-    async geConsume() {
+    async getData(data) {
       try {
-        const { year, month, dayNumber, fullDate } = getDate();
-        let startTime = `${year}-${formateDate(month - 1)}-${formateDate(
-          dayNumber
-        )}`;
-        let endTiem = fullDate;
-        const res = await getConsumeRecord(
-          `userid=${10000}&starttime=${startTime}&endtime=${endTiem}`
-        );
+        const res = await getConsumeRecord(data);
+        console.log("getConsumeRecord res", res);
         if (res && res.errcode == 0) {
-         
-          let arr = []
-          for (let index = 0; index <20; index++) {
-           arr.push({
-              id: index,
-              type: index,
-              src_userid: 10000*index,
-              dst_user: index+"blow爆炸【10044】",
-              product: index+"一吻定情【13】",
-              productid: 13*index,
-              content: "",
-              amount: 1,
-              cost_freegold: 174*index,
-              cost_gold: 3170,
-              rebate: 111.559,
-              inserttime: "2022-05-31",
-              ostype: 1,
-              use_package_cnt: index,
-            })
-            
-          }
-          // this.list = res.data || [];
-          this.list = arr
+          this.list = res.data || [];
         } else {
-          this.$message('error', '获取充值记录失败');
+          this.$message("error", "获取充值记录失败");
         }
         // console.log("geConsume res :>> ", res);
       } catch (error) {
         // console.log("error :>> ", error);
-        this.$message('error',error.errmsg || '获取充值记录失败');
+        this.$message("error", error.errmsg || "获取充值记录失败");
       }
     },
     handleSizeChange(val) {
@@ -133,9 +94,7 @@ export default {
   //⽣命周期，创建完成（可以访问当前this实例）
   created() {},
   //⽣命周期，挂载完成（可以访问dom元素）
-  mounted() {
-    this.geConsume();
-  },
+  mounted() {},
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前
   beforeUpdate() {}, //⽣命周期 - 更新之后
@@ -146,7 +105,6 @@ export default {
 };
 </script>
 <style scoped>
-
 .rechargeFooter {
   display: flex;
   height: 53px;
