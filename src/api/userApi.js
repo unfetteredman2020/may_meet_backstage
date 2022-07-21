@@ -59,4 +59,11 @@ export const addReward = data => request.post('/yhgl/jcgl/shgl/wjjl', data)
 // 扣除奖励
 export const revokeReward = data => request.post('/yhgl/jcgl/shgl/cx', data)
 
+//退款管理列表
+export const refundManage = data => request.get(`/yhgl/tkgl`, {params: data || {}})
 
+// 退款审核
+export const refundAudit = data => request.post('/yhgl/tkgl/sh', data)
+
+// 创建退款
+export const createRefund = data => request.post('/yhgl/tkgl/cjtk', data)
