@@ -1,6 +1,6 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
-    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm"  ref="agentGuestRef">
+    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :rules="rules" :model="searchForm" ref="agentGuestRef">
       <el-form-item label="嘉宾ID" prop="guest_id">
         <el-input v-model="searchForm.guest_id" placeholder="嘉宾ID"></el-input>
       </el-form-item>
@@ -11,7 +11,7 @@
         <el-input v-model="searchForm.proxy_id" placeholder="代理人ID"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="onSubmit('agentGuestRef')">查询</el-button>
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
@@ -42,18 +42,27 @@ export default {
       searchForm: {
         guest_id: null,
         guest_name: null,
-        proxy_id: null
+        proxy_id: null,
       },
       BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`,
+      rules: {
+        proxy_id: [{ required: true, message: "请输入代理人ID" }],
+      },
     };
   },
   computed: {},
-  mounted() {
-  },
+  mounted() {},
   methods: {
-    onSubmit() {
-      let params = clearEmptyObj(this.searchForm);
-      this.getData(params);
+    onSubmit(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let params = clearEmptyObj(this.searchForm);
+          this.getData(params);
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
     set(user) {
       console.log("user", user);
@@ -100,7 +109,7 @@ export default {
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", error.errmsg ||  "获取数据失败，请稍后重试！");
+        this.$message("error", error.errmsg || "获取数据失败，请稍后重试！");
       }
     },
     resetForm() {

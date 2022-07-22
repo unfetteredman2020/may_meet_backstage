@@ -49,7 +49,7 @@
         </p>
         <p>
           <span>状态：</span>
-          <el-tag  :type="isLockAccount ? 'success' : 'danger'" effect="dark">
+          <el-tag :type="isLockAccount ? 'success' : 'danger'" effect="dark">
             {{ isLockAccount ? "正常" : "禁用" }}
           </el-tag>
         </p>
@@ -139,14 +139,14 @@
     </div>
     <footer v-if="userInfo.ID">
       <div class="footer">
-        <el-button  type="primary" @click="changeUserInfo">修改资料</el-button>
-        <el-button  type="primary" @click="changeRecommendTeam">修改推荐团队</el-button>
-        <el-button  type="primary" @click="changeGuestShare">修改嘉宾分成</el-button>
+        <el-button type="primary" @click="changeUserInfo">修改资料</el-button>
+        <el-button type="primary" @click="changeRecommendTeam">修改推荐团队</el-button>
+        <el-button type="primary" @click="changeGuestShare">修改嘉宾分成</el-button>
       </div>
     </footer>
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" class="userInfoDialog" width="700px" :close-on-click-modal="false">
       <!-- 修改资料 -->
-      <el-form v-if="changeUserInfoVisible" :model="changeUserInfoForm" :rules="changeUserInfoRules" ref="changeUserInfoForms" label-width="120px" class="demo-changeUserInfoForm" >
+      <el-form v-if="changeUserInfoVisible" :model="changeUserInfoForm" :rules="changeUserInfoRules" ref="changeUserInfoForms" label-width="120px" class="demo-changeUserInfoForm">
         <el-form-item label="用户昵称：" prop="nickname">
           <el-input v-model="changeUserInfoForm.nickname" auto-complete="false"></el-input>
         </el-form-item>
@@ -163,7 +163,7 @@
           <div class="imgList">
             <div class="imgItem" v-for="(item, index) in changeUserInfoForm.photo" :key="index">
               <i class="el-icon-circle-close delIcon" @click="del(index)"></i>
-              <el-image @click="setPreview(index)" :preview-src-list="previewList" style="width: 100px; height: 100px" :src="`${BASE_CDN_DOMAIN + item.filename}`" fit="fill"></el-image>
+              <el-image :preview-src-list="previewList" style="width: 100px; height: 100px" :src="`${BASE_CDN_DOMAIN + item.filename}`" fit="fill"></el-image>
             </div>
           </div>
         </el-form-item>
@@ -184,8 +184,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="close" >取 消</el-button>
-        <el-button type="primary" @click="submitChange" >确 定</el-button>
+        <el-button @click="close">取 消</el-button>
+        <el-button type="primary" @click="submitChange">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -197,7 +197,7 @@ import { isTimeOut } from "@/utils/date";
 
 export default {
   props: {},
-  inject: ['searchData'],
+  inject: ["searchData"],
   components: {},
   data() {
     return {
@@ -222,11 +222,12 @@ export default {
       guestShareForm: {
         memo: "",
       },
+      previewList: [],
     };
   },
   computed: {
     a() {
-      console.log('nl', this.searchData)
+      console.log("nl", this.searchData);
     },
     isLockAccount() {
       const { frozen } = this.userInfo;
@@ -237,8 +238,7 @@ export default {
       }
     },
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     changeGuestShare() {
       this.dialogTitle = "嘉宾分成";
@@ -255,6 +255,10 @@ export default {
         photo: fate_photo || [],
         default_face_img: system_face_flag.toString(),
       };
+      console.log("fate_photo", fate_photo);
+      let preview = fate_photo ? fate_photo.map((item) => `${this.BASE_CDN_DOMAIN}${item.filename}`) : [];
+      console.log("preview", preview);
+      this.previewList = preview;
       this.dialogTitle = "修改资料";
       this.changeUserInfoVisible = true;
       this.dialogVisible = true;
@@ -281,7 +285,7 @@ export default {
     },
     async getData(data) {
       try {
-        console.log('this.searchData', this.searchData)
+        console.log("this.searchData", this.searchData);
         const res = await getGuestAllInfo(this.searchData);
         console.log("getGuestAllInfo res", res);
         if (res && res.errcode == 0) {
@@ -375,10 +379,11 @@ export default {
 
 <style scoped>
 .box {
+  /* border: 1px solid red; */
   box-sizing: border-box;
   padding: 0 20px 0 0;
   background-color: #fff;
-  height: calc(887px - 50px - 85px);
+  height: calc(100vh - 70px - 120px);
   position: relative;
 }
 .box > div {
@@ -432,5 +437,23 @@ export default {
   line-height: 50px;
   padding-left: 20px;
   /* border: 1px solid blue; */
+}
+.imgList {
+  box-sizing: border-box;
+  padding: 10px 0;
+  /* border: 1px solid red; */
+  display: flex;
+  overflow-x: scroll;
+}
+.imgItem {
+  position: relative;
+  margin: 0 10px;
+}
+.delIcon {
+  position: absolute;
+  color: red;
+  font-size: 20px;
+  top: -9px;
+  right: -10px;
 }
 </style>

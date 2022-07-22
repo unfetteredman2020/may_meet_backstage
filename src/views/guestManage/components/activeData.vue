@@ -1,14 +1,14 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
-    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm"  ref="guestIncomeRef">
+    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm" ref="activeSearchForm">
       <el-form-item label="嘉宾ID：" prop="guest_id">
         <el-input v-model="searchForm.guest_id" placeholder="嘉宾ID"></el-input>
       </el-form-item>
-      <el-form-item label="时间：" prop="date">
-        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date"  type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+      <el-form-item label="时间：" prop="date" :rules="[{required: true, message: '请选择时间'}]">
+        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="onSubmit('activeSearchForm')">查询</el-button>
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
@@ -24,7 +24,7 @@
       <el-table-column label="今日已聊用户数" prop="今日已聊用户数"></el-table-column>
       <el-table-column label="今日是否被限制聊天" prop="今日是否被限制聊天">
         <template slot-scope="scope">
-          <el-tag  :type="isLockAccount(scope.row['今日是否被限制聊天']) ? 'success' : 'danger'" effect="dark">
+          <el-tag :type="isLockAccount(scope.row['今日是否被限制聊天']) ? 'success' : 'danger'" effect="dark">
             {{ isLockAccount(scope.row["今日是否被限制聊天"]) ? "正常" : "限制" }}
           </el-tag>
         </template>
@@ -53,8 +53,7 @@ export default {
     };
   },
   computed: {},
-  mounted() {
-  },
+  mounted() {},
   methods: {
     isLockAccount(userInfo) {
       const { frozen } = userInfo;
@@ -64,8 +63,15 @@ export default {
         return true;
       }
     },
-    onSubmit() {
-      this.getData(clearEmptyObj(this.searchForm));
+    onSubmit(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.getData(clearEmptyObj(this.searchForm));
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
     async getData(data = {}) {
       try {
@@ -85,7 +91,7 @@ export default {
       }
     },
     resetForm() {
-      this.$refs.guestIncomeRef.resetFields();
+      this.$refs.activeSearchForm.resetFields();
     },
   },
 };

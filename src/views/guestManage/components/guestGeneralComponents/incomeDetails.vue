@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       tableConfig: {
+        maxHeight: '870px',
         data: [],
         column: [
           { label: "业务流水号", value: "业务流水号" },

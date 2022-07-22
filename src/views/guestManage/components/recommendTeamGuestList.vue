@@ -1,6 +1,6 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
-    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm"  ref="recommendTeamGuestListRef">
+    <el-form style="background-color: #eee; padding: 10px 0 0" :rules="rules" :inline="true" :model="searchForm" ref="recommendTeamGuestListRef">
       <el-form-item label="嘉宾ID：" prop="guest_id">
         <el-input v-model="searchForm.guest_id" placeholder="嘉宾ID"></el-input>
       </el-form-item>
@@ -8,14 +8,14 @@
         <el-input v-model="searchForm.group_id" placeholder="嘉宾ID"></el-input>
       </el-form-item>
       <el-form-item label="时间：" prop="date">
-        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date"  type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="onSubmit('recommendTeamGuestListRef')">查询</el-button>
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
-    <el-table @expand-change="expandChange" :data="data" style="width: 100%" max-height="750px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
+    <el-table @expand-change="expandChange" :data="data" style="width: 100%" max-height="850px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
       <el-table-column label="创建时间" prop="创建时间"></el-table-column>
       <el-table-column label="代理人" prop="代理人"></el-table-column>
       <el-table-column label="代理分成" prop="代理分成"></el-table-column>
@@ -68,6 +68,9 @@ export default {
       },
       BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`,
       coverPreview: [],
+      rules: {
+        date: [{ required: true, message: "请选择时间" }],
+      },
     };
   },
   computed: {},
@@ -88,8 +91,15 @@ export default {
         return true;
       }
     },
-    onSubmit() {
-      this.getData(clearEmptyObj(this.searchForm));
+    onSubmit(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.getData(clearEmptyObj(this.searchForm));
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
     set(user) {
       console.log("user", user);
@@ -139,7 +149,7 @@ export default {
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", error.errmsg ||  "获取数据失败，请稍后重试！");
+        this.$message("error", error.errmsg || "获取数据失败，请稍后重试！");
       }
     },
     resetForm() {

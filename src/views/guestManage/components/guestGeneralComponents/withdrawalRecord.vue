@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="data" stripe style="width: 100%" max-height="750px" border :header-cell-style="{ background: '#f2f3f4', height: '35px', 'line-height': '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" class="customTableStyle"
+    <el-table :data="data" stripe style="width: 100%" max-height="880px" border :header-cell-style="{ background: '#f2f3f4', height: '35px', 'line-height': '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" class="customTableStyle"
       :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
       <el-table-column prop="我方订单号" label="我方订单号" width="100px"></el-table-column>
       <el-table-column prop="通道订单号" label="通道订单号" width="270px"></el-table-column>

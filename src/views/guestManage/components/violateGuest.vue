@@ -4,15 +4,15 @@
       <el-form-item label="用户ID：" prop="guest_id">
         <el-input v-model="searchForm.guest_id" placeholder="嘉宾ID"></el-input>
       </el-form-item>
-      <el-form-item label="时间：" prop="date">
+      <el-form-item label="时间：" prop="date" :rules="[{required: true, message: '请选择时间'}]">
         <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date"  type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="onSubmit('violateGuestRef')">查询</el-button>
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="data" style="width: 100%" max-height="750px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
+    <el-table :data="data" style="width: 100%" max-height="800px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
       <el-table-column label="记录id" prop="记录id"></el-table-column>
       <el-table-column label="用户昵称" prop="用户昵称"></el-table-column>
       <el-table-column label="用户头像" prop="faceimg">
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { getViolateGuest, setRecommendRole } from "@/api/guestApi.js";
+import { getViolateGuest } from "@/api/guestApi.js";
 import { clearEmptyObj } from "@/utils/formatData.js";
 
 export default {
@@ -57,8 +57,15 @@ export default {
   computed: {},
   mounted() {},
   methods: {
-    onSubmit() {
-      this.getData(clearEmptyObj(this.searchForm));
+    onSubmit(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.getData(clearEmptyObj(this.searchForm));
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
     async getData(data = {}) {
       try {

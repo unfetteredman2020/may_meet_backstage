@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="data" style="width: 100%" max-height="700px" border :header-cell-style="{ height: '20px', 'line-height': '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
+  <el-table :data="data" style="width: 100%" max-height="820px" border :header-cell-style="{ height: '20px', 'line-height': '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
     <el-table-column type="expand">
       <template slot-scope="props">
         <el-form label-position="left" class="demo-table-expand">

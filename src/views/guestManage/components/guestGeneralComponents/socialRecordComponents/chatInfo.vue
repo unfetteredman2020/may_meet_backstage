@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="data" style="width: 100%" max-height="700px" border :header-cell-style="{ height: '20px', 'line-height': '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
+    <el-table v-loading="loading" :data="data" style="width: 100%" max-height="820px" border :header-cell-style="{ height: '20px', 'line-height': '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
       <el-table-column label="创建时间" prop="创建时间"></el-table-column>
       <el-table-column label="关系ID" prop="关系ID"></el-table-column>
       <el-table-column label="发送方" prop="发送方"></el-table-column>
@@ -51,6 +51,7 @@ export default {
         "RC:HQVCMsg": "语音消息",
         "RC:ImgMsg": "图片消息",
       },
+      loading: false,
     };
   },
   computed: {},
@@ -66,6 +67,7 @@ export default {
     },
     async getData(data) {
       try {
+        this.loading = true;
         console.log("chatInfo", this.searchData);
         const { date, ...rs } = this.searchData;
         let params = rs;
@@ -73,15 +75,17 @@ export default {
         params.endtime = date[1];
         console.log("params", params);
         const res = await getChatInfo(params);
-        console.log("res", res);
+        console.log("getChatInfo res", res);
         if (res && res.errcode == 0) {
           this.data = res.data || [];
         } else {
           this.$message("error", res.errmsg || "获取数据失败，请稍后重试！");
         }
+        this.loading = false;
       } catch (error) {
         console.log("error", error);
-        this.$message("error", error.errmsg ||  "获取数据失败，请稍后重试！");
+        this.loading = false;
+        this.$message("error", error.errmsg || "获取数据失败，请稍后重试！");
       }
     },
   },

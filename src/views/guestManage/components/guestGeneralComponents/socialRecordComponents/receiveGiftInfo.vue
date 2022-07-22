@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="data" style="width: 100%" max-height="700px" border :header-cell-style="{ height: '20px', 'line-height': '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
+  <el-table :data="data" style="width: 100%" max-height="830px" border :header-cell-style="{ height: '20px', 'line-height': '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
     <el-table-column label="业务ID" prop="业务ID"></el-table-column>
     <el-table-column label="价值" prop="价值"></el-table-column>
     <el-table-column label="对方昵称" prop="对方昵称"></el-table-column>

@@ -20,7 +20,7 @@
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
-    <el-table @expand-change="expandChange" :data="data" style="width: 100%" max-height="750px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
+    <el-table @expand-change="expandChange" :data="data" style="width: 100%" max-height="930px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" class="demo-table-expand" style="margin: 0 20px; font-size: 12px">
@@ -85,7 +85,7 @@ export default {
       },
       BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`,
       options: [
-        { label: "普通用户", value: "0" },
+        // { label: "普通用户", value: "0" },
         { label: "嘉宾A", value: "100" },
         { label: "嘉宾B", value: "101" },
         { label: "嘉宾C", value: "102" },
