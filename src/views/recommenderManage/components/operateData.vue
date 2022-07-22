@@ -14,7 +14,7 @@
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="data" style="width: 100%" max-height="800px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
+    <el-table :data="data" style="width: 100%" max-height="850px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
       <el-table-column label="日期" prop="日期"></el-table-column>
       <el-table-column label="推荐团队id" prop="groupid"></el-table-column>
       <el-table-column label="其他收益" prop="其他收益"></el-table-column>

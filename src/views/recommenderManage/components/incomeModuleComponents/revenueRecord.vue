@@ -1,6 +1,6 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
-    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm"  ref="revenueRecordRef">
+    <el-form style="background-color: #eee; padding: 10px 0 0" :rules="rules" :inline="true" :model="searchForm" ref="revenueRecordRef">
       <el-form-item label="团队名称：" prop="group_name">
         <el-input v-model="searchForm.group_name" placeholder="团队名称"></el-input>
       </el-form-item>
@@ -8,14 +8,14 @@
         <el-input v-model="searchForm.group_id" placeholder="嘉宾ID"></el-input>
       </el-form-item>
       <el-form-item label="时间：" prop="date">
-        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date"  type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="onSubmit('revenueRecordRef')">查询</el-button>
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
-    <el-table @expand-change="expandChange" :data="data" style="width: 100%" max-height="750px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
+    <el-table @expand-change="expandChange" :data="data" style="width: 100%" max-height="800px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
       <el-table-column label="日期" prop="日期"></el-table-column>
       <el-table-column label="团队id" prop="团队id"></el-table-column>
       <el-table-column label="推荐人" prop="推荐人"></el-table-column>
@@ -23,7 +23,7 @@
       <el-table-column label="收益金额（元）" prop="收益金额"></el-table-column>
       <el-table-column label="结算状态" prop="结算状态">
         <template slot-scope="scope">
-          <el-tag  :type=" scope.row.结算状态 !== 0 ? 'success' : 'info'" effect="dark">
+          <el-tag :type="scope.row.结算状态 !== 0 ? 'success' : 'info'" effect="dark">
             {{ scope.row["结算状态"] == 0 ? "未结算" : "已结算" }}
           </el-tag>
         </template>
@@ -50,6 +50,9 @@ export default {
       },
       BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`,
       coverPreview: [],
+      rules: {
+        date: [{ required: true, message: "请选择时间" }],
+      },
     };
   },
   computed: {},
@@ -70,8 +73,15 @@ export default {
         return true;
       }
     },
-    onSubmit() {
-      this.getData(clearEmptyObj(this.searchForm));
+    onSubmit(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.getData(clearEmptyObj(this.searchForm));
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
     set(user) {
       console.log("user", user);
@@ -121,7 +131,7 @@ export default {
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", error.errmsg ||  "获取数据失败，请稍后重试！");
+        this.$message("error", error.errmsg || "获取数据失败，请稍后重试！");
       }
     },
     resetForm() {
