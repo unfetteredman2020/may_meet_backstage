@@ -8,16 +8,16 @@
     >
       <el-tab-pane name="moneyChange">
         <span slot="label"><i class="el-icon-money"></i>零钱异动</span>
-        <MoneyChange />
+        <MoneyChange ref="moneyChange"/>
       </el-tab-pane>
       <el-tab-pane name="propsChange">
         <span slot="label"><i class="el-icon-coin"></i>属性异动 </span>
-        <PropsChange />
+        <PropsChange ref="propsChange"/>
       </el-tab-pane>
-      <el-tab-pane name="serviceChange">
+      <!-- <el-tab-pane name="serviceChange">
         <span slot="label"><i class="el-icon-sold-out"></i>业务异动</span>
-        <ServiceChange />
-      </el-tab-pane>
+        <ServiceChange ref="ServiceChange"/>
+      </el-tab-pane> -->
     </el-tabs>
   </div>
 </template>
@@ -49,6 +49,9 @@ export default {
     handleClick(tab, event) {
       // console.log(tab, event);
     },
+    getData(data) {
+      this.$refs[this.activeName].getData(data)
+    }
   },
   //⽣命周期，创建完成（可以访问当前this实例）
   created() {},

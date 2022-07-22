@@ -1,20 +1,17 @@
 <template>
   <div class="moneyChange">
-    <div class="draggableItems" v-draggable>ceshi2</div>
-    <el-table :data="list" border style="width: 100%" max-height="650">
-      <el-table-column prop="id" label="流水号" width="100"></el-table-column>
-      <el-table-column prop="type" label="业务代码" width="190"></el-table-column>
-      <el-table-column prop="describe" label="属性名称" width="200"></el-table-column>
+    <!-- <div class="draggableItems" v-draggable>ceshi2</div> -->
+    <el-table :data="list" border style="width: 100%" max-height="780px">
+      <el-table-column prop="id" label="流水号"></el-table-column>
+      <el-table-column prop="type" label="业务代码" ></el-table-column>
+      <el-table-column prop="describe" label="属性名称" ></el-table-column>
       <el-table-column prop="old_amount" label="变化前"></el-table-column>
-      <el-table-column prop="new_amount" label="变化后" width="100"></el-table-column>
-      <el-table-column prop="src_userid" label="创建者" width="120"></el-table-column>
-      <el-table-column prop="inserttime" label="变化时间" width="120"></el-table-column>
+      <el-table-column prop="new_amount" label="变化后"></el-table-column>
+      <el-table-column prop="src_userid" label="创建者" ></el-table-column>
+      <el-table-column prop="inserttime" label="变化时间" ></el-table-column>
     </el-table>
     <div class="rechargeFooter">
       <span>
-        充值总金额：
-        <b>99999</b>
-        元
       </span>
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400"></el-pagination>
     </div>
@@ -48,12 +45,10 @@ export default {
     handleClick(row) {
       // console.log(row);
     },
-    async geConsume() {
+    async getData(data) {
       try {
-        const { year, month, dayNumber, fullDate } = getDate();
-        let startTime = `${year}-${formateDate(month - 1)}-${formateDate(dayNumber)}`;
-        let endTiem = fullDate;
-        const res = await getMoneyChange(`userid=${10000}&starttime=${startTime}&endtime=${endTiem}`);
+        const res = await getMoneyChange(data);
+        console.log('getMoneyChange res', res)
         if (res && res.errcode == 0) {
           this.list = res.data || [];
         } else {
@@ -61,7 +56,7 @@ export default {
         }
         // console.log("geConsume res :>> ", res);
       } catch (error) {
-        // console.log("error :>> ", error);
+        console.log("error :>> ", error);
         this.$message("error", error.errmsg || "获取充值记录失败");
       }
     },
@@ -76,7 +71,6 @@ export default {
   created() {},
   //⽣命周期，挂载完成（可以访问dom元素）
   mounted() {
-    this.geConsume();
   },
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前
@@ -90,9 +84,9 @@ export default {
 <style scoped>
 .moneyChange {
   position: relative;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 100%;
-  height: 100px;
+  /* height: 100px; */
 }
 .draggableItems {
   z-index: 1000;

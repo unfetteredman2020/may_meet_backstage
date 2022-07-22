@@ -47,13 +47,13 @@
           </span>
           <AbnormalRecord ref="abnormalRecord" />
         </el-tab-pane>
-        <el-tab-pane name="logRecord">
+        <!-- <el-tab-pane name="logRecord">
           <span slot="label">
             <i class="el-icon-notebook-1"></i>
             日志记录
           </span>
           <LogRecord ref="logRecord" />
-        </el-tab-pane>
+        </el-tab-pane> -->
       </el-tabs>
     </div>
   </div>

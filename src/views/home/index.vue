@@ -23,6 +23,9 @@
             </div>
             <i class="el-icon-s-platform customIcon" slot="reference"></i>
           </el-popover>
+          <el-tooltip class="item" effect="dark" :content="fullscreen ? '退出全屏' : '全屏'" placement="top-start">
+            <i :class="[fullscreen ? 'el-icon-copy-document' : 'el-icon-full-screen']" class="customIcon" @click="fullScreen"></i>
+          </el-tooltip>
         </div>
       </el-header>
       <el-main class="homeMain"><router-view></router-view></el-main>
@@ -77,6 +80,7 @@ export default {
         },
       ],
       avatar: "https://cdn.keyuchat.com/config/app/head_male.png",
+      fullscreen: false,
     };
   },
   //监控data中的数据变化
@@ -87,7 +91,7 @@ export default {
     fixPath() {
       let path = this.$route.path.split("/")[1];
       console.log("abc", path);
-      return '/'+path;
+      return "/" + path;
     },
   },
   //⽅法集合
@@ -100,12 +104,60 @@ export default {
       this.$store.dispatch("logout");
       this.$router.push("/login");
     },
+    fullScreen() {
+      let element = document.documentElement;
+      if (this.fullscreen) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitCancelFullScreen) {
+          document.webkitCancelFullScreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      } else {
+        if (element.requestFullscreen) {
+          element.requestFullscreen();
+        } else if (element.webkitRequestFullScreen) {
+          element.webkitRequestFullScreen();
+        } else if (element.mozRequestFullScreen) {
+          element.mozRequestFullScreen();
+        } else if (element.msRequestFullscreen) {
+          element.msRequestFullscreen();
+        }
+      }
+      this.fullscreen = !this.fullscreen;
+    },
   },
   //⽣命周期，创建完成（可以访问当前this实例）
   created() {},
+  beforeUpdate() {},
   //⽣命周期，挂载完成（可以访问dom元素）
   mounted() {
     console.log("$route.path", this.$route);
+    // window.addEventListener("fullscreenchange", (e) => {
+    //   // 监听到屏幕变化，在回调中判断是否已退出全屏
+    //   console.log("监听全屏变化：", e);
+    //   let isFull = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+    //   console.log("全屏吗：", isFull);
+    //   this.fullscreen = isFull ? true : false;
+    // });
+    window.onresize = function () {
+      var isFull1 = document.fullscreenEnabled || window.fullScreen || document.webkitIsFullScreen || document.msFullscreenEnabled;
+      console.log("isFull1", isFull1);
+      // console.log('document', document)
+      let isFull = document.fullscreenEnabled || document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || null;
+      let isFull2= document.fullscreenElement
+      console.log('isFull2', isFull2)
+      console.log("isFull", isFull);
+      if (isFull) {
+        console.log("进入全屏");
+      } else {
+        // TODO...
+        console.log("退出全屏");
+      }
+    };
   },
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前

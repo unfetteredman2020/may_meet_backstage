@@ -16,13 +16,16 @@ export const getRechargeRecord = data => request.get(`/yhgl/zhgl/czjl`, { params
 export const getConsumeRecord = data => request.get(`/yhgl/zhgl/xfjl`, { params: data || {} })
 
 //获取-零钱异动
-export const getMoneyChange = data => request.get(`/yhgl/zhgl/xfjl?${data}`)
+export const getMoneyChange = data => request.get(`/yhgl/zhgl/ydjl/lqyd`, { params: data || {} })
 
 //获取-属性异动
-export const getPropsChange = data => request.get(`/yhgl/zhgl/ydjl/sxyd?${data}`)
+export const getPropsChange = data => request.get(`/yhgl/zhgl/ydjl/sxyd`, { params: data || {} })
 
 //获取-全部提现审核状态
-export const getAllAuditList = data => request.get(`/yhgl/txsh?${data}`)
+export const getAllAuditList = data => request.get(`/yhgl/txsh`, { params: data || {} })
+
+// 批量审核
+export const withdrawalAudit = data => request.post('/yhgl/txsh/sh', data)
 
 // 修改资料
 export const changeUserInfo = data => request.post('/yhgl/zhgl/zhxx/xgzl', data)

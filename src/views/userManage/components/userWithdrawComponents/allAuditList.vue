@@ -2,33 +2,33 @@
   <div class="userGeneral">
     <div class="seatch">
       <el-form :rules="rules" :inline="true" :model="searchForm" class="userGeneralForm" ref="auditSearchForm">
-        <el-form-item label-width="80px" inline-message required label="用户ID" prop="id">
-          <el-input  v-model="searchForm.id" placeholder="用户ID"></el-input>
+        <el-form-item inline-message label="用户ID" prop="userid">
+          <el-input v-model="searchForm.userid" placeholder="用户ID"></el-input>
         </el-form-item>
-        <el-form-item label-width="50px" label="时间">
-          <el-date-picker  v-model="selectTime" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-form-item label="时间" prop="date">
+          <el-date-picker value-format="yyyy-MM-dd" v-model="searchForm.date" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
         </el-form-item>
-        <el-form-item label-width="120px" label="提现状态" prop="withdrawalStatus">
-          <el-select  v-model="searchForm.withdrawalStatus" placeholder="提现状态">
+        <el-form-item label="提现状态" prop="status">
+          <el-select v-model="searchForm.status" placeholder="提现状态">
             <el-option v-for="item in withdrawalOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            <!-- <el-option label="区域二" value="beijing"></el-option> -->
           </el-select>
         </el-form-item>
-        <el-form-item label-width="80px" label="订单号" prop="SerialNumber">
-          <el-input  v-model="searchForm.SerialNumber" placeholder="订单号"></el-input>
+        <el-form-item label="订单号" prop="tradeno">
+          <el-input v-model="searchForm.tradeno" placeholder="订单号"></el-input>
         </el-form-item>
-
-        <el-form-item style="margin: 0 20px">
-          <el-button class="el-icon-search" type="primary" @click="onSubmit" >搜索</el-button>
-          <el-button class="el-icon-refresh-left"  @click="resetForm('auditSearchForm')">重置</el-button>
+        <el-form-item style="margin: 0 10px">
+          <el-button class="el-icon-search" type="primary" @click="onSubmit('auditSearchForm')">搜索</el-button>
+          <el-button class="el-icon-refresh-left" @click="resetForm('auditSearchForm')">重置</el-button>
         </el-form-item>
       </el-form>
+      <el-button class="el-icon-s-check" type="primary" @click="edit">批量审核</el-button>
     </div>
+
     <div class="settingBox">
-      <el-table :data="list" border style="width: 100%" max-height="668px">
+      <el-table :data="list" border style="width: 100%" max-height="885px">
         <el-table-column type="expand">
           <template slot-scope="props">
-            <el-form label-position="left" class="demo-table-expand">
+            <el-form style="margin: 0 0 0 50px" label-position="left" class="demo-table-expand">
               <el-form-item label="打款账号ID：">
                 <span>{{ props.row.outbankno }}</span>
               </el-form-item>
@@ -51,33 +51,72 @@
           </template>
         </el-table-column>
         <el-table-column prop="trade_no" label="订单号" width="150"></el-table-column>
-        <el-table-column prop="nickname" label="用户昵称" width="120"></el-table-column>
-        <el-table-column prop="oldscore" label="现有零钱" width="120"></el-table-column>
-        <el-table-column prop="amount" label="提现金额" width="120"></el-table-column>
+        <el-table-column prop="nickname" label="用户昵称"></el-table-column>
+        <el-table-column prop="oldscore" label="现有零钱"></el-table-column>
+        <el-table-column prop="type" label="打款方式">
+          <template slot-scope="scope">
+            <el-tag effect="dark" :type="paymment[scope.row.type][1]">
+              {{ paymment[scope.row["type"]][0] }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="amount" label="提现金额"></el-table-column>
         <el-table-column prop="month" label="本月提现" width="300"></el-table-column>
-        <el-table-column prop="lastmonth" label="上月提现" width="120"></el-table-column>
-        <el-table-column prop="all" label="历史提现" width="120"></el-table-column>
-        <el-table-column prop="status" label="提现状态" width="120"></el-table-column>
-        <el-table-column prop="updatetime" label="状态时间" width="120"></el-table-column>
-        <el-table-column prop="type" label="打款方式" width="120"></el-table-column>
-        <el-table-column prop="type" label="提现用户类型" width="120"></el-table-column>
-        <el-table-column prop="inserttime" label="提现时间" width="120"></el-table-column>
+        <el-table-column prop="lastmonth" label="上月提现"></el-table-column>
+        <el-table-column prop="all" label="历史提现"></el-table-column>
+        <el-table-column prop="status" label="提现状态">
+          <template slot-scope="scope">
+            <el-tag effect="dark" :type="withdrawalStatus[scope.row.status][1]">
+              {{ withdrawalStatus[scope.row["status"]][0] }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="updatetime" label="状态时间"></el-table-column>
+
+        <el-table-column prop="level" label="提现用户类型"></el-table-column>
+        <el-table-column prop="inserttime" label="提现时间"></el-table-column>
+        <el-table-column fixed="right" label="操作" width="50">
+          <template slot-scope="scope">
+            <i class="el-icon-s-check checkIcon" @click="edit(scope.row)" type="primary"></i>
+          </template>
+        </el-table-column>
       </el-table>
-      <div class="rechargeFooter">
-        <span>
-          充值总金额：
-          <b>99999</b>
-          元
-        </span>
-        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="100" layout="prev, pager, next, jumper" :total="1000"></el-pagination>
+      <div class="rechargeFooter" v-if="false">
+        <span></span>
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="100" layout="prev, pager, next, jumper" :total="total"></el-pagination>
       </div>
     </div>
+
+    <el-dialog title="审核" :visible="checkDialogFormVisible">
+      <el-form :model="checkForm" ref="checkFormRef" :rules="rules" label-position="right">
+        <el-form-item label="审核状态：" prop="result" label-width="100px">
+          <el-select v-model="checkForm.result" placeholder="请选择审核状态" style="width: 300px">
+            <el-option label="拒绝" value="0"></el-option>
+            <el-option label="通过" value="1"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="审核人：" prop="type" label-width="100px">
+          <el-select v-model="checkForm.type" placeholder="请选审核人" style="width: 300px">
+            <el-option label="预审" value="0"></el-option>
+            <el-option label="副总审核" value="1"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="备注：" prop="memo" label-width="100px">
+          <el-input type="textarea" style="width: 300px" v-model="checkForm.memo" placeholder="请输入备注"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer" >
+        <el-button @click="resetForm('checkFormRef')">取 消</el-button>
+        <el-button type="primary" @click="onSubmit('checkFormRef')">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getAllAuditList } from "@/api/userApi.js";
-import { getDate, formateDate } from "@/utils/date.js";
+import { getAllAuditList, withdrawalAudit } from "@/api/userApi.js";
+import { clearEmptyObj } from "@/utils/formatData.js";
+
 export default {
   components: {},
   props: {},
@@ -86,14 +125,27 @@ export default {
     return {
       list: [],
       currentPage: 1,
+      total: 0,
       activeName: "abnormalRecord",
+      editItem: null,
+      checkForm: {
+        type: null,
+        result: null,
+        memo: null,
+      },
       selectTime: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
       searchForm: {
-        id: "",
-        SerialNumber: "",
+        userid: "10000",
+        date: ["2021-01-01", "2022-08-01"],
+        status: null,
+        tradeno: "",
       },
       rules: {
-        id: [{ required: true, message: "请输入用户ID", trigger: "blur" }],
+        type: [{ required: true, message: "请选审核人" }],
+        result: [{ required: true, message: "请选择审核状态" }],
+        memo: [{ required: true, message: "请输入备注" }],
+        // userid: [{ required: true, message: "请输入用户ID" }],
+        date: [{ required: true, message: "请选择日期" }],
       },
       withdrawalOptions: [
         { label: "等待一审", value: "1" },
@@ -106,6 +158,22 @@ export default {
         { label: "二审拒绝", value: "8" },
         { label: "订单被冻结", value: "9" },
       ],
+      checkDialogFormVisible: false,
+      //提现状态
+      withdrawalStatus: {
+        0: ["审核中", ""],
+        1: ["成功", "success"],
+        2: ["失败", "danger"],
+        3: ["审核失败", "warning"],
+        4: ["未知状态", "info"],
+        8: ["未知状态", "info"],
+      },
+      // 打款方式
+      paymment: {
+        0: ["银行", ""],
+        1: ["微信", "success"],
+        2: ["支付宝", "warning"],
+      },
     };
   },
   //监控data中的数据变化
@@ -114,23 +182,52 @@ export default {
   computed: {},
   //⽅法集合
   methods: {
-    onSubmit() {
-      this.$refs["auditSearchForm"].validate((valid) => {
-        if (valid) {
-          alert("submit!");
+    edit(item) {
+      console.log("item", item);
+      this.editItem = item;
+      this.checkDialogFormVisible = true;
+    },
+    async withdrawalAudit() {
+      try {
+        let params = { ...this.checkForm };
+        params.tradeno = this.editItem.trade_no;
+        const res = await withdrawalAudit(params);
+        console.log("withdrawalAudit res :>> ", res);
+        if (res && res.errcode == 0) {
+          this.$message("success", "修改审核状态成功！");
+          this.resetForm("checkFormRef");
         } else {
-          // console.log("error submit!!");
+          this.$message("error", res.errmsg || "修改审核状态失败！");
+        }
+      } catch (error) {
+        console.log("error :>> ", error);
+        this.$message("error", error.errmsg || "修改审核状态失败！");
+      }
+    },
+    onSubmit(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          switch (formName) {
+            case "auditSearchForm":
+              this.getData();
+              break;
+            case "checkFormRef":
+              this.withdrawalAudit();
+              break;
+          }
+        } else {
           return false;
         }
       });
     },
-    async getAll() {
+    async getData() {
       try {
-        const { year, month, dayNumber, fullDate } = getDate();
-        let startTime = `${year}-${formateDate(month - 1)}-${formateDate(dayNumber)}`;
-        let endTiem = fullDate;
-        const res = await getAllAuditList(`userid=${10000}&starttime=${startTime}&endtime=${endTiem}`);
-        // console.log("getAllAuditList res :>> ", res);
+        const { date, ...rs } = this.searchForm;
+        console.log("this.searchForm", this.searchForm);
+        let params = clearEmptyObj(rs);
+        date && ((params.starttime = date[0]), (params.endtime = date[1]));
+        const res = await getAllAuditList(params);
+        console.log("getAllAuditList res :>> ", res);
         if (res && res.errcode == 0) {
           this.list = res.data || [];
         } else {
@@ -148,6 +245,7 @@ export default {
       // console.log(`当前页: ${val}`);
     },
     resetForm(formName) {
+      this.checkDialogFormVisible = false;
       this.$refs[formName].resetFields();
     },
   },
@@ -165,6 +263,10 @@ export default {
 };
 </script>
 <style scoped>
+.checkIcon {
+  font-size: 18px;
+  color: #d1289c;
+}
 .userGeneral {
   box-sizing: border-box;
   /* border: 1px solid red; */
@@ -180,14 +282,13 @@ export default {
   background-color: #f2f2f2;
 }
 .settingBox {
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
   /* margin: 8px 0 0 0; */
-  height: calc(100vh - 256px);
   /* border: 1px solid blue; */
   background-color: #ffffff;
 }
 .userGeneralForm {
-  height: 100px;
+  /* height: 100px; */
 }
 
 .rechargeFooter {

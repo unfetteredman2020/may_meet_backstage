@@ -1,6 +1,6 @@
 <template>
   <div class="rechargeRecord">
-    <el-table :data="list" border style="width: 100%" max-height="720">
+    <el-table :data="list" border style="width: 100%" max-height="850px">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" class="demo-table-expand" style="margin: 0 0 0 50px">
@@ -37,7 +37,7 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column prop="trade_no" label="订单号" width="150"></el-table-column>
+      <el-table-column prop="trade_no" label="订单号" width="280"></el-table-column>
       <el-table-column prop="status" label="支付状态" width="120">
         <template slot-scope="scope">
           <span>{{ payStatus[scope.row["status"]] }}</span>
@@ -48,20 +48,20 @@
           <span>{{ payWays[scope.row["paytype"]] }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="userid" label="充值人ID" width="120"></el-table-column>
-      <el-table-column prop="dst_userid" label="充值对象ID" width="300"></el-table-column>
-      <el-table-column prop="addgold" label="充值金额" width="120"></el-table-column>
-      <el-table-column prop="total" label="获得总金币" width="120"></el-table-column>
-      <el-table-column prop="channel" label="充值渠道" width="120"></el-table-column>
-      <el-table-column prop="inserttime" label="充值时间" width="120"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="100">
+      <el-table-column prop="userid" label="充值人ID"></el-table-column>
+      <el-table-column prop="dst_userid" label="充值对象ID" ></el-table-column>
+      <el-table-column prop="addgold" label="充值金额"></el-table-column>
+      <el-table-column prop="total" label="获得总金币"></el-table-column>
+      <el-table-column prop="channel" label="充值渠道"></el-table-column>
+      <el-table-column prop="inserttime" label="充值时间"></el-table-column>
+      <!-- <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
           <el-button type="text" size="small">编辑</el-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
-    <div class="rechargeFooter">
+    <div class="rechargeFooter" v-if="false">
       <span></span>
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="100" layout="prev, pager, next, jumper" :total="1000"></el-pagination>
     </div>
@@ -130,7 +130,6 @@ export default {
   created() {},
   //⽣命周期，挂载完成（可以访问dom元素）
   mounted() {
-    this.getData();
   },
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前

@@ -1,46 +1,43 @@
 <template>
   <div class="rechargeRecord">
-    <el-table :data="list" border style="width: 100%" max-height="720">
+    <el-table :data="list" border max-height="850" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
       <el-table-column type="expand">
         <template slot-scope="props">
-          <el-form label-position="left" class="demo-table-expand">
+          <el-form label-position="left" class="demo-table-expand" style="margin: 0 20px 0 50px">
             <el-form-item label="流水号">
               <span>{{ props.row.id }}</span>
             </el-form-item>
             <el-form-item label="内容">
               <span>{{ props.row.content }}</span>
             </el-form-item>
-            <el-form-item label="实际付款">
-              <span>{{ props.row.amount }}</span>
-            </el-form-item>
             <el-form-item label="客户端类型">
-              <span>{{ props.row.ostype }}</span>
+              <span>{{ props.row.ostype == 1 ? "安卓" : "苹果" }}</span>
             </el-form-item>
             <el-form-item label="使用背包数">
               <span>{{ props.row.use_package_cnt }}</span>
             </el-form-item>
             <el-form-item label="提成用户">
-              <span>{{ props.row.outtimestamp }}</span>
+              <span>{{ props.row.userid }}</span>
+            </el-form-item>
+            <el-form-item label="消费类型">
+              <span>{{ props.row.msgtype }}</span>
             </el-form-item>
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column prop="id" label="流水号" width="100"></el-table-column>
+      <el-table-column prop="id" label="流水号" ></el-table-column>
+      <!-- <el-table-column prop="userid" label="提成用户" width="100"></el-table-column> -->
       <el-table-column prop="dst_user" label="接收人【ID】" width="190"></el-table-column>
-      <el-table-column prop="product" label="商品名称" width="200"></el-table-column>
-      <el-table-column prop="content" label="内容"></el-table-column>
-      <el-table-column prop="amount" label="扣费数量" width="100"></el-table-column>
-      <el-table-column prop="cost_freegold" label="使用赠送金币" width="120"></el-table-column>
-      <el-table-column prop="cost_gold" label="支付总金币" width="120"></el-table-column>
-      <el-table-column prop="rebate" label="提成" width="120"></el-table-column>
-      <el-table-column prop="inserttime" label="创建时间" width="120"></el-table-column>
+      <el-table-column prop="propname" label="商品名称" ></el-table-column>
+      <el-table-column prop="propid" label="商品id" ></el-table-column>
+      <el-table-column prop="amount" label="扣费数量" ></el-table-column>
+      <el-table-column prop="freegold" label="使用赠送金币"></el-table-column>
+      <el-table-column prop="gold" label="支付总金币"></el-table-column>
+      <el-table-column prop="rebate" label="提成"></el-table-column>
+      <el-table-column prop="inserttime" label="创建时间"></el-table-column>
     </el-table>
-    <div class="rechargeFooter">
-      <span>
-        充值总金额：
-        <b>99999</b>
-        元
-      </span>
+    <div class="rechargeFooter" v-if="false">
+      <span></span>
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400"></el-pagination>
     </div>
   </div>
@@ -48,7 +45,7 @@
 
 <script>
 import { getConsumeRecord } from "@/api/userApi.js";
-import { getDate, formateDate } from "@/utils/date.js";
+// import { getDate, formateDate } from "@/util  s/date.js";
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
   components: {},
@@ -58,6 +55,7 @@ export default {
     return {
       currentPage: 1,
       list: [],
+      loading: false,
     };
   },
   //监控data中的数据变化
@@ -71,6 +69,7 @@ export default {
     },
     async getData(data) {
       try {
+        this.loading = true;
         const res = await getConsumeRecord(data);
         console.log("getConsumeRecord res", res);
         if (res && res.errcode == 0) {
@@ -78,9 +77,11 @@ export default {
         } else {
           this.$message("error", "获取充值记录失败");
         }
+        this.loading = false;
         // console.log("geConsume res :>> ", res);
       } catch (error) {
         // console.log("error :>> ", error);
+        this.loading = false;
         this.$message("error", error.errmsg || "获取充值记录失败");
       }
     },
