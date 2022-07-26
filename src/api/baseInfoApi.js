@@ -13,3 +13,9 @@ export const getJumpPagePath = ()=> request.get('/baseinfo/get_topage_list')
 
 //获取礼物列表
 export const getGiftList = ()=> request.get('/baseinfo/get_gift_list')
+
+//获取部门列表
+export const getDepartmentList = ()=> request.get('/baseinfo/get_section_list')
+
+//获取角色列表
+export const getRoleList = ()=> request.get('/baseinfo/get_role_list')

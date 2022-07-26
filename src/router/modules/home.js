@@ -264,6 +264,25 @@ export default [
         meta: {
           title: '系统管理'
         },
+        children: [
+          {
+            path: "roleManagement",
+            name: "roleManagement",
+            component: () => import(/* webpackChunkName: 'home/systemSetting/roleManagement' */ '@/views/systemSetting/components/roleManagement.vue'),
+            meta: {
+              title: '角色管理'
+            },
+          },
+          {
+            path: "backstageAccountManage",
+            name: "backstageAccountManage",
+            component: () => import(/* webpackChunkName: 'home/systemSetting/backstageAccountManage' */ '@/views/systemSetting/components/backstageAccountManage.vue'),
+            meta: {
+              title: '后台账号管理'
+            },
+          },
+          { path: '', redirect: 'roleManagement' }
+        ]
       },
       { path: '', redirect: '/userManage' }
     ]

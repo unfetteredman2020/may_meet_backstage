@@ -1,9 +1,10 @@
 // import Vue from 'vue';
 
-import {Upload, Popconfirm, Pagination, Dialog, Menu, Submenu, MenuItem, MenuItemGroup, Input, InputNumber, Checkbox, CheckboxButton, CheckboxGroup, Select, Option, Button, ButtonGroup, Table, TableColumn, DatePicker, Popover, Tooltip, Form, FormItem, Tabs, TabPane, Tag, Alert, Icon, Card, Transfer, Container, Header, Aside, Main, Footer, Image, PageHeader, CascaderPanel, Loading, MessageBox, Message, Notification, Avatar, Result, Descriptions, DescriptionsItem } from "element-ui";
+import { Tree, Upload, Popconfirm, Pagination, Dialog, Menu, Submenu, MenuItem, MenuItemGroup, Input, InputNumber, Checkbox, CheckboxButton, CheckboxGroup, Select, Option, Button, ButtonGroup, Table, TableColumn, DatePicker, Popover, Tooltip, Form, FormItem, Tabs, TabPane, Tag, Alert, Icon, Card, Transfer, Container, Header, Aside, Main, Footer, Image, PageHeader, CascaderPanel, Loading, MessageBox, Message, Notification, Avatar, Result, Descriptions, DescriptionsItem } from "element-ui";
 
 const element = {
   install: (Vue) => {
+    Vue.use(Tree);
     Vue.use(Upload);
     Vue.use(Popconfirm);
     Vue.use(Descriptions);
