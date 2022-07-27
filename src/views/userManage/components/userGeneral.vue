@@ -2,8 +2,8 @@
   <div class="userGeneral">
     <div class="seatch">
       <el-form :rules="rules" :inline="true" :model="searchForm" class="userGeneralForm" ref="searchForm">
-        <el-form-item label="可遇ID" prop="userid">
-          <el-input  v-model="searchForm.userid" placeholder="可遇ID"></el-input>
+        <el-form-item label="誓聊ID" prop="userid">
+          <el-input  v-model="searchForm.userid" placeholder="誓聊ID"></el-input>
         </el-form-item>
         <el-form-item label="流水号" prop="tradeno">
           <el-input  v-model="searchForm.tradeno" placeholder="流水号"></el-input>
@@ -91,7 +91,7 @@ export default {
         tradeno: "",
       },
       rules: {
-        userid: [{ required: true, message: "请输入可遇ID" }],
+        userid: [{ required: true, message: "请输入誓聊ID" }],
       },
     };
   },

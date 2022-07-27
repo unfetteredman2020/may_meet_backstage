@@ -22,6 +22,7 @@
 
 <script>
 import MenuTree from "@/components/menuTree.vue";
+import { SYSTEMSETTING } from "@/config/menuConfig.js";
 
 export default {
   components: { MenuTree: MenuTree },
@@ -29,18 +30,20 @@ export default {
   data() {
     //这⾥存放数据
     return {
-      leftMenuList: [
-        {
-          name: "角色管理",
-          path: "/systemSetting/roleManagement",
-          icon: "el-icon-user-solid",
-        },
-        {
-          name: "后台账号管理",
-          icon: "el-icon-s-help",
-          path: "/systemSetting/backstageAccountManage",
-        },
-      ],
+      leftMenuList: SYSTEMSETTING,
+
+      // leftMenuList: [
+      //   {
+      //     name: "角色管理",
+      //     path: "/systemSetting/roleManagement",
+      //     icon: "el-icon-user-solid",
+      //   },
+      //   {
+      //     name: "后台账号管理",
+      //     icon: "el-icon-s-help",
+      //     path: "/systemSetting/backstageAccountManage",
+      //   },
+      // ],
     };
   },
   watch: {},

@@ -6,12 +6,14 @@ import '@/style/css/theme.scss'
 import store from '@/store/index.js'
 import JsonExcel from "vue-json-excel";
 import Fragment from 'vue-fragment'
+import permission from '@/directive/hasPermission'
 
 Vue.use(element);
 Vue.use(Fragment.Plugin)
 Vue.prototype.$eventBus = new Vue()
 Vue.component("downloadExcel", JsonExcel);
 Vue.config.productionTip = false;
+Vue.directive('permission', permission)
 
 new Vue({
   router,

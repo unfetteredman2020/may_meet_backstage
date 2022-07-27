@@ -1,9 +1,9 @@
-import types from '@/store/type.js'
-const { SET_TOKEN, SET_USERINFO } = types
+import { SET_TOKEN, SET_USERINFO }  from '@/store/type.js'
+
 export default {
   [SET_TOKEN](state, params) {
-    state.userToken = params.userToken
-    localStorage.setItem('userToken', params.userToken)
+    state.userSign = params.userSign
+    localStorage.setItem('userSign', params.userSign)
   },
   [SET_USERINFO](state, params) {
     state.userInfo = params.userInfo

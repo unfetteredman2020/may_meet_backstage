@@ -63,7 +63,8 @@ api.interceptors.request.use(
         //     }
         // }
 
-        request.headers['sign'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEwMDAwLCJhZG1pbmlkIjoxMDAwMDAsInNpZCI6IjIyMTM1MjE4NzVCMTQ2MDVBQkI5QUE2RERFNjU3NTM5IiwiaWF0IjoxNjU3NTA4NTkyfQ.9MSCXPNN3Hyd5rVFv79Lm7lbt7LI-7J2yzDDeg-605A'
+        request.headers['sign'] = 
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEwMDAwLCJhZG1pbmlkIjoxMDAwMDAsInNpZCI6IkY2NjlGOTk5OUMwMTQ1RUM5QjhCNkI4NjRFQ0FFOTVDIiwiaWF0IjoxNjU4ODAxODA2fQ.-OuRbLRSHnoVPejmZ-72dyTjSuVM2jBZaeaaRpnjj5U'
         return request
     }
 )

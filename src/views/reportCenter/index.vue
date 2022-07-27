@@ -25,6 +25,8 @@
 
 <script>
 const MenuTree = ()=> import("@/components/menuTree.vue");
+import { REPORTCENTER } from "@/config/menuConfig.js";
+
 // 经营模块
 const sumTableOfPlatformOperation = ()=> import("./components/jingyingModuleComponents/sumTableOfPlatformOperation.vue");
 const firstPayUser = ()=> import("./components/jingyingModuleComponents/firstPayUser.vue");
@@ -116,203 +118,204 @@ export default {
       emptyImg: require("../../assets/empty.png"),
       tabsValue: "",
       editableTabs: [],
-      leftMenuList: [
-        {
-          name: "经营模块",
-          path: "/reportCenter/jingying",
-          icon: "el-icon-odometer",
-          children: [
-            {
-              name: "平台经营数据总表",
-              icon: "el-icon-odometer",
-              path: "/jingying/sumTableOfPlatformOperation",
-            },
-            {
-              name: "首次付费用户留存",
-              icon: "el-icon-odometer",
-              path: "/jingying/firstPayUser",
-            },
-            {
-              name: "新增付费用户留存",
-              icon: "el-icon-odometer",
-              path: "/jingying/newPayUser",
-            },
-            {
-              name: "头条 安卓新增付费用户",
-              icon: "el-icon-odometer",
-              path: "/jingying/headlinesAndroidNewPayUser",
-            },
-            {
-              name: "快手 安卓新增付费用户",
-              icon: "el-icon-odometer",
-              path: "/jingying/kwaiAndroidNewPayUser",
-            },
-            {
-              name: "IOS 新增付费用户",
-              icon: "el-icon-odometer",
-              path: "/jingying/iosNewPayUser",
-            },
-            {
-              name: "近3日业务数据对比",
-              icon: "el-icon-odometer",
-              path: "/jingying/thridDayBusinessCompare",
-            },
-            {
-              name: "年龄段每日数据",
-              icon: "el-icon-odometer",
-              path: "/jingying/ageDailyCompare",
-            },
-            {
-              name: "每日付费统计",
-              icon: "el-icon-odometer",
-              path: "/jingying/dailyPayStatistic",
-            },
-            {
-              name: "业务看板",
-              icon: "el-icon-odometer",
-              path: "/jingying/businessBoard",
-            },
-            {
-              name: "平台活跃每日数据",
-              icon: "el-icon-odometer",
-              path: "/jingying/platformActiveDaysData",
-            },
-            {
-              name: "总览看板",
-              icon: "el-icon-odometer",
-              path: "/jingying/allBoard",
-            },
-          ],
-        },
-        {
-          name: "运营模块",
-          icon: "el-icon-odometer",
-          path: "/reportCenter/yunying",
-          children: [
-            {
-              name: "各时段注册数",
-              icon: "el-icon-odometer",
-              path: "/yunying/registCount",
-            },
-            {
-              name: "每日活跃用户统计",
-              icon: "el-icon-odometer",
-              path: "/yunying/dayActiveUserStatistics",
-            },
-            {
-              name: "注册用户留存率",
-              icon: "el-icon-odometer",
-              path: "/yunying/registRetention",
-            },
-            {
-              name: "注册男用户留存率",
-              icon: "el-icon-odometer",
-              path: "/yunying/manRegistRetention",
-            },
-            {
-              name: "嘉宾留存率",
-              icon: "el-icon-odometer",
-              path: "/yunying/guestRetention",
-            },
-            {
-              name: "付费用户留存率",
-              icon: "el-icon-odometer",
-              path: "/yunying/payUserRetention",
-            },
+      leftMenuList: REPORTCENTER,
+      // leftMenuList: [
+      //   {
+      //     name: "经营模块",
+      //     path: "/reportCenter/jingying",
+      //     icon: "el-icon-odometer",
+      //     children: [
+      //       {
+      //         name: "平台经营数据总表",
+      //         icon: "el-icon-odometer",
+      //         path: "/jingying/sumTableOfPlatformOperation",
+      //       },
+      //       {
+      //         name: "首次付费用户留存",
+      //         icon: "el-icon-odometer",
+      //         path: "/jingying/firstPayUser",
+      //       },
+      //       {
+      //         name: "新增付费用户留存",
+      //         icon: "el-icon-odometer",
+      //         path: "/jingying/newPayUser",
+      //       },
+      //       {
+      //         name: "头条 安卓新增付费用户",
+      //         icon: "el-icon-odometer",
+      //         path: "/jingying/headlinesAndroidNewPayUser",
+      //       },
+      //       {
+      //         name: "快手 安卓新增付费用户",
+      //         icon: "el-icon-odometer",
+      //         path: "/jingying/kwaiAndroidNewPayUser",
+      //       },
+      //       {
+      //         name: "IOS 新增付费用户",
+      //         icon: "el-icon-odometer",
+      //         path: "/jingying/iosNewPayUser",
+      //       },
+      //       {
+      //         name: "近3日业务数据对比",
+      //         icon: "el-icon-odometer",
+      //         path: "/jingying/thridDayBusinessCompare",
+      //       },
+      //       {
+      //         name: "年龄段每日数据",
+      //         icon: "el-icon-odometer",
+      //         path: "/jingying/ageDailyCompare",
+      //       },
+      //       {
+      //         name: "每日付费统计",
+      //         icon: "el-icon-odometer",
+      //         path: "/jingying/dailyPayStatistic",
+      //       },
+      //       {
+      //         name: "业务看板",
+      //         icon: "el-icon-odometer",
+      //         path: "/jingying/businessBoard",
+      //       },
+      //       {
+      //         name: "平台活跃每日数据",
+      //         icon: "el-icon-odometer",
+      //         path: "/jingying/platformActiveDaysData",
+      //       },
+      //       {
+      //         name: "总览看板",
+      //         icon: "el-icon-odometer",
+      //         path: "/jingying/allBoard",
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     name: "运营模块",
+      //     icon: "el-icon-odometer",
+      //     path: "/reportCenter/yunying",
+      //     children: [
+      //       {
+      //         name: "各时段注册数",
+      //         icon: "el-icon-odometer",
+      //         path: "/yunying/registCount",
+      //       },
+      //       {
+      //         name: "每日活跃用户统计",
+      //         icon: "el-icon-odometer",
+      //         path: "/yunying/dayActiveUserStatistics",
+      //       },
+      //       {
+      //         name: "注册用户留存率",
+      //         icon: "el-icon-odometer",
+      //         path: "/yunying/registRetention",
+      //       },
+      //       {
+      //         name: "注册男用户留存率",
+      //         icon: "el-icon-odometer",
+      //         path: "/yunying/manRegistRetention",
+      //       },
+      //       {
+      //         name: "嘉宾留存率",
+      //         icon: "el-icon-odometer",
+      //         path: "/yunying/guestRetention",
+      //       },
+      //       {
+      //         name: "付费用户留存率",
+      //         icon: "el-icon-odometer",
+      //         path: "/yunying/payUserRetention",
+      //       },
 
-            {
-              name: "注册用户登录方式",
-              icon: "el-icon-odometer",
-              path: "/yunying/registMode",
-            },
-          ],
-        },
-        {
-          name: "渠道模块",
-          icon: "el-icon-set-up",
-          path: "/reportCenter/channel",
-          children: [
-            {
-              name: "推广数据报表",
-              icon: "el-icon-set-up",
-              path: "/channel/promotionReport",
-            },
-            {
-              name: "每日渠道数据总表",
-              icon: "el-icon-set-up",
-              path: "/channel/dailyChannelDataSum",
-            },
-            {
-              name: "雅思助手激活统计",
-              icon: "el-icon-set-up",
-              path: "/channel/IELTSAssistantActiveCount",
-            },
-            {
-              name: "用户聊天情况",
-              icon: "el-icon-set-up",
-              path: "/channel/userChatState",
-            },
-            {
-              name: "每日渠道消耗排名",
-              icon: "el-icon-set-up",
-              path: "/channel/dailyChannelConsumRanking",
-            },
-          ],
-        },
-        {
-          name: "产品模块",
-          icon: "el-icon-set-up",
-          path: "/reportCenter/product",
-          children: [
-            {
-              name: "视频、语音通话视频",
-              icon: "el-icon-odometer",
-              path: "/product/voiceAndVideoCallData",
-            },
-            {
-              name: "男用户任务完成情况",
-              icon: "el-icon-odometer",
-              path: "/product/manTaskCompletion",
-            },
-            {
-              name: "动态每日统计表",
-              icon: "el-icon-odometer",
-              path: "/product/dynamicDailyStatistics",
-            },
+      //       {
+      //         name: "注册用户登录方式",
+      //         icon: "el-icon-odometer",
+      //         path: "/yunying/registMode",
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     name: "渠道模块",
+      //     icon: "el-icon-set-up",
+      //     path: "/reportCenter/channel",
+      //     children: [
+      //       {
+      //         name: "推广数据报表",
+      //         icon: "el-icon-set-up",
+      //         path: "/channel/promotionReport",
+      //       },
+      //       {
+      //         name: "每日渠道数据总表",
+      //         icon: "el-icon-set-up",
+      //         path: "/channel/dailyChannelDataSum",
+      //       },
+      //       {
+      //         name: "雅思助手激活统计",
+      //         icon: "el-icon-set-up",
+      //         path: "/channel/IELTSAssistantActiveCount",
+      //       },
+      //       {
+      //         name: "用户聊天情况",
+      //         icon: "el-icon-set-up",
+      //         path: "/channel/userChatState",
+      //       },
+      //       {
+      //         name: "每日渠道消耗排名",
+      //         icon: "el-icon-set-up",
+      //         path: "/channel/dailyChannelConsumRanking",
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     name: "产品模块",
+      //     icon: "el-icon-set-up",
+      //     path: "/reportCenter/product",
+      //     children: [
+      //       {
+      //         name: "视频、语音通话视频",
+      //         icon: "el-icon-odometer",
+      //         path: "/product/voiceAndVideoCallData",
+      //       },
+      //       {
+      //         name: "男用户任务完成情况",
+      //         icon: "el-icon-odometer",
+      //         path: "/product/manTaskCompletion",
+      //       },
+      //       {
+      //         name: "动态每日统计表",
+      //         icon: "el-icon-odometer",
+      //         path: "/product/dynamicDailyStatistics",
+      //       },
 
-            {
-              name: "女用户任务完成情况",
-              icon: "el-icon-odometer",
-              path: "/product/womanTaskCompletion",
-            },
-            {
-              name: "实名、真人认证数据",
-              icon: "el-icon-odometer",
-              path: "/product/realNameAuthenticationData",
-            },
-            // {
-            //   name: "视频匹配",
-            //   icon: "el-icon-odometer",
-            //   path: "/product/videoMatching",
-            // },
-            {
-              name: "视频专区接通情况",
-              icon: "el-icon-odometer",
-              path: "/product/videoConnectionData",
-            },
-            {
-              name: "每日金币数据",
-              icon: "el-icon-odometer",
-              path: "/product/dailyGoldData",
-            },
-            {
-              name: "每日赠送金币数据",
-              icon: "el-icon-odometer",
-              path: "/product/dailyGiveGoldData",
-            },
-          ],
-        },
-      ],
+      //       {
+      //         name: "女用户任务完成情况",
+      //         icon: "el-icon-odometer",
+      //         path: "/product/womanTaskCompletion",
+      //       },
+      //       {
+      //         name: "实名、真人认证数据",
+      //         icon: "el-icon-odometer",
+      //         path: "/product/realNameAuthenticationData",
+      //       },
+      //       // {
+      //       //   name: "视频匹配",
+      //       //   icon: "el-icon-odometer",
+      //       //   path: "/product/videoMatching",
+      //       // },
+      //       {
+      //         name: "视频专区接通情况",
+      //         icon: "el-icon-odometer",
+      //         path: "/product/videoConnectionData",
+      //       },
+      //       {
+      //         name: "每日金币数据",
+      //         icon: "el-icon-odometer",
+      //         path: "/product/dailyGoldData",
+      //       },
+      //       {
+      //         name: "每日赠送金币数据",
+      //         icon: "el-icon-odometer",
+      //         path: "/product/dailyGiveGoldData",
+      //       },
+      //     ],
+      //   },
+      // ],
     };
   },
   //监控data中的数据变化

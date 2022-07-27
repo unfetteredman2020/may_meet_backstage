@@ -6,6 +6,7 @@
 // const TerserPlugin = require('terser-webpack-plugin') // 去掉console  
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin')   // 分离css
 // const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')  // 压缩css
+// const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack');
 const devConfig = require('./webpack.dev.config')
 const proConfig = require('./webpack.pro.config')
@@ -30,10 +31,11 @@ module.exports = {
     //   'Access-Control-Allow-Origin': '*',
     // }
   },
-  configureWebpack:()=> {
-    if(isProduction) {
+  configureWebpack: (config) => {
+    console.log('config', config)
+    if (isProduction) {
       return proConfig
-    }else {
+    } else {
       return devConfig
     }
   }

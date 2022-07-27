@@ -2,37 +2,17 @@
   <div class="loginBox">
     <div class="centerBox">
       <div class="pannel">
-        <p>可遇交友</p>
+        <p>誓聊交友</p>
         <p>CONTENT MANAGEMENT SYSTEM</p>
-        <el-form
-          :model="loginForm"
-          status-icon
-          :rules="rules"
-          ref="loginForm"
-          class="loginForm"
-        >
+        <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" class="loginForm">
           <el-form-item prop="userid">
-            <el-input
-              placeholder="请输入用户ID"
-              v-model="loginForm.userid"
-              autocomplete="off"
-              maxlength="20"
-            ></el-input>
+            <el-input placeholder="请输入用户ID" v-model="loginForm.userid" autocomplete="off" maxlength="20"></el-input>
           </el-form-item>
           <el-form-item prop="pwd">
-            <el-input
-              type="password"
-              placeholder="请输入密码"
-              v-model="loginForm.pwd"
-              autocomplete="off"
-              maxlength="20"
-              show-password
-            ></el-input>
+            <el-input type="password" placeholder="请输入密码" v-model="loginForm.pwd" autocomplete="off" maxlength="20" show-password></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button class="btn" @click="submitForm('loginForm')"
-              >提交</el-button
-            >
+            <el-button class="btn" @click="submitForm('loginForm')">提交</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -42,11 +22,11 @@
 </template>
 
 <script>
-import { login, signLogin } from "@/api/userApi.js";
-import { getMd5 } from "@/utils/md5";
-import { mapMutations } from 'vuex'
-import types from '@/store/type.js'
-const { SET_TOKEN, SET_USERINFO } = types
+// import { login, signLogin } from "@/api/userApi.js";
+// import { getMd5 } from "@/utils/md5";
+import { mapMutations } from "vuex";
+// import types from "@/store/type.js";
+// const { SET_TOKEN, SET_USERINFO } = types;
 
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
@@ -56,14 +36,11 @@ export default {
     //这⾥存放数据
     return {
       loginForm: {
-        userid: "",
-        pwd: "",
+        userid: "100005",
+        pwd: "123456",
       },
       rules: {
-        userid: [
-          { required: true, message: "用户ID不能为空" },
-          //  { validator: validatePass, trigger: "blur" },
-        ],
+        userid: [{ required: true, message: "用户ID不能为空" }],
         pwd: [{ required: true, message: "密码不能为空" }],
       },
     };
@@ -74,6 +51,7 @@ export default {
   computed: {},
   //⽅法集合
   methods: {
+    ...mapMutations(["login"]),
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -86,24 +64,13 @@ export default {
     },
     async submit() {
       try {
-        // let user = Object.assign({...this.loginForm}, { pwd: getMd5(this.loginForm.pwd)})
-         let user = Object.assign({...this.loginForm}, { pwd:'e10adc3949ba59abbe56e057f20f883e'})
-        // console.log('user :>> ', user);
-        // const res = await login(user);
-        const res = await signLogin()
-        // console.log("signLogin res :>> ", res);
-        if(res && res.errcode === 0) {
-          localStorage.setItem('storeUserInfo', JSON.stringify(res.data))
-          // console.log('this.$store', SET_USERINFO)
-          this.$store.commit(SET_USERINFO, { userInfo: res.data })
-          // localStorage.setItem('userSing', res.data.sign)
-          this.$message('success', '登录成功')
-          this.$router.push('/')
-        }else {
-           this.$message( 'error', res.errmsg)
-        }
+        await this.$store.dispatch("login", this.loginForm);
+        this.$message("success", "登录成功");
+        this.$nextTick(()=> {
+          this.$router.push("/");
+        })
       } catch (error) {
-        // console.log("signLogin error :>> ", error);
+        this.$message("error", error.errmsg || "登录失败，请检查账号和密码");
       }
     },
   },

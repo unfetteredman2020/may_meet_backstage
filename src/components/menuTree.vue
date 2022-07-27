@@ -1,14 +1,14 @@
 <template>
   <fragment>
     <template v-for="(menu) in menuData">
-      <el-submenu :key="menu.path" :index="menu.path" v-if="menu.children">
+      <el-submenu :key="menu.path" :index="menu.path" v-if="menu.children" >
         <template slot="title">
           <i :class="menu.icon"></i>
           <span slot="title">{{ menu.name }}</span>
         </template>
         <MenuTree :menuData="menu.children"></MenuTree>
       </el-submenu>
-      <el-menu-item :key="menu.path" :index="menu.path" v-else>
+      <el-menu-item :key="menu.path" :index="menu.path" v-else >
         <i :class="menu.icon"></i>
         <span slot="title">{{ menu.name }}</span>
       </el-menu-item>
@@ -17,13 +17,16 @@
 </template>
 
 <script>
-//这⾥可以引⼊其他⽂件（⽐如组件，⼯具js，第三⽅插件js，json⽂件，图⽚⽂件等等）
-//列如：import <<组件名称>> from '《组件路径》';
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
   name: "MenuTree",
   components: {},
-  props: ["menuData"],
+  props: {
+    menuData: {
+      type: Array,
+      default: ()=> []
+    }
+  },
   data() {
     //这⾥存放数据
     return {};

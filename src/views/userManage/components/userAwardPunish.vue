@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-form  :inline="true" :rules="rules" :model="formInline" class="guestGeneralForm"  ref="userAwardPunishSearchRef">
-      <el-form-item label="可遇ID：" prop="userid">
-        <el-input v-model="formInline.userid" placeholder="可遇ID"></el-input>
+      <el-form-item label="誓聊ID：" prop="userid">
+        <el-input v-model="formInline.userid" placeholder="誓聊ID"></el-input>
       </el-form-item>
       <el-form-item label="流水号：" prop="id">
         <el-input v-model="formInline.id" placeholder="流水号"></el-input>
@@ -69,7 +69,7 @@ export default {
       ],
       activeName: "rewardRecord",
       rules: {
-        userid: [{required: true, message: '请输入可遇ID'}],
+        userid: [{required: true, message: '请输入誓聊ID'}],
         date: [{required: true, message: '请选择筛选时间'}],
       }
     };

@@ -15,6 +15,7 @@
 
 <script>
 import MenuTree from "@/components/menuTree.vue";
+import { PRODUCTCONFIG } from "@/config/menuConfig.js";
 
 export default {
   components: { MenuTree: MenuTree },
@@ -22,19 +23,20 @@ export default {
   data() {
     //这⾥存放数据
     return {
-      leftMenuList: [
-        {
-          name: "运营消息",
-          path: "/productConfig/operateInfo",
-          icon: "el-icon-s-marketing",
-        },
-        {
-          name: "弹窗配置",
-          icon: "el-icon-thumb",
-          path: "/productConfig/popupConfig",
-        },
-        
-      ],
+      leftMenuList: PRODUCTCONFIG,
+      // leftMenuList: [
+      //   {
+      //     name: "运营消息",
+      //     path: "/productConfig/operateInfo",
+      //     icon: "el-icon-s-marketing",
+      //   },
+      //   {
+      //     name: "弹窗配置",
+      //     icon: "el-icon-thumb",
+      //     path: "/productConfig/popupConfig",
+      //   },
+
+      // ],
     };
   },
   //监控data中的数据变化

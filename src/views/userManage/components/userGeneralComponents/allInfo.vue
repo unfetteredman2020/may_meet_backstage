@@ -10,7 +10,7 @@
           </div>
           <div class="right">
             <div>
-              <span>可遇ID：{{ userInfo.userid }}</span>
+              <span>誓聊ID：{{ userInfo.userid }}</span>
               <span>昵称：{{ userInfo.nickname }}</span>
             </div>
             <div>

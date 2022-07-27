@@ -7,9 +7,20 @@ const TerserPlugin = require('terser-webpack-plugin') // 去掉console
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')   // 分离css
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')  // 压缩css
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");// 导入速度分析插件
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const os = require('os');
 const threadLoader = require('thread-loader');
 const smp = new SpeedMeasurePlugin();
+
+let script = [
+  'https://cdn.bootcss.com/vue/2.6.14/vue.min.js',
+  'https://unpkg.com/element-ui/lib/index.js',
+  'https://cdn.bootcss.com/vue-router/3.2.0/vue-router.min.js',
+  'https://cdn.bootcss.com/vuex/3.6.2/vuex.min.js',
+  'https://cdn.bootcss.com/axios/0.27.2/axios.min.js',
+  'https://www.promisejs.org/polyfills/promise-6.1.0.js',
+  'https://gosspublic.alicdn.com/aliyun-oss-sdk-6.17.1.min.js'
+]
 
 console.log('os.cpus().length', os.cpus().length)
 const jsWorkerPool = {
@@ -52,6 +63,7 @@ module.exports = smp.wrap({
     library: 'webpackNumbers',
     // export 的 library 的规范，有支持 var, this, commonjs,commonjs2,amd,umd
     libraryTarget: 'umd',
+    clean: true
   },
   devtool: 'cheap-module-source-map',
   externals: {
@@ -70,28 +82,28 @@ module.exports = smp.wrap({
   },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'thread-loader',
-            options: jsWorkerPool
-          },
-          'babel-loader'
-        ]
-      },
-      {
-        test: /\.s?css$/,
-        // exclude: /node_modules/,
-        use: [
-          {
-            loader: 'thread-loader',
-            options: cssWorkerPool
-          },
+      // {
+      //   test: /\.js$/,
+      //   exclude: /node_modules/,
+      //   use: [
+      //     {
+      //       loader: 'thread-loader',
+      //       options: jsWorkerPool
+      //     },
+      //     'babel-loader'
+      //   ]
+      // },
+      // {
+      //   test: /\.s?css$/,
+      //   // exclude: /node_modules/,
+      //   use: [
+      //     {
+      //       loader: 'thread-loader',
+      //       options: cssWorkerPool
+      //     },
 
-        ]
-      }
+      //   ]
+      // }
     ],
   },
   resolve: {
@@ -113,7 +125,23 @@ module.exports = smp.wrap({
       chunkFilename: 'css/[name]_[contenthash:3].css'
     }),
     new BundleAnalyzerPlugin(),
-    //     // 使用 ParallelUglifyPlugin 并行压缩输出JS代码
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, './public/index.html'), //'模板所在目录',
+      title: '誓聊后台', //'生成的HTML文档的标题',
+      filename: 'index2.html', //'输出的html文件名',
+      // inject:'', // 'true |'head'|'body'|false将assets注入template或templateContent', 
+      // favicon:'', // '将给定的图标路径添加到输出html',
+      // minify:'', // '{...} | false传递html-minifier选项对象来缩小输出',
+      // hash:'', // 'true | false如果true然后在所有包含的脚本和CSS文件中附加一个唯一的webpack编译哈希。这对于缓存清除非常有用',
+      // cache:'', // 'true | falseif true（默认）只有在更改文件时才尝试发出文件。',
+      // showErrors: '', //'true | false如果true（默认）错误的详细信息将被写入HTML页面',
+      // chunks:'', // '允许添加的chunk',
+      // chunksSortMode:'', // '允许控制如何将批处理包含在html之前进行排序。允许的值：'none'| 'auto'| '依赖'| {function} - 默认值：'auto'',
+      // excludeChunks:'', // '允许您跳过一些chunk',
+      // xhtml：, //"true | false如果true将link标签渲染为自动关闭，则符合XHTML。默认是false"
+      script
+    }),
+    //使用 ParallelUglifyPlugin 并行压缩输出JS代码
     new ParallelUglifyPlugin({
       // 传递给 UglifyJS的参数如下：
       test: /.js$/g,
@@ -197,7 +225,7 @@ module.exports = smp.wrap({
         commons: {
           name: 'chunk-commons',
           test: path.resolve('src/components'), // can customize your rules
-          minChunks: 3, //  minimum common number
+          minChunks: 20, //  minimum common number
           priority: 5,
           reuseExistingChunk: true
         }

@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-form :inline="true" :model="formInline" class="guestGeneralForm"  ref="guestSearchRef">
-      <el-form-item label="可遇ID：" prop="userid" :rules="[{ required: true, message: 'ID不能为空' }]">
-        <el-input v-model="formInline.userid" placeholder="可遇ID"></el-input>
+      <el-form-item label="誓聊ID：" prop="userid" :rules="[{ required: true, message: 'ID不能为空' }]">
+        <el-input v-model="formInline.userid" placeholder="誓聊ID"></el-input>
       </el-form-item>
       <el-form-item label="流水号：">
         <el-input v-model="formInline.id" placeholder="流水号"></el-input>

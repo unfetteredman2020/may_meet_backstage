@@ -15,6 +15,7 @@
 
 <script>
 import MenuTree from "@/components/menuTree.vue";
+import { CHANNELMANAGE } from "@/config/menuConfig.js";
 
 export default {
   components: { MenuTree: MenuTree },
@@ -22,14 +23,15 @@ export default {
   data() {
     //这⾥存放数据
     return {
-      leftMenuList: [
-        {
-          name: "渠道列表",
-          path: "/channelManage/channelList",
-          icon: "el-icon-s-marketing",
-        }
-        
-      ],
+      leftMenuList: CHANNELMANAGE,
+      // leftMenuList: [
+      //   {
+      //     name: "渠道列表",
+      //     path: "/channelManage/channelList",
+      //     icon: "el-icon-s-marketing",
+      //   }
+
+      // ],
     };
   },
   //监控data中的数据变化

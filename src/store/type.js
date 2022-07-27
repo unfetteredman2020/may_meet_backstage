@@ -1,4 +1,5 @@
-export default {
-  SET_TOKEN: 'set_token',
-  SET_USERINFO: 'set_userInfo'
+module.exports = {
+  SET_SIGN: 'set_sign',
+  SET_USERINFO: 'set_userInfo',
+  LOGIN: 'login'
 }

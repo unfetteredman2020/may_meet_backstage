@@ -2,17 +2,8 @@
   <div>
     <el-container>
       <el-aside width="180px">
-        <el-menu
-          :default-active="$route.path"
-          class="el-menu-vertical-demo userManageMenu"
-          @open="handleOpen"
-          @close="handleClose"
-          background-color="#000"
-          text-color="#999999"
-          active-text-color="#fff"
-          @select="handleSelect"
-        >
-          <MenuTree :menuData="leftMenuList"/>
+        <el-menu :default-active="$route.path" class="el-menu-vertical-demo userManageMenu" @open="handleOpen" @close="handleClose" background-color="#000" text-color="#999999" active-text-color="#fff" @select="handleSelect">
+          <MenuTree :menuData="leftMenuList" />
         </el-menu>
       </el-aside>
       <el-main class="userManageMain">
@@ -23,54 +14,42 @@
 </template>
 
 <script>
-import MenuTree from '@/components/menuTree.vue'
+import MenuTree from "@/components/menuTree.vue";
+import { USERMANAGE } from "@/config/menuConfig.js";
+console.log("USERMANAGE", USERMANAGE);
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
-  components: { MenuTree: MenuTree},
+  components: { MenuTree: MenuTree },
   props: {},
   data() {
     //这⾥存放数据
     return {
-      leftMenuList: [
-        {
-          name: "综合管理",
-          path: "/userManage/userGeneral",
-          icon: "el-icon-menu",
-          // children: [
-          //   {
-          //     name: "综合管理1",
-          //     icon: "el-icon-menu",
-          //     path: "/userManage/userGeneral1",
-          //     children: [
-          //       {
-          //         name: "综合管理2",
-          //         icon: "el-icon-menu",
-          //         path: "/userManage/userGeneral2",
-          //         children: [],
-          //       },
-          //     ],
-          //   },
-          // ],
-        },
-        {
-          name: "提现审核",
-          icon: "el-icon-s-check",
-          path: "/userManage/user_withdraw",
-          // children: [],
-        },
-        {
-          name: "奖惩管理",
-          icon: "el-icon-s-order",
-          path: "/userManage/userAwardPunish",
-          // children: [],
-        },
-        {
-          name: "退款管理",
-          icon: "el-icon-remove",
-          path: "/userManage/userRefund",
-          // children: [],
-        },
-      ],
+      leftMenuList: USERMANAGE,
+      // leftMenuList: [
+      //   {
+      //     name: "综合管理",
+      //     path: "/userManage/userGeneral",
+      //     icon: "el-icon-menu",
+      //   },
+      //   {
+      //     name: "提现审核",
+      //     icon: "el-icon-s-check",
+      //     path: "/userManage/user_withdraw",
+      //     // children: [],
+      //   },
+      //   {
+      //     name: "奖惩管理",
+      //     icon: "el-icon-s-order",
+      //     path: "/userManage/userAwardPunish",
+      //     // children: [],
+      //   },
+      //   {
+      //     name: "退款管理",
+      //     icon: "el-icon-remove",
+      //     path: "/userManage/userRefund",
+      //     // children: [],
+      //   },
+      // ],
     };
   },
   //监控data中的数据变化
@@ -81,7 +60,7 @@ export default {
   methods: {
     handleSelect(key, keyPath) {
       // console.log(key, keyPath);
-      this.$router.push(key)
+      this.$router.push(key);
     },
     handleOpen(key, keyPath) {
       // console.log(key, keyPath);
@@ -94,7 +73,7 @@ export default {
   created() {},
   //⽣命周期，挂载完成（可以访问dom元素）
   mounted() {
-    console.log('this.', this.$route.path)
+    console.log("this.", this.$route.path);
   },
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前

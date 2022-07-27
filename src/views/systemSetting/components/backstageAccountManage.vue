@@ -270,6 +270,12 @@ export default {
     },
     async getData(data = {}) {
       try {
+        let arr = []
+        for (let index = 1; index < 314; index++) {
+          arr.push(index)
+          
+        }
+        console.log('arr', arr)
         const res = await getBackStageAccountManage(data);
         console.log("getBackStageAccountManage res", res);
         if (res && res.errcode == 0) {

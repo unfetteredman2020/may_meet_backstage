@@ -15,6 +15,8 @@
 
 <script>
 import MenuTree from "@/components/menuTree.vue";
+import { GUESTMANAGE } from "@/config/menuConfig.js";
+
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
   components: { MenuTree: MenuTree },
@@ -22,73 +24,68 @@ export default {
   data() {
     //这⾥存放数据
     return {
-      leftMenuList: [
-        {
-          name: "综合管理",
-          path: "/guestManage/guestGeneral",
-          icon: "el-icon-menu",
-        },
-        {
-          name: "女用户列表",
-          icon: "el-icon-female",
-          path: "/guestManage/listOfWomen",
-          // children: [],
-        },
-        // {
-        //   name: "概览",
-        //   icon: "el-icon-s-marketing",
-        //   path: "/guestManage/overview",
-        //   // children: [],
-        // },
-        {
-          name: "代理人列表",
-          icon: "el-icon-user",
-          path: "/guestManage/listOfAgents",
-          // children: [],
-        },
-        {
-          name: "代理人嘉宾",
-          icon: "el-icon-s-custom",
-          path: "/guestManage/agentGuest",
-          // children: [],
-        },
-        {
-          name: "代理收益",
-          icon: "el-icon-coin",
-          path: "/guestManage/agencyIncome",
-          // children: [],
-        },
-        {
-          name: "推荐团队嘉宾列表",
-          icon: "el-icon-news",
-          path: "/guestManage/recommendTeamGuestList",
-          // children: [],
-        },
-        {
-          name: "嘉宾收益",
-          icon: "el-icon-money",
-          path: "/guestManage/guestIncome",
-          // children: [],
-        },
-        {
-          name: "活跃数据",
-          icon: "el-icon-s-data",
-          path: "/guestManage/activeData",
-          // children: [],
-        },
-        {
-          name: "转账管理",
-          icon: "el-icon-s-operation",
-          path: "/guestManage/transferManagement",
-          // children: [],
-        },
-        {
-          name: "违规嘉宾",
-          icon: "el-icon-warning-outline",
-          path: "/guestManage/violateGuest",
-          // children: [],
-        },
-      ],
+      leftMenuList: GUESTMANAGE,
+      // leftMenuList: [
+      //   {
+      //     name: "综合管理",
+      //     path: "/guestManage/guestGeneral",
+      //     icon: "el-icon-menu",
+      //   },
+      //   {
+      //     name: "女用户列表",
+      //     icon: "el-icon-female",
+      //     path: "/guestManage/listOfWomen",
+      //     // children: [],
+      //   },
+      //   {
+      //     name: "代理人列表",
+      //     icon: "el-icon-user",
+      //     path: "/guestManage/listOfAgents",
+      //     // children: [],
+      //   },
+      //   {
+      //     name: "代理人嘉宾",
+      //     icon: "el-icon-s-custom",
+      //     path: "/guestManage/agentGuest",
+      //     // children: [],
+      //   },
+      //   {
+      //     name: "代理收益",
+      //     icon: "el-icon-coin",
+      //     path: "/guestManage/agencyIncome",
+      //     // children: [],
+      //   },
+      //   {
+      //     name: "推荐团队嘉宾列表",
+      //     icon: "el-icon-news",
+      //     path: "/guestManage/recommendTeamGuestList",
+      //     // children: [],
+      //   },
+      //   {
+      //     name: "嘉宾收益",
+      //     icon: "el-icon-money",
+      //     path: "/guestManage/guestIncome",
+      //     // children: [],
+      //   },
+      //   {
+      //     name: "活跃数据",
+      //     icon: "el-icon-s-data",
+      //     path: "/guestManage/activeData",
+      //     // children: [],
+      //   },
+      //   {
+      //     name: "转账管理",
+      //     icon: "el-icon-s-operation",
+      //     path: "/guestManage/transferManagement",
+      //     // children: [],
+      //   },
+      //   {
+      //     name: "违规嘉宾",
+      //     icon: "el-icon-warning-outline",
+      //     path: "/guestManage/violateGuest",
+      //     // children: [],
+      //   },
+      // ],
     };
   },
   //监控data中的数据变化

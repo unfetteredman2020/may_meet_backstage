@@ -1,7 +1,7 @@
 import request from './request'
 
 // 用户登录
-export const login = data => request.post('/login_by_userid', data)
+export const login = data => request.post('/logon/login_by_userid', data)
 
 // 用户登录
 export const signLogin = () => request.post('/logon/login_by_sign')

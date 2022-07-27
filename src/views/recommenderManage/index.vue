@@ -15,6 +15,7 @@
 
 <script>
 import MenuTree from "@/components/menuTree.vue";
+import { RECOMMENDMANAGE } from "@/config/menuConfig.js";
 
 export default {
   components: { MenuTree: MenuTree },
@@ -22,30 +23,31 @@ export default {
   data() {
     //这⾥存放数据
     return {
-      leftMenuList: [
-        {
-          name: "推荐人列表",
-          path: "/recommenderManage/recommendList",
-          icon: "el-icon-s-custom",
-        },
-        {
-          name: "推荐团队收益",
-          icon: "el-icon-money",
-          path: "/recommenderManage/recommendTeamIncome",
-        },
-        {
-          name: "运营数据",
-          icon: "el-icon-notebook-2",
-          path: "/recommenderManage/operateData",
-          // children: [],
-        },
-        {
-          name: "运营关系",
-          icon: "el-icon-notebook-2",
-          path: "/recommenderManage/operateRelationship",
-          // children: [],
-        }
-      ],
+      leftMenuList: RECOMMENDMANAGE,
+      // leftMenuList: [
+      //   {
+      //     name: "推荐人列表",
+      //     path: "/recommenderManage/recommendList",
+      //     icon: "el-icon-s-custom",
+      //   },
+      //   {
+      //     name: "推荐团队收益",
+      //     icon: "el-icon-money",
+      //     path: "/recommenderManage/recommendTeamIncome",
+      //   },
+      //   {
+      //     name: "运营数据",
+      //     icon: "el-icon-notebook-2",
+      //     path: "/recommenderManage/operateData",
+      //     // children: [],
+      //   },
+      //   {
+      //     name: "运营关系",
+      //     icon: "el-icon-notebook-2",
+      //     path: "/recommenderManage/operateRelationship",
+      //     // children: [],
+      //   }
+      // ],
     };
   },
   //监控data中的数据变化
