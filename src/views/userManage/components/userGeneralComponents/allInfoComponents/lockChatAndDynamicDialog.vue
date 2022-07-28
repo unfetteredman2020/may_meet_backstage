@@ -24,6 +24,7 @@
 import { lockPrivateChat, lockDynamic, lockWithdrawal } from "@/api/userApi.js";
 
 export default {
+  name: 'lockChatAndDyanmicDialog',
   props: {
     lockChatAndDynamicVisisble: {
       type: Boolean,

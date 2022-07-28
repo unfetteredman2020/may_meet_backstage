@@ -50,6 +50,7 @@ import { uploadFiles } from "@/utils/upload.js";
 import { lockAccount, lockDevice } from "@/api/userApi.js";
 
 export default {
+  name: 'lockAccountAndDeviceDialog',
   props: {
     lockAccountAndDeviceVisible: {
       type: Boolean,

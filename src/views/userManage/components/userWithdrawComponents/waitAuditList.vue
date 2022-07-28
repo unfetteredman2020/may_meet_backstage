@@ -1,18 +1,36 @@
 <template>
-  <div>暂无次功能</div>
+  <div>
+waitAuditList
+  </div>
 </template>
 
 <script>
+
 export default {
-  props: {},
-  components: {},
-  data() {
-    return {};
+  name:  'waitAuditList',
+  props: {
+
   },
-  computed: {},
-  mounted() {},
-  methods: {},
-};
+  components: {
+
+  },
+  data() {
+    return {
+      
+    }
+  },
+  computed: {
+
+  },
+  mounted() {
+    
+  },
+  methods: {
+    
+  },
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+  
+</style>

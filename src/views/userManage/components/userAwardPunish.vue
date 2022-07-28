@@ -43,6 +43,7 @@ const auditManagement = () => import("./userAwardPunishComponents/auditManage.vu
 const rewardRecord = () => import("./userAwardPunishComponents/rewardRecord.vue");
 
 export default {
+  name: 'userAwardPunish',
   props: {},
   components: { auditManagement, rewardRecord },
   provide() {

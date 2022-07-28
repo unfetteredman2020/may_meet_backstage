@@ -74,6 +74,7 @@ const userChatState = ()=> import("./components/channelModuleComponents/userChat
 // })
 // console.log('modules', modules)
 export default {
+  name: 'reportCenter',
   components: {
     dailyChannelDataSum,
     userChatState,

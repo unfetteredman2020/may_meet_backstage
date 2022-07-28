@@ -87,6 +87,7 @@ import { refundManage, refundAudit, createRefund } from "@/api/userApi.js";
 import { clearEmptyObj } from "@/utils/formatData.js";
 
 export default {
+  name: 'userRefund',
   props: {},
   components: {},
   data() {

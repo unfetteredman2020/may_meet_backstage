@@ -47,7 +47,7 @@
 import { getConsumeRecord } from "@/api/userApi.js";
 // import { getDate, formateDate } from "@/util  s/date.js";
 export default {
-  //import引⼊的组件需要注⼊到对象中才能使⽤
+  name: 'consumeRecord',
   components: {},
   props: {},
   data() {

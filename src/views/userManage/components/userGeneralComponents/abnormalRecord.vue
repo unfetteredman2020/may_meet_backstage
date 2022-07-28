@@ -27,7 +27,7 @@ import ServiceChange from "./abnormalComponents/serviceChange.vue";
 import MoneyChange from "./abnormalComponents/moneyChange.vue";
 import PropsChange from "./abnormalComponents/propsChange.vue";
 export default {
-  //import引:⼊的组件需要注⼊到对象中才能使⽤
+  name: 'userAbnormalRecord',
   components: {
     ServiceChange: ServiceChange,
     MoneyChange: MoneyChange,

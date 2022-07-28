@@ -70,6 +70,7 @@ import draggable from "@/directive/draggable.js";
 import { mapState } from "vuex";
 
 export default {
+  name: 'usereneral',
   directives: {
     draggable,
   },

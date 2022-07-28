@@ -24,7 +24,7 @@
 import { getPropsChange } from "@/api/userApi.js";
 import { getDate, formateDate } from "@/utils/date.js";
 export default {
-  //import引⼊的组件需要注⼊到对象中才能使⽤
+  name: 'propsChange',
   components: {},
   props: {},
   data() {

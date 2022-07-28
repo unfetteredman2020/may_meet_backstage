@@ -118,6 +118,7 @@ import { isTimeOut } from "@/utils/date.js";
 import LockAccountAndDeviceDialog from "./lockAccountAndDeviceDialog.vue";
 import LockChatAndDynamicDialog from "./lockChatAndDynamicDialog.vue";
 export default {
+  name: 'userSetting',
   components: {
     LockAccountAndDeviceDialog: LockAccountAndDeviceDialog,
     LockChatAndDynamicDialog: LockChatAndDynamicDialog,

@@ -118,6 +118,7 @@ import { getAllAuditList, withdrawalAudit } from "@/api/userApi.js";
 import { clearEmptyObj } from "@/utils/formatData.js";
 
 export default {
+  name: 'allAuditList',
   components: {},
   props: {},
   data() {

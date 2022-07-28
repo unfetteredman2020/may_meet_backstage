@@ -6,6 +6,6 @@ export default [
     meta: {
       title: '登录',
     },
-    component: () => import(/* webpackChunkName: 'root' */ '@/views/login/index.vue')
+    component: () => import(/* webpackChunkName: 'home/home' */ '@/views/login/index.vue')
   }
 ]

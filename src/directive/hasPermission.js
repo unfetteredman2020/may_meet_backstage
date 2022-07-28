@@ -23,8 +23,8 @@ export default {
       console.log('-store-', store.state)
       const { storeUserInfo } = store.state
       console.log('storeUserInfo', storeUserInfo)
-      if(storeUserInfo && storeUserInfo?.permission.length) {
-        if(storeUserInfo?.permission.indexOf(value) !== -1) {
+      if (storeUserInfo && storeUserInfo?.permission.length) {
+        if (storeUserInfo?.permission.indexOf(value) !== -1) {
           return false
         }
       }

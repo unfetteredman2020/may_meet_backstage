@@ -114,7 +114,7 @@ import UserSetting from "./allInfoComponents/setting.vue";
 import { isTimeOut } from "@/utils/date";
 
 export default {
-  //import引⼊的组件需要注⼊到对象中才能使⽤
+  name: 'userAllInfo',
   components: {
     UserSetting: UserSetting,
   },

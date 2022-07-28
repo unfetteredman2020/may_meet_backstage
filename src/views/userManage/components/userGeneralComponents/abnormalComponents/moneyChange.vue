@@ -23,6 +23,7 @@ import { getMoneyChange } from "@/api/userApi.js";
 import { getDate, formateDate } from "@/utils/date.js";
 import draggable from "@/directive/draggable.js";
 export default {
+  name: 'moneyChange',
   directives: {
     draggable,
   },

@@ -25,6 +25,7 @@ import MenuTree from "@/components/menuTree.vue";
 import { SYSTEMSETTING } from "@/config/menuConfig.js";
 
 export default {
+  name: 'systemSetting',
   components: { MenuTree: MenuTree },
   props: {},
   data() {

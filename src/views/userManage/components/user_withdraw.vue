@@ -30,6 +30,7 @@ import WaitAuditList from "./userWithdrawComponents/waitAuditList.vue";
 
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
+  name: 'userWithdraw',
   components: {
     AllAuditList: AllAuditList,
     ManageAudit: ManageAudit,
