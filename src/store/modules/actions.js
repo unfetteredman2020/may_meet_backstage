@@ -1,11 +1,10 @@
 import { login } from '@/api/userApi.js'
 import { getMd5 } from "@/utils/md5";
-import { SET_SIGN, SET_USERINFO } from '@/store/type';
+import { LOGIN_OUT, SET_USERINFO } from '@/store/type';
 
 export default {
-  logout({ commit, state }, data) {
-    localStorage.removeItem('storeUserInfo')
-    localStorage.removeItem('userSign')
+  logout({ commit, state }) {
+    commit(LOGIN_OUT);
   },
   async login({ commit, state }, userInfo) {
     try {

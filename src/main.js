@@ -7,7 +7,7 @@ import store from '@/store/index.js'
 import JsonExcel from "vue-json-excel";
 import Fragment from 'vue-fragment'
 import permission from '@/directive/hasPermission'
-
+// import './permission'
 Vue.use(element);
 Vue.use(Fragment.Plugin)
 Vue.prototype.$eventBus = new Vue()

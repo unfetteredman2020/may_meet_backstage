@@ -1,4 +1,4 @@
-import { SET_TOKEN, SET_USERINFO }  from '@/store/type.js'
+import { SET_TOKEN, SET_USERINFO, LOGIN_OUT } from '@/store/type.js'
 
 export default {
   [SET_TOKEN](state, params) {
@@ -6,7 +6,11 @@ export default {
     localStorage.setItem('userSign', params.userSign)
   },
   [SET_USERINFO](state, params) {
-    state.userInfo = params.userInfo
+    state.storeUserInfo = params.userInfo
     localStorage.setItem('storeUserInfo', JSON.stringify(params.userInfo))
+  },
+  [LOGIN_OUT](state, params) {
+    state.storeUserInfo = {}
+    localStorage.removeItem('storeUserInfo')
   }
 }

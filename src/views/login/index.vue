@@ -67,6 +67,9 @@ export default {
         await this.$store.dispatch("login", this.loginForm);
         this.$message("success", "登录成功");
         this.$nextTick(()=> {
+          if(this.$route.query && this.$route.query.redirect) {
+            return  this.$router.push(this.$route.query.redirect);
+          }
           this.$router.push("/");
         })
       } catch (error) {
@@ -79,6 +82,7 @@ export default {
   //⽣命周期，挂载完成（可以访问dom元素）
   mounted() {
     // console.log('this.$stor1e', this.$store)
+    console.log('this.$router.query', this.$route.query)
   },
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前
