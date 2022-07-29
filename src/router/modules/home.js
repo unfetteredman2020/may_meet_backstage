@@ -254,6 +254,18 @@ export default [
           title: '内容安全',
           id: 186
         },
+        children: [
+          {
+            path: "reportManage",
+            name: "reportCenter",
+            component: () => import(/* webpackChunkName: 'contentSafe/reportManage' */ '@/views/contentSafe/components/reportManage.vue'),
+            meta: {
+              title: '举报管理',
+              id: 216
+            },
+          },
+          { path: '', redirect: 'reportManage' }
+        ]
       },
       {
         path: "/channelManage",
@@ -284,6 +296,7 @@ export default [
           title: '报表中心',
           id: 290
         },
+
       },
       {
         path: "/systemSetting",

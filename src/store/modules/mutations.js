@@ -10,7 +10,6 @@ export default {
     localStorage.setItem('storeUserInfo', JSON.stringify(params.userInfo))
   },
   [LOGIN_OUT](state, params) {
-    state.storeUserInfo = {}
-    localStorage.removeItem('storeUserInfo')
+    localStorage.removeItem('storeUserInfo', JSON.stringify({}))
   }
 }

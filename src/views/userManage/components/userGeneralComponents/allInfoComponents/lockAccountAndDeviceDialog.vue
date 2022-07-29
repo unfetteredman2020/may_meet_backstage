@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog :title="type == 'account' ? '封禁账号': '封禁设备'" :visible.sync="visible" width="50%">
+    <el-dialog :title="type == 'account' ? '封禁账号' : '封禁设备'" :visible.sync="visible" width="50%">
       <el-form :model="lockAccountForm" :rules="lockAccountRules" ref="lockAccountForm" label-width="140px" class="demo-lockAccountForm">
         <el-form-item label="封禁时间" prop="days">
           <el-select v-model="lockAccountForm.days" placeholder="请选择活封禁时间">
@@ -38,8 +38,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="resetForm('lockAccountForm')" >取消</el-button>
-        <el-button type="primary" @click="submitForm('lockAccountForm')" >确定</el-button>
+        <el-button @click="resetForm('lockAccountForm')">取消</el-button>
+        <el-button type="primary" @click="submitForm('lockAccountForm')">确定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -50,7 +50,7 @@ import { uploadFiles } from "@/utils/upload.js";
 import { lockAccount, lockDevice } from "@/api/userApi.js";
 
 export default {
-  name: 'lockAccountAndDeviceDialog',
+  name: "lockAccountAndDeviceDialog",
   props: {
     lockAccountAndDeviceVisible: {
       type: Boolean,
@@ -171,7 +171,7 @@ export default {
           ],
         },
         {
-          text: "违反国家现行法律法规、侵害就聊合法权益",
+          text: "违反国家现行法律法规、侵害誓聊合法权益",
           value: "4",
           children: [
             {
@@ -179,11 +179,11 @@ export default {
               value: "0",
             },
             {
-              text: "发布、使用、恶搞就聊已有知识产权内容相同/相似的字样，或容易与就聊产品设计主题、外观等相混淆的内容",
+              text: "发布、使用、恶搞誓聊已有知识产权内容相同/相似的字样，或容易与誓聊产品设计主题、外观等相混淆的内容",
               value: "1",
             },
             {
-              text: "批量发布买卖就聊账号的内容，使用外观或其他恶意对就聊政策运营造成影响的行为",
+              text: "批量发布买卖誓聊账号的内容，使用外观或其他恶意对誓聊政策运营造成影响的行为",
               value: "2",
             },
           ],
@@ -204,14 +204,12 @@ export default {
         return this.lockAccountAndDeviceVisible;
       },
       set(value) {
-        this.$parent.closeDialog('lockAccountAndDeviceVisible');
+        this.$parent.closeDialog("lockAccountAndDeviceVisible");
       },
     },
   },
-  mounted() {
-  },
-  watch: {
-  },
+  mounted() {},
+  watch: {},
   methods: {
     onBeforeUploadImage(file) {
       const isIMAGE = file.type === "image/jpeg" || "image/jpg" || "image/png";
@@ -251,15 +249,15 @@ export default {
         const res = await func[this.type](params);
         if (res && res.errcode == 0) {
           this.$alert("操作成功！", "成功提示");
-          this.resetForm('lockAccountForm')
-        }else{
-          this.$message('error', '修改失败！')
+          this.resetForm("lockAccountForm");
+        } else {
+          this.$message("error", "修改失败！");
         }
         // console.log("submit res", res);
         // this.resetForm("lockAccountForm");
       } catch (error) {
         // console.log("submit error", error);
-         this.$message('error', '修改失败！')
+        this.$message("error", "修改失败！");
       }
     },
     submitForm(formName) {
@@ -274,7 +272,7 @@ export default {
     },
 
     resetForm(formName) {
-      this.$parent.closeDialog('lockAccountAndDeviceVisible');
+      this.$parent.closeDialog("lockAccountAndDeviceVisible");
       this.$refs[formName].resetFields();
     },
   },

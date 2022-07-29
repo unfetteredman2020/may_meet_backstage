@@ -1,0 +1,135 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1144",
+      "name": "女商家",
+      "font_class": "nvshangjia",
+      "unicode": "f00d7",
+      "unicode_decimal": 983255
+    },
+    {
+      "icon_id": "1260",
+      "name": "好友",
+      "font_class": "haoyou",
+      "unicode": "f014b",
+      "unicode_decimal": 983371
+    },
+    {
+      "icon_id": "1262",
+      "name": "添加用户",
+      "font_class": "tianjiayonghu",
+      "unicode": "f014d",
+      "unicode_decimal": 983373
+    },
+    {
+      "icon_id": "1275",
+      "name": "随机用户",
+      "font_class": "suijiyonghu",
+      "unicode": "f015a",
+      "unicode_decimal": 983386
+    },
+    {
+      "icon_id": "672451",
+      "name": "个人_2",
+      "font_class": "geren2",
+      "unicode": "e6bc",
+      "unicode_decimal": 59068
+    },
+    {
+      "icon_id": "715951",
+      "name": "女",
+      "font_class": "nv",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "986681",
+      "name": "女",
+      "font_class": "nv1",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "1680698",
+      "name": "常用设置",
+      "font_class": "changyongshezhi",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "1876363",
+      "name": "常用分类",
+      "font_class": "changyongfenlei",
+      "unicode": "e67e",
+      "unicode_decimal": 59006
+    },
+    {
+      "icon_id": "4843167",
+      "name": "左侧-常用-高亮",
+      "font_class": "zuoce-changyong-gaoliang",
+      "unicode": "e6dc",
+      "unicode_decimal": 59100
+    },
+    {
+      "icon_id": "5350969",
+      "name": "女",
+      "font_class": "nv2",
+      "unicode": "e798",
+      "unicode_decimal": 59288
+    },
+    {
+      "icon_id": "5387604",
+      "name": "取消全屏",
+      "font_class": "quxiaoquanping",
+      "unicode": "eb10",
+      "unicode_decimal": 60176
+    },
+    {
+      "icon_id": "5387606",
+      "name": "全屏",
+      "font_class": "quanping",
+      "unicode": "eb11",
+      "unicode_decimal": 60177
+    },
+    {
+      "icon_id": "7551133",
+      "name": "人群管理",
+      "font_class": "RectangleCopy",
+      "unicode": "e6b0",
+      "unicode_decimal": 59056
+    },
+    {
+      "icon_id": "10283812",
+      "name": "计费",
+      "font_class": "changyongtubiao_jifei",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "22325491",
+      "name": "常用设置",
+      "font_class": "changyongshezhi1",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "24330614",
+      "name": "常用_评价",
+      "font_class": "changyong_pingjia",
+      "unicode": "e6b2",
+      "unicode_decimal": 59058
+    },
+    {
+      "icon_id": "24330631",
+      "name": "常用_疑问-解释",
+      "font_class": "changyong_yiwen-jieshi",
+      "unicode": "e6b8",
+      "unicode_decimal": 59064
+    }
+  ]
+}

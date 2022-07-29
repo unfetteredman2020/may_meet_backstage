@@ -3,19 +3,20 @@ $--color-primary: rgb(209, 40, 156);
 
 /* 改变 icon 字体路径变量，必需 */
 $--font-path: "~element-ui/lib/theme-chalk/fonts";
+
 ::-webkit-scrollbar {
-  width: 4px !important;
-  height: 4px !important;
+  width: 6px !important;
+  height: 6px !important;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   width: 1px;
-  background: rgba(209, 40, 156, 0.5);
+  background: rgba(209, 40, 156, 1);
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 5px rgb(13, 12, 12);
   border-radius: 10px;
   background: rgba(57, 176, 255, 0.288);
 }
@@ -24,3 +25,5 @@ $--font-path: "~element-ui/lib/theme-chalk/fonts";
   margin-bottom: 5px!important;
 }
 @import "~element-ui/packages/theme-chalk/src/index";
+
+@import url('@/assets/font_vzxzudhbdq/iconfont.css');

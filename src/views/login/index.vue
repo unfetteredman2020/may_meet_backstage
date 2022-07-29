@@ -17,7 +17,7 @@
         </el-form>
       </div>
     </div>
-    <div class="copyRight">©2018- 杭州聚轮网络科技有限公司 版权所有</div>
+    <div class="copyRight">©2018- 杭州奕游网络科技有限公司 版权所有</div>
   </div>
 </template>
 
@@ -25,8 +25,6 @@
 // import { login, signLogin } from "@/api/userApi.js";
 // import { getMd5 } from "@/utils/md5";
 import { mapMutations } from "vuex";
-// import types from "@/store/type.js";
-// const { SET_TOKEN, SET_USERINFO } = types;
 
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
@@ -66,12 +64,15 @@ export default {
       try {
         await this.$store.dispatch("login", this.loginForm);
         this.$message("success", "登录成功");
-        this.$nextTick(()=> {
-          if(this.$route.query && this.$route.query.redirect) {
-            return  this.$router.push(this.$route.query.redirect);
+        this.$nextTick(() => {
+          let backlen = window.history.length - 1;
+          console.log("backlen", backlen);
+          window.history.go(-backlen);
+          if (this.$route.query && this.$route.query.redirect) {
+            return this.$router.replace({ path: this.$route.query.redirect });
           }
           this.$router.push("/");
-        })
+        });
       } catch (error) {
         this.$message("error", error.errmsg || "登录失败，请检查账号和密码");
       }
@@ -82,7 +83,7 @@ export default {
   //⽣命周期，挂载完成（可以访问dom元素）
   mounted() {
     // console.log('this.$stor1e', this.$store)
-    console.log('this.$router.query', this.$route.query)
+    console.log("this.$router.query", this.$route.query);
   },
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前

@@ -481,7 +481,16 @@ let SystemSetting = [
     }
   },
 ]
-
+let ContentSafe = [
+  {
+    name: "举报管理",
+    icon: "el-icon-s-help",
+    path: "/contentSafe/reportManage",
+    meta: {
+      id: 216
+    }
+  },
+]
 export let HOME = hasPermission(Home) || []
 export let USERMANAGE = hasPermission(UserManager) || []
 export let GUESTMANAGE = hasPermission(GuestManage) || []
@@ -490,4 +499,5 @@ export let PRODUCTCONFIG = hasPermission(ProductConfig) || []
 export let CHANNELMANAGE = hasPermission(ChannelManage) || []
 export let REPORTCENTER = hasPermission(ReportCenter) || []
 export let SYSTEMSETTING = hasPermission(SystemSetting) || []
+export let CONTENTSAFE = hasPermission(ContentSafe) || []
 
