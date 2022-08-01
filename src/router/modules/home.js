@@ -264,6 +264,42 @@ export default [
               id: 216
             },
           },
+          {
+            path: "voiceSignature",
+            name: "voiceSignature",
+            component: () => import(/* webpackChunkName: 'contentSafe/voiceSignature' */ '@/views/contentSafe/components/voiceSignature.vue'),
+            meta: {
+              title: '语音签名',
+              id: 216
+            },
+          },
+          {
+            path: "dynamicManage",
+            name: "dynamicManage",
+            component: () => import(/* webpackChunkName: 'contentSafe/dynamicManage' */ '@/views/contentSafe/components/dynamicManage.vue'),
+            meta: {
+              title: '动态管理',
+              id: 216
+            },
+          },
+          {
+            path: "videoZone",
+            name: "videoZone",
+            component: () => import(/* webpackChunkName: 'contentSafe/videoZone' */ '@/views/contentSafe/components/videoZone.vue'),
+            meta: {
+              title: '视频专区',
+              id: 216
+            },
+          },
+          {
+            path: "quickReply",
+            name: "quickReply",
+            component: () => import(/* webpackChunkName: 'contentSafe/quickReply' */ '@/views/contentSafe/components/quickReply.vue'),
+            meta: {
+              title: '快捷回复',
+              id: 216
+            },
+          },
           { path: '', redirect: 'reportManage' }
         ]
       },

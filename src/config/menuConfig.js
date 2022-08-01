@@ -487,7 +487,39 @@ let ContentSafe = [
     icon: "el-icon-s-help",
     path: "/contentSafe/reportManage",
     meta: {
-      id: 216
+      id: 334
+    }
+  },
+  {
+    name: "语音签名",
+    icon: "el-icon-s-help",
+    path: "/contentSafe/voiceSignature",
+    meta: {
+      id: 336
+    }
+  },
+  {
+    name: "动态管理",
+    icon: "el-icon-s-help",
+    path: "/contentSafe/dynamicManage",
+    meta: {
+      id: 337
+    }
+  },
+  {
+    name: "视频专区",
+    icon: "el-icon-s-help",
+    path: "/contentSafe/videoZone",
+    meta: {
+      id: 338
+    }
+  },
+  {
+    name: "快捷回复",
+    icon: "el-icon-s-help",
+    path: "/contentSafe/quickReply",
+    meta: {
+      id: 339
     }
   },
 ]
