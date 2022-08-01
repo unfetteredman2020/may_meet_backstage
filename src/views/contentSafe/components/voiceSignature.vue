@@ -89,7 +89,7 @@ export default {
       data: [],
       searchForm: {
         userid: null,
-        date: ["2022-01-01", "2023-01-01"],
+        date: [],
         status: null,
       },
       voiceurl: null,
@@ -118,6 +118,12 @@ export default {
         { label: "人身攻击", value: "4" },
         { label: "其他违规", value: "5" },
       ],
+      auditStatus: {
+        102: "一审失败",
+        103: "一审失败",
+        201: "二审通过",
+        202: "二审失败",
+      }
     };
   },
   computed: {},
