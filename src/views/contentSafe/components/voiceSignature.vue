@@ -106,23 +106,10 @@ export default {
         date: [{ required: true, message: "请选择时间" }],
         memo: [{ required: true, message: "请输入备注" }],
         result: [{ required: true, message: "请选择结果" }],
-        free_gold: [{ required: true, message: "请输入退回的赠送金币" }],
-        gold: [{ required: true, message: "请输入退回的充值金币" }],
       },
       dialogFormVisible: false,
       BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`,
-      coverPreview: [],
-      column: [
-        { label: "记录ID", value: "id" },
-        { label: "投诉者id", value: "userid" },
-        { label: "投诉者昵称", value: "nickname" },
-        { label: "被投诉者ID", value: "dst_userid" },
-        { label: "投诉类型", value: "label" },
-        { label: "投诉内容文本", value: "context" },
-        { label: "动态id", value: "postid" },
-        { label: "投诉者联系电话", value: "phone" },
-        { label: "处理结果", value: "handle_result" },
-      ],
+
       violationType: [
         { label: "骗取礼物", value: "0" },
         { label: "涉黄信息", value: "1" },
@@ -130,73 +117,6 @@ export default {
         { label: "违法信息", value: "3" },
         { label: "人身攻击", value: "4" },
         { label: "其他违规", value: "5" },
-      ],
-      auditStatus: {
-        102: "一审失败",
-        103: "一审失败",
-        201: "二审通过",
-        202: "二审失败",
-      },
-      recoverStatus: {
-        0: "待处理",
-        1: "待确认数量",
-        2: "不满意",
-        3: "已确认数量",
-        4: "打款中",
-        5: "打款成功",
-        6: "取消追回",
-      },
-      options: [
-        {
-          label: "举报类型",
-          options: [
-            {
-              value: "0",
-              label: "等待处理",
-            },
-            {
-              value: "1",
-              label: "处理中",
-            },
-            {
-              value: "4",
-              label: "用户取消",
-            },
-            {
-              value: "5",
-              label: "处理完成",
-            },
-            {
-              value: "6",
-              label: "无效举报",
-            },
-          ],
-        },
-        {
-          label: "追回类型",
-          options: [
-            {
-              value: "0",
-              label: "没状态",
-            },
-            {
-              value: "1",
-              label: "待确认数量",
-            },
-            {
-              value: "4",
-              label: "打款中",
-            },
-            {
-              value: "5",
-              label: "打款成功",
-            },
-            {
-              value: "7",
-              label: "取消追回",
-            },
-          ],
-        },
       ],
     };
   },
