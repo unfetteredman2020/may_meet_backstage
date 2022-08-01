@@ -87,7 +87,6 @@ export default {
   data() {
     return {
       data: [],
-      previewList: [],
       searchForm: {
         userid: null,
         date: ["2022-01-01", "2023-01-01"],
@@ -222,18 +221,6 @@ export default {
           return false;
         }
       });
-    },
-    setPreview(image, index) {
-      let origin = image;
-      let before = origin.slice(index);
-      let after = origin.slice(0, index);
-      let newArr = new Array().concat(before, after);
-      let a = [];
-      newArr.forEach((item) => a.push(`${this.BASE_CDN_DOMAIN + item}`));
-      this.previewList = a;
-    },
-    handleSelectChange(value) {
-      console.log("handleSelectChange", value);
     },
     edit(item) {
       console.log("item", item);
