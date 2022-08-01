@@ -483,7 +483,7 @@ let SystemSetting = [
 ]
 let ContentSafe = [
   {
-    name: "举报管理",
+    name: "投诉管理",
     icon: "el-icon-s-help",
     path: "/contentSafe/reportManage",
     meta: {
