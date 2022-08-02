@@ -8,7 +8,7 @@
         <el-select clearable v-model="searchForm.status" placeholder="请选择追回状态" style="width: 150px">
           <el-option label="一审失败" value="102"></el-option>
           <el-option label="二审通过" value="201"></el-option>
-          <el-option label="二审失败" value="203"></el-option>
+          <el-option label="二审失败" value="202"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="时间：" prop="date">

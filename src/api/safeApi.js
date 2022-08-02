@@ -28,3 +28,8 @@ export const getVideoZoneList = data => request.get('/nraq/spzq', { params: data
 // 修改视频审核状态
 export const changeVideoHandle = data => request.post('/nraq/spzq/sh', data)
 
+//快捷回复
+export const getQuickReplyList = data => request.get('/nraq/kjhf', { params: data })
+
+// 修改快捷回复审核状态
+export const changeQuickReplyHandle = data => request.post('/nraq/kjhf/sh', data)
