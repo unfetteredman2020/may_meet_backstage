@@ -44,7 +44,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="申请认证信息" class="dialogs" :visible.sync="dialogFormVisible" :show-close="false" :close-on-click-modal="false">
+    <el-dialog title="语音审核" class="dialogs" :visible.sync="dialogFormVisible" :show-close="false" :close-on-click-modal="false">
       <div class="dialogBody">
         <!-- <div class="dialogTitle" slot="title">审核语音签名</div> -->
         <div class="title">申请认证信息</div>
@@ -64,7 +64,7 @@
               <el-option label="拒绝" value="REJECT"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="失败原因：" prop="reason">
+          <el-form-item label="原因：" prop="reason">
             <el-input type="textarea" v-model="settingForm.reason" placeholder="失败原因" style="width: 200px"></el-input>
           </el-form-item>
         </el-form>
@@ -123,7 +123,7 @@ export default {
         103: "一审失败",
         201: "二审通过",
         202: "二审失败",
-      }
+      },
     };
   },
   computed: {},

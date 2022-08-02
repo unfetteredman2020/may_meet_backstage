@@ -13,6 +13,12 @@ export const changeReportHandle = data => request.post('/nraq/tsgl/xgzt', data)
 //语音签名
 export const getVoiceSignatureList = data => request.get('/nraq/yyqm', { params: data })
 
-// 修改投诉状态
+// 修改语音审核状态
 export const changeVoiceHandle = data => request.post('/nraq/yyqm/sh', data)
 
+//动态列表
+export const getDynamicManageList = data => request.get('/nraq/dtgl', { params: data })
+
+
+// 修改语音审核状态
+export const changeDynamicManageHandle = data => request.post('/nraq/dtgl/sh', data)
