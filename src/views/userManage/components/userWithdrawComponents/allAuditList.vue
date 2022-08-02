@@ -232,11 +232,11 @@ export default {
         if (res && res.errcode == 0) {
           this.list = res.data || [];
         } else {
-          this.$message("error", "获取充值记录失败");
+          this.$message("error", res.errmsg || "获取充值记录失败");
         }
       } catch (error) {
         // console.log("error :>> ", error);
-        this.$message("error", "获取充值记录失败");
+        this.$message("error", error.errmsg || "获取充值记录失败");
       }
     },
     handleSizeChange(val) {

@@ -212,11 +212,11 @@ export default {
         if (res && res.errcode == 0) {
           this.$message("success", "修改用户信息成功！");
         } else {
-          this.$message("error", "修改用户信息失败！");
+          this.$message("error", res.errmsg || "修改用户信息失败！");
         }
       } catch (error) {
         // console.log("error", error);
-        this.$message("error", error.errmsg || error.errmsg || "修改用户信息失败！");
+        this.$message("error", error.errmsg || "修改用户信息失败！");
       }
     },
     del(index) {

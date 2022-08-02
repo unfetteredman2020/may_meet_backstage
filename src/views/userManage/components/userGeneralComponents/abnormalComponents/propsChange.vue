@@ -2,10 +2,10 @@
   <div class="propsChange">
     <el-table :data="list" border style="width: 100%" max-height="820px">
       <el-table-column prop="id" label="流水号" width="100"></el-table-column>
-      <el-table-column prop="type" label="业务代码" ></el-table-column>
-      <el-table-column prop="describe" label="属性名称" ></el-table-column>
+      <el-table-column prop="type" label="业务代码"></el-table-column>
+      <el-table-column prop="describe" label="属性名称"></el-table-column>
       <el-table-column prop="old_amount" label="变化前"></el-table-column>
-      <el-table-column prop="new_amount" label="变化后" ></el-table-column>
+      <el-table-column prop="new_amount" label="变化后"></el-table-column>
       <el-table-column prop="src_userid" label="创建者"></el-table-column>
       <el-table-column prop="inserttime" label="变化时间"></el-table-column>
     </el-table>
@@ -24,7 +24,7 @@
 import { getPropsChange } from "@/api/userApi.js";
 import { getDate, formateDate } from "@/utils/date.js";
 export default {
-  name: 'propsChange',
+  name: "propsChange",
   components: {},
   props: {},
   data() {
@@ -46,16 +46,16 @@ export default {
     async getData(data) {
       try {
         const res = await getPropsChange(data);
-        console.log('getPropsChange res', res)
+        console.log("getPropsChange res", res);
         if (res && res.errcode == 0) {
           this.list = res.data || [];
         } else {
-          this.$message("error", "获取充值记录失败");
+          this.$message("error", res.errmsg || "获取充值记录失败");
         }
         // console.log("geConsume res :>> ", res);
       } catch (error) {
         // console.log("error :>> ", error);
-        this.$message("error", "获取充值记录失败");
+        this.$message("error", error.errmsg || "获取充值记录失败");
       }
     },
     handleSizeChange(val) {
@@ -68,8 +68,7 @@ export default {
   //⽣命周期，创建完成（可以访问当前this实例）
   created() {},
   //⽣命周期，挂载完成（可以访问dom元素）
-  mounted() {
-  },
+  mounted() {},
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前
   beforeUpdate() {}, //⽣命周期 - 更新之后

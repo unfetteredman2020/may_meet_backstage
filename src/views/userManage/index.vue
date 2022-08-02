@@ -16,7 +16,6 @@
 <script>
 import MenuTree from "@/components/menuTree.vue";
 import { USERMANAGE } from "@/config/menuConfig.js";
-console.log("USERMANAGE", USERMANAGE);
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
   name: 'userManage',

@@ -52,10 +52,10 @@ export default {
           });
           this.list = arr || []
         } else {
-          this.$message("error", "获取列表失败，请稍后重试");
+          this.$message("error", res.errmsg || "获取列表失败，请稍后重试");
         }
       } catch (error) {
-        this.$message("error", "获取列表失败，请稍后重试");
+        this.$message("error", error.errmsg || "获取列表失败，请稍后重试");
         console.log("error", error);
       }
     },

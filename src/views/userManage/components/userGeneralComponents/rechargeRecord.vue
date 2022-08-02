@@ -112,7 +112,7 @@ export default {
         if (res && res.errcode == 0) {
           this.list = res.data || [];
         } else {
-          this.$message("error", "获取充值记录失败");
+          this.$message("error", res.errmsg || "获取充值记录失败");
         }
         // console.log("getRecharge res :>> ", res);
       } catch (error) {

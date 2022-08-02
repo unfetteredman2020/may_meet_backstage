@@ -78,11 +78,11 @@ export default {
           this.$alert("操作成功！", "成功提示");
           this.resetForm("lockChatAndDynamicVisisble");
         } else {
-          this.$message("error", "修改失败！");
+          this.$message("error", res.errmsg || "修改失败！");
         }
       } catch (error) {
         // console.log("submit error", error);
-        this.$message("error", "修改失败！");
+        this.$message("error", error.errmsg || "修改失败！");
       }
     },
     submitForm(formName) {

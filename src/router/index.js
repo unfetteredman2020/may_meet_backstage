@@ -40,10 +40,9 @@ VueRouter.prototype.replace = function replace(location) {
 router.beforeEach((to, from, next) => {
   NProgress.start()
   document.title = to.meta.title
-
+  console.log('to', to)
   const hasSign = store.getters.getSign
   if (hasSign) {
-
     // determine whether the user has obtained his permission roles through getInfo
     const hasRoles = store.getters.getPermission && store.getters.getPermission.length > 0 ? store.getters.getPermission : null
     if (hasRoles) {
@@ -61,20 +60,33 @@ router.beforeEach((to, from, next) => {
         next()
       }
     } else {
-      next('/login')
+      console.log('login')
+      next({
+        path: '/login',
+        query: {
+          redirect: to.path
+        }
+      })
     }
     NProgress.done()
   } else {
     /* has no token*/
     console.log('whiteList.indexOf(to.path) == -1', whiteList.indexOf(to.path) !== -1)
     if (whiteList.indexOf(to.path) !== -1) {
-      // in the free login whitelist, go directly
+      console.log('yes1')
       next()
     } else {
       // other pages that do not have permission to access are redirected to the login page.
-      next(`/login?redirect=${to.path}`)
-      NProgress.done()
+      console.log('no1')
+      next({
+        replace: true,
+        path: '/login',
+        query: {
+          redirect: to.path
+        }
+      })
     }
+    NProgress.done()
   }
 })
 

@@ -294,7 +294,7 @@ export default {
         if (res && res.errcode == 0) {
           this.boardData = res.data[0];
         } else {
-          this.$message("error", "数据获取失败，请稍后重试！");
+          this.$message("error", res.errmsg || "数据获取失败，请稍后重试！");
         }
       } catch (error) {
         console.log("error", error);

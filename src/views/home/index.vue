@@ -26,6 +26,9 @@
           <el-tooltip class="item" effect="dark" :content="fullscreen ? '退出全屏' : '全屏'" placement="top-start">
             <i :class="[fullscreen ? 'el-icon-copy-document' : 'el-icon-full-screen']" class="customIcon" @click="fullScreen"></i>
           </el-tooltip>
+          <el-tooltip class="item" effect="dark" :content="fullscreen ? '退出全屏' : '全屏'" placement="top-start">
+            <i :class="[fullscreen ? 'el-icon-copy-document' : 'el-icon-full-screen']" class="customIcon" @click="test"></i>
+          </el-tooltip>
         </div>
       </el-header>
       <el-main class="homeMain"><router-view></router-view></el-main>
@@ -37,7 +40,7 @@
 import MenuTree from "@/components/menuTree.vue";
 import { mapState } from "vuex";
 import { HOME } from "@/config/menuConfig.js";
-console.log("HOME", HOME);
+
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
   components: { MenuTree: MenuTree },
@@ -91,9 +94,8 @@ export default {
   //监控data中的数据变化
   watch: {
     $route(to, from) {
-      console.log('to', to)
-      this.menu = HOME
-    }
+      this.menu = HOME;
+    },
   },
   //计算属性，类似于data概念
   computed: {
@@ -106,6 +108,13 @@ export default {
   },
   //⽅法集合
   methods: {
+    test() {
+      let params = {...this.storeUserInfo}
+      console.log('params', params)
+      delete params.sign
+      console.log('params', params)
+      this.$store.commit('set_userInfo', {userInfo: params})
+    },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
       this.$router.push(key);
@@ -141,14 +150,10 @@ export default {
     },
   },
   //⽣命周期，创建完成（可以访问当前this实例）
-  created() {
-  },
-  beforeUpdate() {
-    console.log('-------beforeUpdate---------')
-  },
+  created() {},
+  beforeUpdate() {},
   //⽣命周期，挂载完成（可以访问dom元素）
   mounted() {
-    console.log('-------mounted---------')
     this.role_name = this.storeUserInfo?.role_name || "";
     // console.log("$route.path", this.$route);
     // window.addEventListener("fullscreenchange", (e) => {
@@ -174,22 +179,14 @@ export default {
     //   }
     // };
   },
-  beforeCreate() {
-  }, //⽣命周期-创建之前
-  beforeMount() {
-     console.log('-------beforeMount---------')
-  }, //⽣命周期 - 挂载之前
+  beforeCreate() {}, //⽣命周期-创建之前
+  beforeMount() {}, //⽣命周期 - 挂载之前
   beforeUpdate() {
-    console.log('-------beforeUpdate---------')
-    this.menu = [...HOME]
+    this.menu = [...HOME];
   }, //⽣命周期 - 更新之后
   updated() {}, //⽣命周期 - 更新之后
-  beforeDestroy() {
-    console.log('-------beforeDestroy---------')
-  }, //⽣命周期 - 销毁之前
-  destroy() {
-    console.log('-------------------home destory-------------')
-  }, //⽣命周期 - 销毁完成
+  beforeDestroy() {}, //⽣命周期 - 销毁之前
+  destroy() {}, //⽣命周期 - 销毁完成
   activated() {}, //如果页⾯有keep-alive缓存功能，这个函数会触发
 };
 </script>

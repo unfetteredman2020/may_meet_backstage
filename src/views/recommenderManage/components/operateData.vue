@@ -1,13 +1,13 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
-    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm"  ref="operateRef">
+    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm" ref="operateRef">
       <el-form-item label="推荐团队：" prop="group_id" :rules="[{ required: true, message: '请选择推荐团队' }]">
         <el-select v-model="searchForm.group_id" placeholder="请选择推荐团队">
           <el-option v-for="item in selectOption" :key="item.value" :label="item.groupname" :value="item.groupid"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="时间：" prop="date" :rules="[{ required: true, message: '请选择时间' }]">
-        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date"  type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -113,7 +113,7 @@ export default {
         if (res && res.errcode == 0) {
           this.$message("success", "修改成功！");
         } else {
-          this.$message("error", "修改失败，请稍后重试");
+          this.$message("error", res.errmsg || "修改失败，请稍后重试");
         }
       } catch (error) {
         console.log("error", error);

@@ -1,6 +1,6 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
-    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm"  ref="womenListRef">
+    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm" ref="womenListRef">
       <el-form-item label="誓聊ID：" prop="userid">
         <el-input v-model="searchForm.userid" placeholder="誓聊ID"></el-input>
       </el-form-item>
@@ -47,7 +47,7 @@
       </el-table-column>
       <el-table-column label="状态" prop="状态">
         <template slot-scope="scope">
-          <el-tag  :type="isLockAccount(scope.row['状态']) ? 'success' : 'danger'" effect="dark">
+          <el-tag :type="isLockAccount(scope.row['状态']) ? 'success' : 'danger'" effect="dark">
             {{ isLockAccount(scope.row["状态"]) ? "正常" : "封禁" }}
           </el-tag>
         </template>
@@ -161,7 +161,7 @@ export default {
         if (res && res.errcode == 0) {
           this.$message("success", "修改成功！");
         } else {
-          this.$message("error", "修改失败，请稍后重试");
+          this.$message("error", res.errmsg || "修改失败，请稍后重试");
         }
       } catch (error) {
         console.log("error", error);
@@ -179,7 +179,7 @@ export default {
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", error.errmsg ||  "获取数据失败，请稍后重试！");
+        this.$message("error", error.errmsg || "获取数据失败，请稍后重试！");
       }
     },
     resetForm() {

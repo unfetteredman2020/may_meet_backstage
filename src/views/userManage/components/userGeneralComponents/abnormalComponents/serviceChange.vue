@@ -72,7 +72,7 @@ export default {
           // this.list = res.data || [];
           this.list = arr;
         } else {
-          this.$message("error", "获取充值记录失败");
+          this.$message("error", res.errmsg || "获取充值记录失败");
         }
         // console.log("geConsume res :>> ", res);
       } catch (error) {

@@ -1,6 +1,6 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
-    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm"  ref="listOfAgentsRef">
+    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm" ref="listOfAgentsRef">
       <el-form-item label="团队ID：" prop="group_id">
         <el-input v-model="searchForm.group_id" placeholder="团队ID"></el-input>
       </el-form-item>
@@ -123,7 +123,7 @@ export default {
         if (res && res.errcode == 0) {
           this.$message("success", "修改成功！");
         } else {
-          this.$message("error", "修改失败，请稍后重试");
+          this.$message("error", res.errmsg || "修改失败，请稍后重试");
         }
       } catch (error) {
         console.log("error", error);
@@ -141,7 +141,7 @@ export default {
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", error.errmsg ||  "获取数据失败，请稍后重试！");
+        this.$message("error", error.errmsg || "获取数据失败，请稍后重试！");
       }
     },
     resetForm() {

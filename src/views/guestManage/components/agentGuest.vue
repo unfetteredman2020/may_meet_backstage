@@ -91,7 +91,7 @@ export default {
         if (res && res.errcode == 0) {
           this.$message("success", "修改成功！");
         } else {
-          this.$message("error", "修改失败，请稍后重试");
+          this.$message("error",  res.errmsg || "修改失败，请稍后重试");
         }
       } catch (error) {
         console.log("error", error);
