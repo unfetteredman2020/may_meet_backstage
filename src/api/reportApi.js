@@ -125,6 +125,9 @@ export const getLaunchCompany = (id = null) => request.get(`/baseinfo/get_corp_i
 //***获取投放账户列表***
 export const getReleaseAccountList = params => request.get(`/baseinfo/get_corp_account`, { params: params || {} })
 
+//***获取男性推荐数据***
+export const getManRecommendData = params => request.get(`/bbzx/cpmk/tjsjnx`, { params: params || {} })
+
 /**
  * 渠道模块
  */

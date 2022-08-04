@@ -459,6 +459,16 @@ let ReportCenter = [
         icon: "el-icon-odometer",
         path: "/product/dailyGiveGoldData",
       },
+      {
+        name: "嘉宾推荐数据",
+        icon: "el-icon-odometer",
+        path: "/product/guestRecommendedData",
+      },
+      {
+        name: "男性推荐数据",
+        icon: "el-icon-odometer",
+        path: "/product/manRecommendedData",
+      },
     ],
   },
 ]

@@ -57,6 +57,8 @@ const realNameAuthenticationData = ()=> import("./components/productModuleCompon
 const videoConnectionData = ()=> import("./components/productModuleComponents/videoConnectionData.vue");
 const dailyGoldData = ()=> import("./components/productModuleComponents/dailyGoldData.vue");
 const dailyGiveGoldData = ()=> import("./components/productModuleComponents/dailyGiveGoldData.vue");
+const manRecommendedData = ()=> import('./components/productModuleComponents/manRecommendedData.vue')
+const guestRecommendedData = ()=> import('./components/productModuleComponents/guestRecommendedData.vue')
 // 渠道模块
 const promotionReport = ()=> import("./components/channelModuleComponents/promotionReport.vue");
 const IELTSAssistantActiveCount = ()=> import("./components/channelModuleComponents/IELTSAssistantActiveCount.vue");
@@ -64,18 +66,11 @@ const dailyChannelConsumRanking = ()=> import("./components/channelModuleCompone
 const dailyChannelDataSum = ()=> import("./components/channelModuleComponents/dailyChannelDataSum.vue");
 const userChatState = ()=> import("./components/channelModuleComponents/userChatState.vue");
 
-// const path = require('path')
-// const files = require.context('./components', true, /\.vue$/)
-// const modules = {}
-// files.keys().forEach(key => {
-//  const name = matchFileName(key)
-//  console.log('name', name)
-//  modules[name] = files(key).default || files(key)
-// })
-// console.log('modules', modules)
 export default {
-  name: 'reportCenter',
+  name: '',
   components: {
+    manRecommendedData,
+    guestRecommendedData,
     dailyChannelDataSum,
     userChatState,
     dailyChannelConsumRanking,
