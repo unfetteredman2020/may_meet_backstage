@@ -26,9 +26,10 @@
           <el-tooltip class="item" effect="dark" :content="fullscreen ? '退出全屏' : '全屏'" placement="top-start">
             <i :class="[fullscreen ? 'el-icon-copy-document' : 'el-icon-full-screen']" class="customIcon" @click="fullScreen"></i>
           </el-tooltip>
-          <el-tooltip class="item" effect="dark" :content="fullscreen ? '退出全屏' : '全屏'" placement="top-start">
+          <!-- 测试使用 -->
+          <!-- <el-tooltip class="item" effect="dark" :content="fullscreen ? '退出全屏' : '全屏'" placement="top-start">
             <i :class="[fullscreen ? 'el-icon-copy-document' : 'el-icon-full-screen']" class="customIcon" @click="test"></i>
-          </el-tooltip>
+          </el-tooltip> -->
         </div>
       </el-header>
       <el-main class="homeMain"><router-view></router-view></el-main>

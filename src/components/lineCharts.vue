@@ -229,6 +229,8 @@ export default {
 .chatItemBox {
   margin-bottom: 20px;
   background-color: #fff;
+  box-shadow: 0 0 12px rgb(168, 161, 161);
+  border-radius: 5px;
   /* '#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc' */
   /* color: #5470c6;
   color: #91cc75;

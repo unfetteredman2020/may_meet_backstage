@@ -254,13 +254,14 @@ export default {
 
 <style scoped>
 .chartContainer {
-  background-color: #f2f3f4;
+  background-color: #f0f2f5;
   /* border: 1px solid red; */
-  max-height: 800px;
+  max-height: calc(100vh - 70px - 45px);
   padding: 0 50px;
   overflow-y: scroll;
 }
 .topChart {
+  /* border: 1px solid red; */
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;

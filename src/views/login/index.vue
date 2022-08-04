@@ -80,7 +80,7 @@ export default {
           let url = (this.redirect && decodeURIComponent(this.redirect)) || "/";
           console.log("url", url);
           this.$router.replace({ path: url });
-          this.redirect && location.reload()  //解决缓存问题
+          // this.redirect && location.reload()  //解决缓存问题
         });
       } catch (error) {
         this.$message("error", error.errmsg || "登录失败，请检查账号和密码");

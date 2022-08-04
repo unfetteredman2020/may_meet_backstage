@@ -1,4 +1,5 @@
 const path = require('path')
+const os = require('os');
 const webpack = require('webpack')
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin'); // 引入插件
 // const ExtractTextPlugin = require("extract-text-webpack-plugin"); // webpack 3 css分离plugin
@@ -8,10 +9,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')   // 分离css
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')  // 压缩css
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");// 导入速度分析插件
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const os = require('os');
-const threadLoader = require('thread-loader');
-const smp = new SpeedMeasurePlugin();
+// const threadLoader = require('thread-loader');
+const Jarvis = require("webpack-jarvis"); // 打包可视化工具
 
+
+// const smp = new SpeedMeasurePlugin();
 let script = [
   'https://cdn.bootcss.com/vue/2.6.14/vue.min.js',
   'https://unpkg.com/element-ui/lib/index.js',
@@ -19,35 +21,37 @@ let script = [
   'https://cdn.bootcss.com/vuex/3.6.2/vuex.min.js',
   'https://cdn.bootcss.com/axios/0.27.2/axios.min.js',
   'https://www.promisejs.org/polyfills/promise-6.1.0.js',
-  'https://gosspublic.alicdn.com/aliyun-oss-sdk-6.17.1.min.js'
+  'https://gosspublic.alicdn.com/aliyun-oss-sdk-6.17.1.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.mini.min.js'
 ]
 
 console.log('os.cpus().length', os.cpus().length)
-const jsWorkerPool = {
-  // options
+// const jsWorkerPool = {
+//   // options
 
-  // 产生的 worker 的数量，默认是 (cpu 核心数 - 1)
-  // 当 require('os').cpus() 是 undefined 时，则为 1
-  workers: os.cpus().length,
+//   // 产生的 worker 的数量，默认是 (cpu 核心数 - 1)
+//   // 当 require('os').cpus() 是 undefined 时，则为 1
+//   workers: os.cpus().length,
 
-  // 闲置时定时删除 worker 进程
-  // 默认为 500ms
-  // 可以设置为无穷大， 这样在监视模式(--watch)下可以保持 worker 持续存在
-  poolTimeout: 2000
-};
+//   // 闲置时定时删除 worker 进程
+//   // 默认为 500ms
+//   // 可以设置为无穷大， 这样在监视模式(--watch)下可以保持 worker 持续存在
+//   poolTimeout: 2000
+// };
 
-const cssWorkerPool = {
-  // 一个 worker 进程中并行执行工作的数量
-  // 默认为 20
-  workerParallelJobs: 2,
-  poolTimeout: 2000
-};
+// const cssWorkerPool = {
+//   // 一个 worker 进程中并行执行工作的数量
+//   // 默认为 20
+//   workerParallelJobs: 2,
+//   poolTimeout: 2000
+// };
 
-threadLoader.warmup(jsWorkerPool, ['babel-loader']);
-threadLoader.warmup(cssWorkerPool, ['css-loader', 'postcss-loader']);
+// threadLoader.warmup(jsWorkerPool, ['babel-loader']);
+// threadLoader.warmup(cssWorkerPool, ['css-loader', 'postcss-loader']);
 
 
-module.exports = smp.wrap({
+// module.exports = smp.wrap()
+module.exports = {
   output: {
     // path 必须为绝对路径
     // 输出文件路径
@@ -79,6 +83,7 @@ module.exports = smp.wrap({
     'vuex': 'Vuex',
     'axios': 'axios',
     'ali-oss': 'OSS',
+    'xlsx': 'XLSX',
   },
   module: {
     rules: [
@@ -104,6 +109,28 @@ module.exports = smp.wrap({
 
       //   ]
       // }
+      // {
+      //   test: /\.css$/,  // 可以打包后缀为sass/scss/css的文件
+      //   use: [
+      //     // {
+      //       // loader: MiniCssExtractPlugin.loader,
+      //       // options: {
+      //         // 这里可以指定一个 publicPath
+      //         // 默认使用 webpackOptions.output中的publicPath
+      //         // publicPath的配置，和plugins中设置的filename和chunkFilename的名字有关
+      //         // 如果打包后，background属性中的图片显示不出来，请检查publicPath的配置是否有误
+      //         // publicPath: '../',  
+      //         // publicPath: devMode ? './' : '../',   // 根据不同环境指定不同的publicPath
+      //         // hmr: devMode, // 仅dev环境启用HMR功能
+      //       // },
+      //     // },
+      //     MiniCssExtractPlugin.loader,
+      //     // 'style-loader',
+      //     'css-loader',
+      //     // 'sass-loader'
+      //   ],
+      // },
+
     ],
   },
   resolve: {
@@ -119,6 +146,7 @@ module.exports = smp.wrap({
     //       threshold: 1024, // 对超过10k的数据压缩
     //       minRatio: 0.8,
     //     }),
+    
     new MiniCssExtractPlugin({
       ignoreOrder: true, //ignoreOrder为true即可忽视掉打包过程中出现的冲突警告
       filename: 'css/[name]_[contenthash:3].css',
@@ -185,7 +213,9 @@ module.exports = smp.wrap({
       },
       sourceMap: false
     }),
-
+    // new Jarvis({
+    //   port: 1337 // optional: set a port
+    // }),
   ],
   optimization: {
     //     minimize: true,
@@ -234,4 +264,4 @@ module.exports = smp.wrap({
     }
   }
 
-})
+}
