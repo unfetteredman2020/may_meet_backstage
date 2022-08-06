@@ -3,6 +3,11 @@
     <el-table :data="data" max-height="695" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column v-for="item in columns" :key="item" :label="item" :prop="item"></el-table-column>
+      <el-table-column fixed="right" label="操作" width="50">
+        <template slot-scope="scope">
+          <el-button @click.native.prevent="deleteReport(scope.row)" type="text" size="small">撤销</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <div class="footer">
       <el-button class="el-icon-s-check" type="primary" @click="auditDialogFormVisible = true">审核</el-button>
@@ -57,14 +62,25 @@
       </div>
     </el-dialog>
     <el-dialog title="撤销奖励" :visible="revokeRewardDialogVisible">
-      <el-form :rules="rules" :model="revokeRewardForm" label-width="100px" ref="revokeRewardRef">
-        <el-form-item label="用户ID：" prop="id">
-          <el-input style="width: 300px" v-model="revokeRewardForm.id" placeholder="请输入用户ID"></el-input>
+      <el-form :rules="rules" :model="revokeRewardForm" label-width="100px" ref="revokeRewardsFormRef">
+        <el-form-item label="用户ID：" prop="userid">
+          <el-input style="width: 300px" v-model="revokeRewardForm.userid" placeholder="请输入用户ID"></el-input>
+        </el-form-item>
+        <el-form-item label="扣除数量：" prop="amount" :rules="[{ validator: checkAcount, trigger: 'blur' }]">
+          <el-input type="number" style="width: 300px" v-model.number="revokeRewardForm.amount" placeholder="请输入奖励数量"></el-input>
+        </el-form-item>
+        <el-form-item label="奖励类型：" prop="rewardtype">
+          <el-select v-model="revokeRewardForm.rewardtype" placeholder="请选择奖励类型">
+            <el-option v-for="item in rewardRewardtypeOption" :key="item.label" :label="item.label" :value="item.value"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="添加备注：" prop="memo">
+          <el-input type="textarea" style="width: 300px" v-model="revokeRewardForm.memo" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="resetForm('revokeRewardRef')">取 消</el-button>
-        <el-button type="primary" @click="validForm('revokeRewardRef')">确 定</el-button>
+        <el-button @click="resetForm('revokeRewardsFormRef')">取 消</el-button>
+        <el-button type="primary" @click="validForm('revokeRewardsFormRef')">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -73,11 +89,24 @@
 <script>
 import { getAuditManage, audit, addReward, revokeReward } from "@/api/userApi.js";
 import { getGiftList } from "@/api/baseInfoApi.js";
+import { clearEmptyObj } from "@/utils/formatData.js";
 export default {
   props: {},
+  inject: ["searchData"],
   components: {},
   data() {
+    var checkAcount = (rule, value, callback) => {
+      console.log("value", value);
+      if (!value) {
+        return callback(new Error("数量不能为空"));
+      }
+      if (!Number.isInteger(value)) {
+        callback(new Error("请输入正整数"));
+      }
+      callback();
+    };
     return {
+      checkAcount,
       data: [],
       giftList: [],
       auditForm: {
@@ -93,7 +122,10 @@ export default {
         gift_id: null,
       },
       revokeRewardForm: {
-        id: null,
+        userid: null,
+        amount: null,
+        rewardtype: null,
+        memo: null,
       },
       multipleSelection: [], //已经选中的行数据
       auditDialogFormVisible: false,
@@ -105,6 +137,11 @@ export default {
         { label: "零钱", value: "2" },
         { label: "社交礼物", value: "3" },
         { label: "社交道具", value: "4" },
+      ],
+      rewardRewardtypeOption: [
+        { label: "赠送金币", value: "0" },
+        { label: "充值金币", value: "1" },
+        { label: "零钱", value: "2" },
       ],
       rules: {
         id: [{ required: true, message: "请输入用户ID" }],
@@ -132,7 +169,7 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           switch (formName) {
-            case "revokeRewardRef":
+            case "revokeRewardsFormRef":
               this.revokeReward();
               break;
             case "playerRewardsFormRef":
@@ -148,13 +185,35 @@ export default {
         }
       });
     },
+    async deleteReport(item) {
+      try {
+        const res = await revokeReward({ id: item.id });
+        console.log("revokeReward res", res);
+        if (res && res.errcode == 0) {
+          this.$message("success", "撤销成功！");
+          const { date, ...pms } = clearEmptyObj(this.searchData);
+          let params = pms || {};
+          params.starttime = date[0];
+          params.endtime = date[1];
+          this.getData(params);
+        } else {
+          this.$message("error", res.errmsg || "撤销失败，请稍后重试！");
+        }
+      } catch (error) {
+        console.log("error", error);
+        this.$message("error", error.errmsg || "撤销失败，请稍后重试！");
+      }
+    },
     async revokeReward() {
       try {
-        const res = await revokeReward(this.revokeRewardForm);
+        let params = { ...this.revokeRewardForm };
+        params.amount = `-${params.amount}` * 1;
+        params.rewardtype = params.rewardtype * 1;
+        const res = await addReward(params);
         console.log("revokeReward res", res);
         if (res && res.errcode == 0) {
           this.$message("success", "扣除奖励成功！");
-          this.resetForm("revokeRewardRef");
+          this.resetForm("revokeRewardsFormRef");
         } else {
           this.$message("error", res.errmsg || "扣除失败，请稍后重试！");
         }
@@ -163,6 +222,7 @@ export default {
         this.$message("error", error.errmsg || "扣除失败，请稍后重试！");
       }
     },
+    // 添加奖励
     async addReward() {
       try {
         let params = { ...this.playerRewardForm };

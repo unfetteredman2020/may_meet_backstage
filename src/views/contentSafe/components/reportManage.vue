@@ -27,8 +27,9 @@
         <el-button @click="resetForm('reportManageSearchFormRef')">重置</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="data" fit max-height="850px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important', wordWrap: 'none;' }" stripe :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px', wordWrap: 'none' }">
+    <el-table :data="data" fit max-height="850px" border stripe :header-cell-style="{ height: '20px', 'line-height': '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
       <el-table-column v-for="item in column" :key="item.label" :label="item.label" :prop="item.value"></el-table-column>
+      <el-table-column label="投诉内容文本" prop="context" width="200"></el-table-column>
       <el-table-column label="举报时间" prop="inserttime" width="90"></el-table-column>
       <el-table-column label="举报状态" prop="state" width="90">
         <template slot-scope="scope">
@@ -65,7 +66,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="操作" :visible.sync="dialogFormVisible" :show-close='false' :close-on-click-modal="false">
+    <el-dialog title="操作" :visible.sync="dialogFormVisible" :show-close="false" :close-on-click-modal="false">
       <el-form :model="settingForm" label-position="right" label-width="150px" :rules="rules" ref="reportManageChangeRef">
         <el-form-item label="新状态：" prop="status">
           <el-select v-model="settingForm.status" placeholder="请选择">

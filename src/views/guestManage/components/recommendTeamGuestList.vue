@@ -64,7 +64,7 @@ export default {
       searchForm: {
         guest_id: null,
         group_id: null,
-        date: null,
+        date: ['2022-01-01', '2022-09-01'],
       },
       BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`,
       coverPreview: [],

@@ -110,11 +110,11 @@ export default {
   //⽅法集合
   methods: {
     test() {
-      let params = {...this.storeUserInfo}
-      console.log('params', params)
-      delete params.sign
-      console.log('params', params)
-      this.$store.commit('set_userInfo', {userInfo: params})
+      let params = { ...this.storeUserInfo };
+      console.log("params", params);
+      delete params.sign;
+      console.log("params", params);
+      this.$store.commit("set_userInfo", { userInfo: params });
     },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
@@ -152,7 +152,9 @@ export default {
   },
   //⽣命周期，创建完成（可以访问当前this实例）
   created() {},
-  beforeUpdate() {},
+  beforeUpdate() {
+    console.log("-------------------beforeUpdate");
+  },
   //⽣命周期，挂载完成（可以访问dom元素）
   mounted() {
     this.role_name = this.storeUserInfo?.role_name || "";
@@ -186,7 +188,9 @@ export default {
     this.menu = [...HOME];
   }, //⽣命周期 - 更新之后
   updated() {}, //⽣命周期 - 更新之后
-  beforeDestroy() {}, //⽣命周期 - 销毁之前
+  beforeDestroy() {
+    setTimeout(() => location.reload()); //解决缓存问题
+  }, //⽣命周期 - 销毁之前
   destroy() {}, //⽣命周期 - 销毁完成
   activated() {}, //如果页⾯有keep-alive缓存功能，这个函数会触发
 };

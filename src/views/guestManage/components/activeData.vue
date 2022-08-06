@@ -12,8 +12,8 @@
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="data" style="width: 100%" max-height="800px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
-      <el-table-column label="嘉宾昵称" prop="嘉宾"></el-table-column>
+    <el-table :data="data" style="width: 100%" max-height="830px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
+      <el-table-column label="嘉宾昵称" prop="嘉宾" width="200"></el-table-column>
       <el-table-column label="电话数" prop="电话数"></el-table-column>
       <el-table-column label="接通电话数" prop="接通电话数"></el-table-column>
       <el-table-column label="接通率" prop="接通率"></el-table-column>
@@ -24,8 +24,8 @@
       <el-table-column label="今日已聊用户数" prop="今日已聊用户数"></el-table-column>
       <el-table-column label="今日是否被限制聊天" prop="今日是否被限制聊天">
         <template slot-scope="scope">
-          <el-tag :type="isLockAccount(scope.row['今日是否被限制聊天']) ? 'success' : 'danger'" effect="dark">
-            {{ isLockAccount(scope.row["今日是否被限制聊天"]) ? "正常" : "限制" }}
+          <el-tag :type="scope.row.今日是否被限制聊天 ==0 ? 'success' : 'danger'" effect="dark">
+            {{ scope.row["今日是否被限制聊天"] ==0 ? "正常" : "限制" }}
           </el-tag>
         </template>
       </el-table-column>

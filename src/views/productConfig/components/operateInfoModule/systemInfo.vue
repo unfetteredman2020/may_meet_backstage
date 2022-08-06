@@ -1,7 +1,7 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
     <div class="box" style="background-color: #eee">
-      <el-form style="background-color: #eee; padding: 15px 0 0" :inline="true" :model="searchForm"  ref="systemInfoRef">
+      <el-form style="background-color: #eee; padding: 15px 0 0" :inline="true" :model="searchForm" ref="systemInfoRef">
         <el-form-item label="标题：" prop="title">
           <el-input v-model="searchForm.title" placeholder="请输入标题"></el-input>
         </el-form-item>
@@ -10,33 +10,34 @@
           <el-button @click="resetForm('systemInfoRef')">重置</el-button>
         </el-form-item>
       </el-form>
-      <el-button class="el-icon-plus" type="primary"  @click="dialogVisible = true">发布消息</el-button>
+      <el-button class="el-icon-plus" type="primary" @click="dialogVisible = true">发布消息</el-button>
     </div>
-
-    <el-table :data="data" style="width: 100%" max-height="750px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
-      <el-table-column label="记录id" prop="记录id" width="70"></el-table-column>
-      <el-table-column label="消息类型" prop="消息类型" width="100">
-        <template slot-scope="scope">
-          {{ scope.row["消息类型"] == 1 ? "系统消息" : "未知消息" }}
-        </template>
-      </el-table-column>
-      <el-table-column label="发送者" prop="发送者" width="70"></el-table-column>
-      <el-table-column label="接受者" prop="接受者" width="70"></el-table-column>
-      <el-table-column label="标题" prop="标题"></el-table-column>
-      <el-table-column label="内容" prop="内容"></el-table-column>
-      <el-table-column label="跳转页面" prop="跳转页面"></el-table-column>
-      <el-table-column label="发送时间" prop="发送时间"></el-table-column>
-      <!-- <el-table-column fixed="right" label="操作" width="50">
+    <div class="wrapper">
+      <el-table :data="data" style="width: 100%; overflow: scroll" max-height="100%" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
+        <el-table-column label="记录id" prop="记录id" width="70"></el-table-column>
+        <el-table-column label="消息类型" prop="消息类型" width="100">
+          <template slot-scope="scope">
+            {{ scope.row["消息类型"] == 1 ? "系统消息" : "未知消息" }}
+          </template>
+        </el-table-column>
+        <el-table-column label="发送者" prop="发送者" width="70"></el-table-column>
+        <el-table-column label="接受者" prop="接受者" width="70"></el-table-column>
+        <el-table-column label="标题" prop="标题"></el-table-column>
+        <el-table-column label="内容" prop="内容"></el-table-column>
+        <el-table-column label="跳转页面" prop="跳转页面"></el-table-column>
+        <el-table-column label="发送时间" prop="发送时间"></el-table-column>
+        <!-- <el-table-column fixed="right" label="操作" width="50">
         <template slot-scope="scope">
           <el-popconfirm :title="'暂无功能'" @confirm="changeStatus(scope.row)">
             <i slot="reference" class="el-icon-s-tools setting"></i>
           </el-popconfirm>
         </template>
       </el-table-column> -->
-    </el-table>
+      </el-table>
+    </div>
 
     <el-dialog title="发布消息" :visible.sync="dialogVisible" width="40%" :before-close="handleClose">
-      <el-form :model="publishNewsForm" :rules="rules" ref="publishNewsFormRef" label-width="100px" class="demo-ruleForm" >
+      <el-form :model="publishNewsForm" :rules="rules" ref="publishNewsFormRef" label-width="100px" class="demo-ruleForm">
         <el-form-item label="标题:" prop="title">
           <el-input v-model="publishNewsForm.title" autocomplete="off" placeholder="请输入标题"></el-input>
         </el-form-item>
@@ -53,9 +54,9 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button  @click="resetForm('publishNewsFormRef')">重置</el-button>
-        <el-button  @click="dialogVisible = false">取 消</el-button>
-        <el-button  type="primary" @click="submitForm('publishNewsFormRef')">提交</el-button>
+        <el-button @click="resetForm('publishNewsFormRef')">重置</el-button>
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="submitForm('publishNewsFormRef')">提交</el-button>
       </span>
     </el-dialog>
   </div>
@@ -65,7 +66,6 @@
 import { getSystemInfo, publicMsg } from "@/api/productApi.js";
 import { getJumpPagePath } from "@/api/baseInfoApi.js";
 import { clearEmptyObj } from "@/utils/formatData.js";
-import { isTimeOut } from "@/utils/date";
 
 export default {
   props: {},
@@ -84,8 +84,8 @@ export default {
       },
       rules: {
         title: [{ required: true, message: "标题不能为空" }],
-        topage: [{ required: true, message: "跳转页面不能为空" }],
-        dst_userid: [{ required: true, message: "用户ID不能为空" }],
+        // topage: [{ required: true, message: "跳转页面不能为空" }],
+        // dst_userid: [{ required: true, message: "用户ID不能为空" }],
         content: [{ required: true, message: "内容不能为空" }],
       },
       BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`,
@@ -118,8 +118,8 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           console.log("publishNewsForm.", this.publishNewsForm);
-          let params = this.publishNewsForm;
-          params.dst_userid = params.dst_userid.split("&");
+          let params = { ...this.publishNewsForm };
+          params.dst_userid = params.dst_userid.split("&") || [];
           console.log("params", params);
           this.publicMsgs(params);
         } else {
@@ -132,7 +132,7 @@ export default {
       try {
         const res = await publicMsg(data);
         if (res && res.errcode == 0) {
-          this.resetForm('publishNewsFormRef')
+          this.resetForm("publishNewsFormRef");
           this.getData();
           this.selectOptions = res.data;
           this.$message("success", "发布成功！");
@@ -224,5 +224,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.wrapper {
+  height: calc(100vh - 70px - 120px);
 }
 </style>

@@ -102,7 +102,7 @@ export default {
   margin: 10px 0;
   display: flex;
   justify-content: space-between;
-  flex-direction: column;
+  flex-direction: row;
 }
 .msg {
   width: 500px;

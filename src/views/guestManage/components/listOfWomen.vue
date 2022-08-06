@@ -10,13 +10,13 @@
           <el-option label="不是" value="0"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="女用户分级：" prop="level">
+      <el-form-item label="女用户分级：" prop="level" :rules="[{required: true, message: '请选择女用户分级'}]">
         <el-select v-model="searchForm.level" placeholder="请选择">
           <el-option v-for="item in options" :key="item.label" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="onSubmit('womenListRef')">查询</el-button>
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
@@ -91,7 +91,7 @@ export default {
         { label: "嘉宾C", value: "102" },
         { label: "嘉宾D", value: "103" },
         { label: "嘉宾S", value: "130" },
-        { label: "超级推荐人", value: "200" },
+        // { label: "超级推荐人", value: "200" },
       ],
       column: [
         { label: "userid", value: "userid" },
@@ -113,7 +113,6 @@ export default {
   },
   computed: {},
   mounted() {
-    this.getData();
   },
   methods: {
     expandChange(row, a) {
@@ -131,8 +130,16 @@ export default {
         return true;
       }
     },
-    onSubmit() {
-      this.getData(clearEmptyObj(this.searchForm));
+    onSubmit(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.getData(clearEmptyObj(this.searchForm));
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+      
     },
     set(user) {
       console.log("user", user);

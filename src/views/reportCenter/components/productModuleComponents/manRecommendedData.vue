@@ -24,6 +24,7 @@ export default {
       customProps: {
         tableName: "manRecommendDataTableConfig", // tableName： table标识，用来做table的key
         tableConfig, //table 每一列数据的key-value对应关系的Object；{key：value}；key指绑定column的英文名称，value指每一列的中文名称，不可为空
+        show_summary: true
       },
     };
   },

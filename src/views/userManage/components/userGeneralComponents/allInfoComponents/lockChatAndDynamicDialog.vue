@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog :title="type == 'chat' ? '禁用私聊' : type == 'dynamic' ? '禁用动态' : '禁用提现'" :visible.sync="lockChatAndDynamicVisisble">
+    <el-dialog :show-close="false" :close-on-click-modal="false" :title="type == 'chat' ? '禁用私聊' : type == 'dynamic' ? '禁用动态' : '禁用提现'" :visible.sync="lockChatAndDynamicVisisble">
       <el-form :model="form" ref="lockChatAndDynamicForm">
         <el-form-item label="封禁时间：" label-width="120" prop="hours" :rules="[{ required: true, message: '请选择封禁时间', trigger: 'blur' }]">
           <el-select v-model="form.hours" placeholder="请选择封禁时间">

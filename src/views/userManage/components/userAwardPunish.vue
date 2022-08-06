@@ -70,7 +70,7 @@ export default {
       ],
       activeName: "rewardRecord",
       rules: {
-        userid: [{required: true, message: '请输入誓聊ID'}],
+        // userid: [{required: true, message: '请输入誓聊ID'}],
         date: [{required: true, message: '请选择筛选时间'}],
       }
     };

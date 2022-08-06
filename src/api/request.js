@@ -17,7 +17,7 @@ const toLogin = () => {
 }
 const api = axios.create({
   baseURL: process.env.VUE_APP_BASE_URL,
-  timeout: 3000,
+  timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
     // "Access-Control-Allow-Origin": "*",
@@ -36,9 +36,9 @@ api.interceptors.request.use(
       background: 'rgba(0, 0, 0, 0.7)'
     });
     if (whiteUrl.indexOf(request.url) !== -1) {
-      console.log('jump')
+      // console.log('jump')
     } else {
-      console.log('no jump')
+      // console.log('no jump')
       if (store.getters['getSign']) {
         request.headers['sign'] = store.getters['getSign']
       } else {

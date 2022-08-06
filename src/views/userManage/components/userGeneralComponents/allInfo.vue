@@ -28,7 +28,7 @@
             <span>手机号：{{ userInfo.phone }}</span>
             <span>注册渠道：{{ userInfo.regchannelid }}</span>
             <span>注册时间：{{ userInfo.regdate }}</span>
-            <span>最后客户端类型：{{ userInfo.last_login_ostype == 1 ? "苹果" : "安卓" }}</span>
+            <span>最后客户端类型：{{ userInfo.last_login_ostype == 1 ? "安卓" : "苹果" }}</span>
           </div>
           <div style="margin: 0 0 0 70px; box-sizing: border-box">
             <span>注册ip地址：{{ userInfo.regip }}</span>

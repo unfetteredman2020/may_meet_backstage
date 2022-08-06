@@ -91,30 +91,30 @@ export const payUserRetention = params => request.get(`/bbzx/yymk/ffyhlcl`, {par
  */
 
 // 视频、语音通话视频 
-export const voiceAndVideoCallData = data => request.get(`/bbzx/qdmk/spyythsj?starttime=${data.starttime}&endtime=${data.endtime}`)
+export const voiceAndVideoCallData = data => request.get(`/bbzx/cpmk/spyythsj?starttime=${data.starttime}&endtime=${data.endtime}`)
 
 // 男用户任务完成情况 
-export const manTaskCompletion = data => request.get(`/bbzx/qdmk/nyhrwwcqk?starttime=${data.starttime}&endtime=${data.endtime}`)
+export const manTaskCompletion = data => request.get(`/bbzx/cpmk/nyhrwwcqk?starttime=${data.starttime}&endtime=${data.endtime}`)
 
 // 动态每日统计表 
-export const dynamicDailyStatistics = data => request.get(`/bbzx/qdmk/dtmrtjb?${data}`)
+export const dynamicDailyStatistics = data => request.get(`/bbzx/cpmk/dtmrtjb?${data}`)
 
 // 女用户任务完成情况 
-export const womanTaskCompletion = data => request.get(`/bbzx/qdmk/nvyhrwwcqk?starttime=${data.starttime}&endtime=${data.endtime}`)
+export const womanTaskCompletion = data => request.get(`/bbzx/cpmk/nvyhrwwcqk?starttime=${data.starttime}&endtime=${data.endtime}`)
 
 // 实名、真人认证数据 
-export const realNameAuthenticationData = data => request.get(`/bbzx/qdmk/smzrrzsj?starttime=${data.starttime}&endtime=${data.endtime}`)
+export const realNameAuthenticationData = data => request.get(`/bbzx/cpmk/smzrrzsj?starttime=${data.starttime}&endtime=${data.endtime}`)
 
 
 // 视频专区接通情况 
-export const videoConnectionData = data => request.get(`/bbzx/qdmk/spzqjtqk?starttime=${data.starttime}&endtime=${data.endtime}`)
+export const videoConnectionData = data => request.get(`/bbzx/cpmk/spzqjtqk?starttime=${data.starttime}&endtime=${data.endtime}`)
 
 
 // 每日赠送金币数据 
-export const dailyGiveGoldData = data => request.get(`/bbzx/qdmk/mrzsjbsj?starttime=${data.starttime}&endtime=${data.endtime}`)
+export const dailyGiveGoldData = data => request.get(`/bbzx/cpmk/mrzsjbsj?starttime=${data.starttime}&endtime=${data.endtime}`)
 
 // 每日金币数据 
-export const dailyGoldData = data => request.get(`/bbzx/qdmk/mrjbsj?starttime=${data.starttime}&endtime=${data.endtime}`)
+export const dailyGoldData = data => request.get(`/bbzx/cpmk/mrjbsj?starttime=${data.starttime}&endtime=${data.endtime}`)
 
 //***获取媒体列表***
 export const getMediaList = () => request.get(`/baseinfo/get_media_id`)
@@ -127,6 +127,9 @@ export const getReleaseAccountList = params => request.get(`/baseinfo/get_corp_a
 
 //***获取男性推荐数据***
 export const getManRecommendData = params => request.get(`/bbzx/cpmk/tjsjnx`, { params: params || {} })
+
+//***获取嘉宾推荐数据***
+export const getGuestRecommendData = params => request.get(`/bbzx/cpmk/tjsjjb`, { params: params || {} })
 
 /**
  * 渠道模块
@@ -143,3 +146,6 @@ export const IELTSAssistantActiveCount = params => request.get(`/bbzx/qdmk/aszsj
 
 //每日渠道消耗排名
 export const dailyChannelConsumRanking = params => request.get(`/bbzx/qdmk/mrqdxhpm`, { params: params || {} })
+
+//用户聊天情况
+export const userChatState = params => request.get(`/bbzx/qdmk/yhltqk`, { params: params || {} })

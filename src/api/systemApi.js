@@ -19,7 +19,6 @@ export const getPermissions = data => request.get('/xtgl/jsgl/hqqx', { params: d
 // 编辑角色权限
 export const changePermission = data => request.post('/xtgl/jsgl/bjqx', data)
 
-
 // 获取角色权限
 export const getBackStageAccountManage = data => request.get('/xtgl/htzhgl', { params: data || {} })
 
@@ -36,7 +35,6 @@ export const editAccountsPermission = data => request.post('/xtgl/htzhgl/bjqx', 
 
 // 编辑账号权限
 export const addCount = data => request.post('/xtgl/htzhgl/cjzh', data)
-
 
 // 获取账号权限
 export const getAccountPermission = data => request.get('/xtgl/htzhgl/hqqx', { params: data || {} })

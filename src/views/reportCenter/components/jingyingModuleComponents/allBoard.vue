@@ -2,7 +2,7 @@
   <div class="allBoardBox">
     <header class="customHeader">
       <span>总览看板</span>
-      <el-button  class="el-icon-refresh">refresh</el-button>
+      <el-button type="primary"  class="el-icon-refresh" @click="getData">refresh</el-button>
     </header>
     <main class="customMain">
       <el-descriptions class="descriptions" title="在线人数" :column="1"  border>
@@ -32,7 +32,7 @@
             <i class="el-icon-c-scale-to-original"></i>
             男女比例
           </template>
-          {{ boardData["男性在线人数"] / boardData["女性在线人数"] }}
+          {{ proportion(boardData["男性在线人数"] / boardData["女性在线人数"] || 0) }}
         </el-descriptions-item>
       </el-descriptions>
       <el-descriptions class="descriptions" title="男优质女比例" :column="1"  border>
@@ -287,6 +287,9 @@ export default {
     this.getData();
   },
   methods: {
+    proportion(num) {
+      return num.toFixed(2)
+    },
     async getData() {
       try {
         const res = await allBoard();

@@ -132,6 +132,7 @@ export default {
           return value;
         },
       };
+      console.log('----obj---', obj)
       this.lastChartConfig = obj;
       // ----------------------------最后一个表格end------------------------------
 

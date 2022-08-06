@@ -8,7 +8,13 @@
       <el-table-column prop="提现金额" label="提现金额"></el-table-column>
       <el-table-column prop="到账金额" label="到账金额"></el-table-column>
       <el-table-column prop="打款账户名称" label="打款账户名称" width="100px"></el-table-column>
-      <el-table-column prop="状态" label="状态"></el-table-column>
+      <el-table-column prop="状态" label="状态">
+        <template slot-scope="scope">
+          <el-tag :type="withdrawalRecordStatus[scope.row.状态][1]" effect="dark">
+            {{ withdrawalRecordStatus[scope.row["状态"]][0] }}
+          </el-tag>
+        </template>
+      </el-table-column>
       <el-table-column prop="状态时间戳" label="状态时间戳" width="150px"></el-table-column>
       <el-table-column prop="状态原因" label="状态原因" width="150px"></el-table-column>
       <el-table-column prop="提现时间" label="提现时间" width="100px"></el-table-column>
@@ -52,6 +58,9 @@ export default {
         { label: "提现时间", value: "提现时间" },
         { label: "bankinfo", value: "bankinfo" },
       ],
+      withdrawalRecordStatus: {
+        0:['审核中', ''], 1:['成功', 'success'], 2: ['失败', 'danger'], 3: ['审核失败', 'danger'],4:['未知状态', 'info']
+      }
     };
   },
   computed: {},

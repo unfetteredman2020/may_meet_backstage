@@ -2,7 +2,7 @@ export default [
   {
     // name: 'home',
     path: '/',
-    component: () => import('@/views/home/index.vue'),
+    component: () => import(/* webpackChunkName: 'home/home' */ '@/views/home/index.vue'),
     meta: {
       title: '首页'
     },
@@ -10,7 +10,7 @@ export default [
       {
         path: "/userManage",
         name: "userManage",
-        component: () => import('@/views/userManage/index.vue'),
+        component: () => import(/* webpackChunkName: 'home/userManage' */ '@/views/userManage/index.vue'),
         meta: {
           title: '用户管理',
           id: 1
@@ -19,7 +19,7 @@ export default [
           {
             path: "userGeneral",
             name: "userGeneral",
-            component: () => import('@/views/userManage/components/userGeneral.vue'),
+            component: () => import(/* webpackChunkName: 'userManage/userGeneral' */ '@/views/userManage/components/userGeneral.vue'),
             meta: {
               title: '综合管理',
               id: 2
@@ -28,7 +28,7 @@ export default [
           {
             path: "user_withdraw",
             name: "user_withdraw",
-            component: () => import('@/views/userManage/components/user_withdraw.vue'),
+            component: () => import(/* webpackChunkName: 'userManage/user_withdraw' */ '@/views/userManage/components/user_withdraw.vue'),
             meta: {
               title: '提现审核',
               id: 40
@@ -38,7 +38,7 @@ export default [
           {
             path: "userAwardPunish",
             name: "userAwardPunish",
-            component: () => import('@/views/userManage/components/userAwardPunish.vue'),
+            component: () => import(/* webpackChunkName: 'userManage/userAwardPunish' */ '@/views/userManage/components/userAwardPunish.vue'),
             meta: {
               title: '奖惩管理',
               id: 48
@@ -47,7 +47,7 @@ export default [
           {
             path: "userRefund",
             name: "userRefund",
-            component: () => import('@/views/userManage/components/userRefund.vue'),
+            component: () => import(/* webpackChunkName: 'userManage/userRefund' */ '@/views/userManage/components/userRefund.vue'),
             meta: {
               title: '退款管理',
               id: 65
@@ -60,7 +60,7 @@ export default [
       {
         path: "/guestManage",
         name: "guestManage",
-        component: () => import('@/views/guestManage/index.vue'),
+        component: () => import(/* webpackChunkName: 'home/guestManage' */ '@/views/guestManage/index.vue'),
         meta: {
           title: '嘉宾管理',
           id: 79
@@ -69,7 +69,7 @@ export default [
           {
             path: 'guestGeneral',
             name: '综合管理',
-            component: () => import(/* : 'guestManage/guestGeneral' */'@/views/guestManage/components/guestGeneral.vue'),
+            component: () => import(/* webpackChunkName: 'guestManage/guestGeneral' */'@/views/guestManage/components/guestGeneral.vue'),
             meta: {
               title: '综合管理',
               id: 80
@@ -78,7 +78,7 @@ export default [
           {
             path: 'listOfWomen',
             name: 'listOfWomen',
-            component: () => import(/* : 'guestManage/listOfWomen' */'@/views/guestManage/components/listOfWomen.vue'),
+            component: () => import(/* webpackChunkName: 'guestManage/listOfWomen' */'@/views/guestManage/components/listOfWomen.vue'),
             meta: {
               title: '女用户列表',
               id: 91
@@ -87,7 +87,7 @@ export default [
           // {
           //   path: 'overview',
           //   name: 'overview',
-          //   component: () => import(/* : 'guestManage/guestGeneral' */'@/views/guestManage/components/overview.vue'),
+          //   component: () => import(/* webpackChunkName: 'guestManage/guestGeneral' */'@/views/guestManage/components/overview.vue'),
           //   meta: {
           //     title: '概览'
           //   },
@@ -95,7 +95,7 @@ export default [
           {
             path: 'listOfAgents',
             name: 'listOfAgents',
-            component: () => import(/* : 'guestManage/listOfAgents' */'@/views/guestManage/components/listOfAgents.vue'),
+            component: () => import(/* webpackChunkName: 'guestManage/listOfAgents' */'@/views/guestManage/components/listOfAgents.vue'),
             meta: {
               title: '代理人列表',
               id: 94
@@ -104,7 +104,7 @@ export default [
           {
             path: 'agentGuest',
             name: 'agentGuest',
-            component: () => import(/* : 'guestManage/agentGuest' */'@/views/guestManage/components/agentGuest.vue'),
+            component: () => import(/* webpackChunkName: 'guestManage/agentGuest' */'@/views/guestManage/components/agentGuest.vue'),
             meta: {
               title: '代理人嘉宾',
               id: 97
@@ -113,7 +113,7 @@ export default [
           {
             path: 'agencyIncome',
             name: 'agencyIncome',
-            component: () => import(/* : 'guestManage/agencyIncome' */'@/views/guestManage/components/agencyIncome.vue'),
+            component: () => import(/* webpackChunkName: 'guestManage/agencyIncome' */'@/views/guestManage/components/agencyIncome.vue'),
             meta: {
               title: '代理收益',
               id: 101
@@ -122,7 +122,7 @@ export default [
           {
             path: 'recommendTeamGuestList',
             name: 'recommendTeamGuestList',
-            component: () => import(/* : 'guestManage/recommendTeamGuestList' */'@/views/guestManage/components/recommendTeamGuestList.vue'),
+            component: () => import(/* webpackChunkName: 'guestManage/recommendTeamGuestList' */'@/views/guestManage/components/recommendTeamGuestList.vue'),
             meta: {
               title: '推荐团队嘉宾列表',
               id: 102
@@ -131,7 +131,7 @@ export default [
           {
             path: 'guestIncome',
             name: 'guestIncome',
-            component: () => import(/* : 'guestManage/guestIncome' */'@/views/guestManage/components/guestIncome.vue'),
+            component: () => import(/* webpackChunkName: 'guestManage/guestIncome' */'@/views/guestManage/components/guestIncome.vue'),
             meta: {
               title: '嘉宾收益',
               id: 105
@@ -140,7 +140,7 @@ export default [
           {
             path: 'activeData',
             name: 'activeData',
-            component: () => import(/* : 'guestManage/activeData' */'@/views/guestManage/components/activeData.vue'),
+            component: () => import(/* webpackChunkName: 'guestManage/activeData' */'@/views/guestManage/components/activeData.vue'),
             meta: {
               title: '活跃数据',
               id: 107
@@ -149,7 +149,7 @@ export default [
           {
             path: 'transferManagement',
             name: 'transferManagement',
-            component: () => import(/* : 'guestManage/transferManagement' */'@/views/guestManage/components/transferManagement.vue'),
+            component: () => import(/* webpackChunkName: 'guestManage/transferManagement' */'@/views/guestManage/components/transferManagement.vue'),
             meta: {
               title: '转账管理',
               id: 109
@@ -158,7 +158,7 @@ export default [
           {
             path: 'violateGuest',
             name: 'violateGuest',
-            component: () => import(/* : 'guestManage/violateGuest' */'@/views/guestManage/components/violateGuest.vue'),
+            component: () => import(/* webpackChunkName: 'guestManage/violateGuest' */'@/views/guestManage/components/violateGuest.vue'),
             meta: {
               title: '违规嘉宾',
               id: 114
@@ -170,7 +170,7 @@ export default [
       {
         path: "/productConfig",
         name: "productConfig",
-        component: () => import('@/views/productConfig/index.vue'),
+        component: () => import(/* webpackChunkName: 'home/productConfig' */ '@/views/productConfig/index.vue'),
         meta: {
           title: '产品配置',
           id: 139
@@ -179,7 +179,7 @@ export default [
           {
             path: "operateInfo",
             name: "operateInfo",
-            component: () => import(/* : 'productConfig/operateInfo' */ '@/views/productConfig/components/operateInfo.vue'),
+            component: () => import(/* webpackChunkName: 'productConfig/operateInfo' */ '@/views/productConfig/components/operateInfo.vue'),
             meta: {
               title: '运营消息',
               id: 140
@@ -188,7 +188,7 @@ export default [
           {
             path: "popupConfig",
             name: "popupConfig",
-            component: () => import('@/views/productConfig/components/popupConfig.vue'),
+            component: () => import(/* webpackChunkName: 'productConfig/popupConfig' */ '@/views/productConfig/components/popupConfig.vue'),
             meta: {
               title: '弹窗配置',
               id: 181
@@ -200,7 +200,7 @@ export default [
       {
         path: "/recommenderManage",
         name: "recommenderManage",
-        component: () => import('@/views/recommenderManage/index.vue'),
+        component: () => import(/* webpackChunkName: 'home/recommenderManage' */ '@/views/recommenderManage/index.vue'),
         meta: {
           title: '推荐人管理',
           id: 115
@@ -209,7 +209,7 @@ export default [
           {
             path: "recommendList",
             name: "recommendList",
-            component: () => import(/* : 'recommenderManage/recommendList' */ '@/views/recommenderManage/components/recommendList.vue'),
+            component: () => import(/* webpackChunkName: 'recommenderManage/recommendList' */ '@/views/recommenderManage/components/recommendList.vue'),
             meta: {
               title: '推荐人列表',
               id: 116
@@ -219,7 +219,7 @@ export default [
           {
             path: "recommendTeamIncome",
             name: "recommendTeamIncome",
-            component: () => import(/* : 'recommenderManage/recommendTeamIncome' */ '@/views/recommenderManage/components/recommendTeamIncome.vue'),
+            component: () => import(/* webpackChunkName: 'recommenderManage/recommendTeamIncome' */ '@/views/recommenderManage/components/recommendTeamIncome.vue'),
             meta: {
               title: '推荐团队收益',
               id: 123
@@ -228,7 +228,7 @@ export default [
           {
             path: "operateRelationship",
             name: "operateRelationship",
-            component: () => import(/* : 'recommenderManage/operateRelationship' */ '@/views/recommenderManage/components/operateRelationship.vue'),
+            component: () => import(/* webpackChunkName: 'recommenderManage/operateRelationship' */ '@/views/recommenderManage/components/operateRelationship.vue'),
             meta: {
               title: '运营关系',
               id: 136
@@ -237,7 +237,7 @@ export default [
           {
             path: "operateData",
             name: "operateData",
-            component: () => import(/* : 'recommenderManage/operateData' */ '@/views/recommenderManage/components/operateData.vue'),
+            component: () => import(/* webpackChunkName: 'recommenderManage/operateData' */ '@/views/recommenderManage/components/operateData.vue'),
             meta: {
               title: '运营数据',
               id: 134
@@ -249,7 +249,7 @@ export default [
       {
         path: "/contentSafe",
         name: "contentSafe",
-        component: () => import('@/views/contentSafe/index.vue'),
+        component: () => import(/* webpackChunkName: 'home/contentSafe' */ '@/views/contentSafe/index.vue'),
         meta: {
           title: '内容安全',
           id: 186
@@ -258,7 +258,7 @@ export default [
           {
             path: "reportManage",
             name: "reportCenter",
-            component: () => import('@/views/contentSafe/components/reportManage.vue'),
+            component: () => import(/* webpackChunkName: 'contentSafe/reportManage' */ '@/views/contentSafe/components/reportManage.vue'),
             meta: {
               title: '举报管理',
               id: 216
@@ -267,7 +267,7 @@ export default [
           {
             path: "voiceSignature",
             name: "voiceSignature",
-            component: () => import('@/views/contentSafe/components/voiceSignature.vue'),
+            component: () => import(/* webpackChunkName: 'contentSafe/voiceSignature' */ '@/views/contentSafe/components/voiceSignature.vue'),
             meta: {
               title: '语音签名',
               id: 216
@@ -276,7 +276,7 @@ export default [
           {
             path: "dynamicManage",
             name: "dynamicManage",
-            component: () => import('@/views/contentSafe/components/dynamicManage.vue'),
+            component: () => import(/* webpackChunkName: 'contentSafe/dynamicManage' */ '@/views/contentSafe/components/dynamicManage.vue'),
             meta: {
               title: '动态管理',
               id: 216
@@ -285,7 +285,7 @@ export default [
           {
             path: "videoZone",
             name: "videoZone",
-            component: () => import('@/views/contentSafe/components/videoZone.vue'),
+            component: () => import(/* webpackChunkName: 'contentSafe/videoZone' */ '@/views/contentSafe/components/videoZone.vue'),
             meta: {
               title: '视频专区',
               id: 216
@@ -294,7 +294,7 @@ export default [
           {
             path: "quickReply",
             name: "quickReply",
-            component: () => import('@/views/contentSafe/components/quickReply.vue'),
+            component: () => import(/* webpackChunkName: 'contentSafe/quickReply' */ '@/views/contentSafe/components/quickReply.vue'),
             meta: {
               title: '快捷回复',
               id: 216
@@ -306,7 +306,7 @@ export default [
       {
         path: "/channelManage",
         name: "channelManage",
-        component: () => import('@/views/channelManage/index.vue'),
+        component: () => import(/* webpackChunkName: 'home/channelManage' */ '@/views/channelManage/index.vue'),
         meta: {
           title: '渠道管理',
           id: 263
@@ -315,7 +315,7 @@ export default [
           {
             path: "channelList",
             name: "channelList",
-            component: () => import('@/views/channelManage/components/channelList.vue'),
+            component: () => import(/* webpackChunkName: 'channelManage/channelList' */ '@/views/channelManage/components/channelList.vue'),
             meta: {
               title: '渠道列表',
               id: 264
@@ -327,7 +327,7 @@ export default [
       {
         path: "/reportCenter",
         name: "reportCenter",
-        component: () => import('@/views/reportCenter/index.vue'),
+        component: () => import(/* webpackChunkName: 'home/reportCenter' */ '@/views/reportCenter/index.vue'),
         meta: {
           title: '报表中心',
           id: 290
@@ -337,7 +337,7 @@ export default [
       {
         path: "/systemSetting",
         name: "systemSetting",
-        component: () => import('@/views/systemSetting/index.vue'),
+        component: () => import(/* webpackChunkName: 'home/systemSetting' */ '@/views/systemSetting/index.vue'),
         meta: {
           title: '系统管理',
           id: 298
@@ -346,7 +346,7 @@ export default [
           {
             path: "roleManagement",
             name: "roleManagement",
-            component: () => import(/* : 'systemSetting/roleManagement' */ '@/views/systemSetting/components/roleManagement.vue'),
+            component: () => import(/* webpackChunkName: 'systemSetting/roleManagement' */ '@/views/systemSetting/components/roleManagement.vue'),
             meta: {
               title: '角色管理',
               id: 304
@@ -355,7 +355,7 @@ export default [
           {
             path: "backstageAccountManage",
             name: "backstageAccountManage",
-            component: () => import(/* : 'systemSetting/backstageAccountManage' */ '@/views/systemSetting/components/backstageAccountManage.vue'),
+            component: () => import(/* webpackChunkName: 'systemSetting/backstageAccountManage' */ '@/views/systemSetting/components/backstageAccountManage.vue'),
             meta: {
               title: '后台账号管理',
               id: 308

@@ -9,7 +9,7 @@
           <el-input  v-model="searchForm.tradeno" placeholder="流水号"></el-input>
         </el-form-item>
         <el-form-item label="时间" prop="selectTime">
-          <el-date-picker value-format="yyyy-MM-dd"  v-model="searchForm.selectTime" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+          <el-date-picker value-format="yyyy-MM-dd"  v-model="searchForm.selectTime" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit" >查询</el-button>

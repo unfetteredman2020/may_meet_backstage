@@ -1,14 +1,14 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
-    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm"  ref="agentGuestRef">
+    <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm" ref="agentGuestRef">
       <el-form-item label="代理人ID：" prop="proxy_id">
         <el-input v-model="searchForm.proxy_id" placeholder="代理人ID"></el-input>
       </el-form-item>
       <el-form-item label="统计日期：" prop="date" :rules="[{ required: true, message: '请选择统计日期' }]">
-        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date"  type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="onSubmit('agentGuestRef')">查询</el-button>
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
@@ -36,7 +36,7 @@ export default {
     return {
       data: [],
       searchForm: {
-        date: null,
+        date: ['2022-01-01', '2022-09-01'],
         proxy_id: null,
       },
       BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`,
@@ -45,9 +45,16 @@ export default {
   computed: {},
   mounted() {},
   methods: {
-    onSubmit() {
-      let params = clearEmptyObj(this.searchForm);
-      this.getData(params);
+    onSubmit(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let params = clearEmptyObj(this.searchForm);
+          this.getData(params);
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
     set(user) {
       console.log("user", user);
@@ -97,7 +104,7 @@ export default {
         }
       } catch (error) {
         console.log("error", error);
-        this.$message("error", error.errmsg ||  "获取数据失败，请稍后重试！");
+        this.$message("error", error.errmsg || "获取数据失败，请稍后重试！");
       }
     },
     resetForm() {

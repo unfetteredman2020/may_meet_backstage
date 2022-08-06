@@ -11,11 +11,9 @@
     </el-popover>
 
     <!-- 表格  -->
-    <div class="wrapper">
-      <el-table :show-summary="customProps.show_summary || false" :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" border stripe :data="showList" style="width: 100%" max-height="100%" class="customTableStyle wrapper" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
-        <el-table-column label-class-name="labelClass" class-name="columnClass" min-width="150px" sortable v-for="item in column" :key="item.value" :prop="item.value" :label="item.text"></el-table-column>
-      </el-table>
-    </div>
+    <el-table :show-summary="customProps.show_summary || false" :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" border stripe :data="showList" style="width: 100%;" :max-height="tableHeight" class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
+      <el-table-column label-class-name="labelClass" class-name="columnClass" min-width="150px" sortable v-for="item in column" :key="item.value" :prop="item.value" :label="item.text"></el-table-column>
+    </el-table>
 
     <!-- 分页 -->
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total"></el-pagination>
@@ -87,6 +85,8 @@ export default {
     let platformTableConfig = JSON.parse(localStorage.getItem(this.customProps.tableName));
     platformTableConfig && (this.column = platformTableConfig);
     this.formatTableConfig(!platformTableConfig);
+    this.getTableHeight();
+    window.addEventListener("resize", this.getTableHeight);
   },
   watch: {
     tableList(newValue, oldValue) {
@@ -102,6 +102,12 @@ export default {
   },
   methods: {
     // 表格配置
+    getTableHeight() {
+      this.$nextTick(() => {
+        console.log('height', window.innerHeight - 240)
+        this.tableHeight = window.innerHeight - 240;
+      });
+    },
     configCheckBox() {
       this.selectTableColumnVisible = true;
       this.handleSelectedTableColumn();
@@ -203,7 +209,9 @@ export default {
       this.config = revers;
     },
   },
-  destroyed() {},
+  destroyed() {
+    window.removeEventListener('resize',this.getTableHeight)
+  },
 };
 </script>
 
@@ -237,7 +245,6 @@ export default {
 }
 .wrapper {
   height: calc(100vh - 250px);
-  min-height: calc(100vh - 200px);
 }
 .customTableStyle /deep/ .cell {
   white-space: nowrap;

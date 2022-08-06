@@ -4,34 +4,34 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" class="demo-table-expand" style="margin: 0 0 0 50px">
-            <el-form-item label="客户端类型">
-              <span>{{ props.row.ostype }}</span>
+            <el-form-item label="客户端类型：">
+              <span>{{ props.row.ostype == 1 ? "安卓" : "苹果" }}</span>
             </el-form-item>
-            <el-form-item label="充值模板ID">
+            <el-form-item label="充值模板ID：">
               <span>{{ props.row.tempid }}</span>
             </el-form-item>
-            <el-form-item label="充值入口">
+            <el-form-item label="充值入口：">
               <span>{{ props.row.pagesrc }}</span>
             </el-form-item>
-            <el-form-item label="额外赠送金币">
+            <el-form-item label="额外赠送金币：">
               <span>{{ props.row.oldfreegold }}</span>
             </el-form-item>
-            <el-form-item label="充值前金币">
+            <el-form-item label="充值前金币：">
               <span>{{ props.row.addfreegold }}</span>
             </el-form-item>
-            <el-form-item label="支付回调时间">
+            <el-form-item label="支付回调时间：">
               <span>{{ props.row.outtimestamp }}</span>
             </el-form-item>
-            <el-form-item label="对方订单号">
+            <el-form-item label="对方订单号：">
               <span>{{ props.row.outtrade_no }}</span>
             </el-form-item>
-            <el-form-item label="业务状态">
+            <el-form-item label="业务状态：">
               <span>{{ props.row.outstatus }}</span>
             </el-form-item>
-            <el-form-item label="业务状态原因">
+            <el-form-item label="业务状态原因：">
               <span>{{ props.row.outreason }}</span>
             </el-form-item>
-            <el-form-item label="备注">
+            <el-form-item label="备注：">
               <span>{{ props.row.describe }}</span>
             </el-form-item>
           </el-form>
@@ -40,7 +40,9 @@
       <el-table-column prop="trade_no" label="订单号" width="280"></el-table-column>
       <el-table-column prop="status" label="支付状态" width="120">
         <template slot-scope="scope">
-          <span>{{ payStatus[scope.row["status"]] }}</span>
+          <el-tag effect="dark" :type="payStatus[scope.row.status][1]">
+            <span>{{ payStatus[scope.row["status"]][0] }}</span>
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="paytype" label="支付方式" width="120">
@@ -49,9 +51,9 @@
         </template>
       </el-table-column>
       <el-table-column prop="userid" label="充值人ID"></el-table-column>
-      <el-table-column prop="dst_userid" label="充值对象ID" ></el-table-column>
-      <el-table-column prop="addgold" label="充值金额"></el-table-column>
-      <el-table-column prop="total" label="获得总金币"></el-table-column>
+      <el-table-column prop="dst_userid" label="充值对象ID"></el-table-column>
+      <el-table-column prop="addgold" label="充值金币"></el-table-column>
+      <el-table-column prop="total" label="充值总额"></el-table-column>
       <el-table-column prop="channel" label="充值渠道"></el-table-column>
       <el-table-column prop="inserttime" label="充值时间"></el-table-column>
       <!-- <el-table-column fixed="right" label="操作" width="100">
@@ -73,7 +75,7 @@ import { getRechargeRecord } from "@/api/userApi.js";
 import { getDate, formateDate } from "@/utils/date.js";
 export default {
   //import引⼊的组件需要注⼊到对象中才能使⽤
-  name: 'rechargeRecord',
+  name: "rechargeRecord",
   components: {},
   props: {},
   data() {
@@ -89,9 +91,9 @@ export default {
         5: "支付宝H5",
       },
       payStatus: {
-        0: "等待付款",
-        1: "成功",
-        99: "失败",
+        0: ["等待付款", ""],
+        1: ["成功", "success"],
+        99: ["失败", "danger"],
       },
     };
   },
@@ -106,7 +108,7 @@ export default {
     },
     async getData(data) {
       try {
-        console.log('data', data)
+        console.log("data", data);
         const res = await getRechargeRecord(data);
         console.log("getDataRecord", res);
         if (res && res.errcode == 0) {
@@ -130,8 +132,7 @@ export default {
   //⽣命周期，创建完成（可以访问当前this实例）
   created() {},
   //⽣命周期，挂载完成（可以访问dom元素）
-  mounted() {
-  },
+  mounted() {},
   beforeCreate() {}, //⽣命周期-创建之前
   beforeMount() {}, //⽣命周期 - 挂载之前
   beforeUpdate() {}, //⽣命周期 - 更新之后

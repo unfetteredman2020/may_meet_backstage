@@ -13,7 +13,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const Jarvis = require("webpack-jarvis"); // 打包可视化工具
 
 
-// const smp = new SpeedMeasurePlugin();
+const smp = new SpeedMeasurePlugin();
 let script = [
   'https://cdn.bootcss.com/vue/2.6.14/vue.min.js',
   'https://unpkg.com/element-ui/lib/index.js',
@@ -50,8 +50,7 @@ console.log('os.cpus().length', os.cpus().length)
 // threadLoader.warmup(cssWorkerPool, ['css-loader', 'postcss-loader']);
 
 
-// module.exports = smp.wrap()
-module.exports = {
+module.exports = smp.wrap( {
   output: {
     // path 必须为绝对路径
     // 输出文件路径
@@ -146,7 +145,7 @@ module.exports = {
     //       threshold: 1024, // 对超过10k的数据压缩
     //       minRatio: 0.8,
     //     }),
-    
+
     new MiniCssExtractPlugin({
       ignoreOrder: true, //ignoreOrder为true即可忽视掉打包过程中出现的冲突警告
       filename: 'css/[name]_[contenthash:3].css',
@@ -221,26 +220,40 @@ module.exports = {
     //     minimize: true,
     //     runtimeChunk: 'single',
     minimizer: [
-      new CssMinimizerPlugin(),
+      new CssMinimizerPlugin({
+        parallel: true
+      }),
       new TerserPlugin({
-        parallel: true,
+        parallel: true, //使用multi-process并行运行来提高构建速度。默认并发运行数：os.cpus().length - 1
         extractComments: false,
         terserOptions: {
           format: {
             comments: false
           },
-          toplevel: true
-        }
+          toplevel: true, //底层变量是否进行转换
+          compress: {
+            drop_console: true,
+            drop_debugger: true
+          }
+        },
+
       }),
     ],
     splitChunks: {
       chunks: 'all',
+      minSize: 30000,
       cacheGroups: {
         libs: {
           name: 'chunk-libs',
           test: /[\\/]node_modules[\\/]/,
           priority: 10,
           chunks: 'initial' // only package third parties that are initially dependent
+        },
+        zrender: { // split zrender libs
+          name: 'chunk-zrender',
+          test: /[\\/]node_modules[\\/]_?zrender(.*)/,
+          priority: 55,
+          chunks: 'async'
         },
         elementUI: {
           name: 'chunk-elementUI', // split elementUI into a single package
@@ -252,16 +265,28 @@ module.exports = {
           priority: 20,
           test: /[\\/]node_modules[\\/]_?ali-oss(.*)/
         },
+        echarts: {
+          name: 'chunk-echart',
+          priority: 20,
+          test: /[\\/]node_modules[\\/]_?echart(.*)/
+        },
         commons: {
           name: 'chunk-commons',
           test: path.resolve('src/components'), // can customize your rules
-          minChunks: 20, //  minimum common number
+          minChunks: 1, //  minimum common number
           priority: 5,
           reuseExistingChunk: true
+        },
+        // 公共的模块
+        common: {
+          name: "common", // chunk 名称
+          test: path.resolve('src/views'),
+          priority: 5, // 优先级
+          // minSize: 0, // 公共模块的大小限制
+          // minChunks: 1, // 公共模块最少复用过几次
         }
       }
-
     }
   }
 
-}
+})
