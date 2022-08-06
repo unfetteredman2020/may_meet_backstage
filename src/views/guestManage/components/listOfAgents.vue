@@ -7,11 +7,11 @@
       <el-form-item label="团队名称：" prop="group_name">
         <el-input v-model="searchForm.group_name" placeholder="团队名称"></el-input>
       </el-form-item>
-      <el-form-item label="代理人ID：" prop="proxy_id">
-        <el-input v-model="searchForm.proxy_id" placeholder="代理人ID"></el-input>
+      <el-form-item label="推荐人ID：" prop="proxy_id">
+        <el-input v-model="searchForm.proxy_id" placeholder="推荐人ID"></el-input>
       </el-form-item>
-      <el-form-item label="代理人昵称：" prop="proxy_name">
-        <el-input v-model="searchForm.proxy_name" placeholder="代理人昵称"></el-input>
+      <el-form-item label="推荐人昵称：" prop="proxy_name">
+        <el-input v-model="searchForm.proxy_name" placeholder="推荐人昵称"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -19,13 +19,13 @@
       </el-form-item>
     </el-form>
     <el-table :data="data" style="width: 100%" max-height="750px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
-      <el-table-column label="代理人ID" prop="代理人ID"></el-table-column>
-      <el-table-column label="代理性别" prop="代理性别">
+      <el-table-column label="推荐人ID" prop="推荐人ID"></el-table-column>
+      <el-table-column label="推荐性别" prop="推荐性别">
         <template slot-scope="scope">
-          {{ scope.row["代理性别"] == 0 ? "男" : "女" }}
+          {{ scope.row["推荐性别"] == 0 ? "男" : "女" }}
         </template>
       </el-table-column>
-      <el-table-column label="代理昵称" prop="代理昵称"></el-table-column>
+      <el-table-column label="推荐昵称" prop="推荐昵称"></el-table-column>
       <el-table-column label="分成比例" prop="分成比例"></el-table-column>
       <el-table-column label="嘉宾数量" prop="嘉宾数量"></el-table-column>
       <el-table-column label="嘉宾昵称" prop="嘉宾昵称"></el-table-column>

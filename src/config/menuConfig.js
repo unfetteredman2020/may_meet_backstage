@@ -115,7 +115,7 @@ let GuestManage = [
     }
   },
   {
-    name: "代理人列表",
+    name: "推荐人列表",
     icon: "el-icon-user",
     path: "/guestManage/listOfAgents",
     // children: [],
@@ -124,7 +124,7 @@ let GuestManage = [
     }
   },
   {
-    name: "代理人嘉宾",
+    name: "推荐人嘉宾",
     icon: "el-icon-s-custom",
     path: "/guestManage/agentGuest",
     // children: [],
@@ -133,7 +133,7 @@ let GuestManage = [
     }
   },
   {
-    name: "代理收益",
+    name: "推荐收益",
     icon: "el-icon-coin",
     path: "/guestManage/agencyIncome",
     // children: [],

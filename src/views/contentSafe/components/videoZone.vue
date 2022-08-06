@@ -42,6 +42,7 @@
           <el-image :preview-src-list="[BASE_CDN_DOMAIN + scope.row['imageurl']]" style="width: 40px; height: 40px; margin: 0 5px 0 0" :src="`${BASE_CDN_DOMAIN + scope.row['imageurl']}`" fit="fill"></el-image>
         </template>
       </el-table-column>
+      <el-table-column label="原因" prop="reason"></el-table-column>
       <el-table-column label="插入时间" prop="inserttime"></el-table-column>
       <el-table-column fixed="right" label="操作" width="50">
         <template slot-scope="scope">
@@ -146,7 +147,7 @@ export default {
         eventid: item.eventid,
         recid: item.rec_id,
         examine_id: item.examine_id,
-        reason: null,
+        reason: item.reason,
         result: null,
       }),
         (this.dialogFormVisible = true);

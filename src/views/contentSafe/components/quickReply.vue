@@ -141,7 +141,7 @@ export default {
         eventid: item.eventid,
         recid: item.rec_id,
         examine_id: item.examine_id,
-        reason: null,
+        reason: item.reason,
         result: null,
       }),
         (this.dialogFormVisible = true);

@@ -7,8 +7,8 @@
       <el-form-item label="团队名称：" prop="group_name">
         <el-input v-model="searchForm.group_name" placeholder="团队名称"></el-input>
       </el-form-item>
-      <el-form-item label="代理人ID：" prop="proxy_id">
-        <el-input v-model="searchForm.proxy_id" placeholder="代理人ID"></el-input>
+      <el-form-item label="推荐人ID：" prop="proxy_id">
+        <el-input v-model="searchForm.proxy_id" placeholder="推荐人ID"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>

@@ -97,7 +97,7 @@ export default [
             name: 'listOfAgents',
             component: () => import(/* : 'guestManage/listOfAgents' */'@/views/guestManage/components/listOfAgents.vue'),
             meta: {
-              title: '代理人列表',
+              title: '推荐人列表',
               id: 94
             },
           },
@@ -106,7 +106,7 @@ export default [
             name: 'agentGuest',
             component: () => import(/* : 'guestManage/agentGuest' */'@/views/guestManage/components/agentGuest.vue'),
             meta: {
-              title: '代理人嘉宾',
+              title: '推荐人嘉宾',
               id: 97
             },
           },
@@ -115,7 +115,7 @@ export default [
             name: 'agencyIncome',
             component: () => import(/* : 'guestManage/agencyIncome' */'@/views/guestManage/components/agencyIncome.vue'),
             meta: {
-              title: '代理收益',
+              title: '推荐收益',
               id: 101
             },
           },

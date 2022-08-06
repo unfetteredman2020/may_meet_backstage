@@ -10,7 +10,7 @@
           <el-option label="不是" value="0"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="女用户分级：" prop="level" :rules="[{required: true, message: '请选择女用户分级'}]">
+      <el-form-item label="女用户分级：" prop="level" :rules="[{ required: true, message: '请选择女用户分级' }]">
         <el-select v-model="searchForm.level" placeholder="请选择">
           <el-option v-for="item in options" :key="item.label" :label="item.label" :value="item.value"></el-option>
         </el-select>
@@ -20,7 +20,7 @@
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
-    <el-table @expand-change="expandChange" :data="data" style="width: 100%" max-height="930px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
+    <el-table @expand-change="expandChange" :data="data" style="width: 100%" :max-height="tableHeight" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" class="demo-table-expand" style="margin: 0 20px; font-size: 12px">
@@ -31,6 +31,9 @@
           </el-form>
         </template>
       </el-table-column>
+      <el-table-column
+      type="index">
+    </el-table-column>
       <el-table-column label="注册时间" prop="注册时间"></el-table-column>
       <el-table-column label="是否真人" prop="是否真人">
         <template slot-scope="scope">
@@ -53,7 +56,6 @@
         </template>
       </el-table-column>
       <el-table-column label="嘉宾昵称" prop="嘉宾昵称"></el-table-column>
-
       <el-table-column label="实名" prop="实名"></el-table-column>
       <el-table-column label="女用户分级" prop="女用户分级"></el-table-column>
       <el-table-column label="分成" prop="分成"></el-table-column>
@@ -64,6 +66,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <customPagination :tt="total" />
   </div>
 </template>
 
@@ -71,10 +74,12 @@
 import { getWomenList, setRecommendRole } from "@/api/guestApi.js";
 import { isTimeOut } from "@/utils/date";
 import { clearEmptyObj } from "@/utils/formatData.js";
-
+const customPagination = () => import("@/components/customPagination.vue");
 export default {
   props: {},
-  components: {},
+  components: {
+    customPagination,
+  },
   data() {
     return {
       data: [],
@@ -109,12 +114,24 @@ export default {
         { label: "推荐人", value: "推荐人" },
       ],
       coverPreview: [],
+      tableHeight: 0,
+      total: 0,
+      page_index: 0,
+      page_per_count: 20,
     };
   },
   computed: {},
   mounted() {
+    this.getTableHeight();
+    window.addEventListener("resize", this.getTableHeight);
   },
   methods: {
+    getTableHeight() {
+      this.$nextTick(() => {
+        console.log("getTableHeight", window.innerHeight - 150);
+        this.tableHeight = window.innerHeight - 165;
+      });
+    },
     expandChange(row, a) {
       row["主页封面"] && this.setPreview(row["主页封面"]);
     },
@@ -133,13 +150,12 @@ export default {
     onSubmit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.getData(clearEmptyObj(this.searchForm));
+          this.getData();
         } else {
           console.log("error submit!!");
           return false;
         }
       });
-      
     },
     set(user) {
       console.log("user", user);
@@ -175,11 +191,19 @@ export default {
         this.$message("error", error.errmsg || "修改失败，请稍后重试");
       }
     },
-    async getData(data = {}) {
+    setPagination(page_per_count, page_index) {
+      page_per_count && (this.page_per_count = page_per_count);
+      page_index && (this.page_index = page_index);
+      this.getData()
+    },
+    async getData() {
       try {
-        const res = await getWomenList(data);
+        let params = Object.assign({page_per_count: this.page_per_count,page_index: this.page_index }, clearEmptyObj(this.searchForm));
+        console.log("params", params);
+        const res = await getWomenList();
         console.log("getWomenList", res);
         if (res && res.errcode == 0) {
+          res.data && res.data.length && res.data[0]?.record_count && (this.total = res.data[0]?.record_count);
           this.data = res.data;
         } else {
           this.$message("error", res.errmsg || "获取数据失败，请稍后重试！");
@@ -192,6 +216,9 @@ export default {
     resetForm() {
       this.$refs.womenListRef.resetFields();
     },
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.getTableHeight);
   },
 };
 </script>

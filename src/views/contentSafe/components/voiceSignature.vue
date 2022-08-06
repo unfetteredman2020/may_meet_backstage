@@ -38,6 +38,7 @@
         </template>
       </el-table-column>
       <el-table-column label="语音时长" prop="voicetime"></el-table-column>
+      <el-table-column label="原因" prop="reason"></el-table-column>
       <el-table-column fixed="right" label="操作" width="50">
         <template slot-scope="scope">
           <i slot="reference" class="el-icon-s-tools setting" @click="edit(scope.row)"></i>
@@ -156,7 +157,7 @@ export default {
         eventid: item.eventid,
         recid: item.rec_id,
         examine_id: item.examine_id,
-        reason: null,
+        reason: item.reason,
         result: null,
       }),
         (this.dialogFormVisible = true);

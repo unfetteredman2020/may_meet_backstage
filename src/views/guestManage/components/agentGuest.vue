@@ -7,8 +7,8 @@
       <el-form-item label="嘉宾昵称" prop="guest_name">
         <el-input v-model="searchForm.guest_name" placeholder="嘉宾昵称"></el-input>
       </el-form-item>
-      <el-form-item label="代理人ID：" prop="proxy_id">
-        <el-input v-model="searchForm.proxy_id" placeholder="代理人ID"></el-input>
+      <el-form-item label="推荐人ID：" prop="proxy_id">
+        <el-input v-model="searchForm.proxy_id" placeholder="推荐人ID"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('agentGuestRef')">查询</el-button>
@@ -19,7 +19,7 @@
       <el-table-column label="嘉宾ID" prop="嘉宾ID"></el-table-column>
       <el-table-column label="昵称" prop="昵称"></el-table-column>
       <el-table-column label="嘉宾分成" prop="嘉宾分成"></el-table-column>
-      <el-table-column label="代理分成" prop="代理分成"></el-table-column>
+      <el-table-column label="推荐分成" prop="推荐分成"></el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
           <i class="el-icon-s-tools setting" @click="set(scope.row)"></i>
@@ -46,7 +46,7 @@ export default {
       },
       BASE_CDN_DOMAIN: `${process.env.VUE_APP_CDN_DOMAIN}`,
       rules: {
-        proxy_id: [{ required: true, message: "请输入代理人ID" }],
+        proxy_id: [{ required: true, message: "请输入推荐人ID" }],
       },
     };
   },

@@ -2,10 +2,9 @@
   <div>
     <el-table v-loading="loading" :data="data" style="width: 100%" max-height="820px" border :header-cell-style="{ height: '20px', 'line-height': '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px' }">
       <el-table-column label="创建时间" prop="创建时间"></el-table-column>
-      <el-table-column label="关系ID" prop="关系ID"></el-table-column>
+      <!-- <el-table-column label="关系ID" prop="关系ID"></el-table-column> -->
       <el-table-column label="发送方" prop="发送方"></el-table-column>
       <el-table-column label="接收方" prop="接收方"></el-table-column>
-      <el-table-column label="发送方" prop="发送方"></el-table-column>
       <el-table-column label="消息类型" prop="消息类型"></el-table-column>
       <el-table-column prop="消息内容" label="消息内容" width="350px">
         <template slot-scope="scope">
@@ -16,8 +15,16 @@
           <el-image v-else-if="scope.row['消息类型'] == 'RC:ImgMsg'" style="width: 100px; height: 100px" :src="fixUrl(scope.row)" fit="fit"></el-image>
         </template>
       </el-table-column>
-      <el-table-column label="费用免除类型" prop="费用免除类型"></el-table-column>
-      <el-table-column label="消息状态" prop="消息状态"></el-table-column>
+      <el-table-column label="费用免除类型" prop="费用免除类型">
+        <template slot-scope="scope">
+          {{ scope.row["费用免除类型"]+'/折'}}
+        </template>
+      </el-table-column>
+      <el-table-column label="消息状态" prop="消息状态">
+        <template slot-scope="scope">
+          {{ freeType[scope.row["消息状态"]] }}
+        </template>
+      </el-table-column>
       <el-table-column label="关系" prop="关系"></el-table-column>
     </el-table>
   </div>
@@ -35,6 +42,12 @@ export default {
   data() {
     return {
       data: [],
+      freeType: {
+        0: "刚发送",
+        1: "不需要处理",
+        10: "被回复",
+        20: "被退回",
+      },
       column: [
         { label: "发送方", value: "发送方" },
         { label: "接收方", value: "接收方" },

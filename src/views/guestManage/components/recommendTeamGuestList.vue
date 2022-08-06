@@ -17,8 +17,8 @@
     </el-form>
     <el-table @expand-change="expandChange" :data="data" style="width: 100%" max-height="850px" border :header-cell-style="{ height: '20px', 'font-size': '12px', 'font-weight': '400', padding: '0!important' }" stripe class="customTableStyle" :row-style="{ height: '20px' }" :cell-style="{ padding: '0px', 'font-size': '12px', height: '20px' }">
       <el-table-column label="创建时间" prop="创建时间"></el-table-column>
-      <el-table-column label="代理人" prop="代理人"></el-table-column>
-      <el-table-column label="代理分成" prop="代理分成"></el-table-column>
+      <el-table-column label="推荐人" prop="推荐人"></el-table-column>
+      <el-table-column label="推荐分成" prop="推荐分成"></el-table-column>
       <el-table-column label="嘉宾头像" prop="faceimg">
         <template slot-scope="scope">
           <div class="imgBox">

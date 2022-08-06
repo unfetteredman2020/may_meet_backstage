@@ -37,7 +37,7 @@
       <div class="b">
         <p>
           <span>用户类型：</span>
-          <b>{{ userInfo["用户类型"] }}</b>
+          <b>{{ userType[userInfo["用户类型"]] }}</b>
         </p>
         <p>
           <span>出生日期：</span>
@@ -65,7 +65,7 @@
       <div class="c">
         <p>
           <span>性别：</span>
-          <b>{{ userInfo["性别"] }}</b>
+          <b>{{ userInfo["性别"] == 0 ? "男" : "女" }}</b>
         </p>
         <p>
           <span>所在城市：</span>
@@ -81,7 +81,7 @@
         </p>
         <p>
           <span>最后客户端类型：</span>
-          <b>{{ userInfo["最后客户端类型"] }}</b>
+          <b>{{ userInfo["最后客户端类型"] == 1 ? "安卓" : "苹果" }}</b>
         </p>
       </div>
     </div>
@@ -201,6 +201,15 @@ export default {
   components: {},
   data() {
     return {
+      userType: {
+        0: "普通用户",
+        100: "嘉宾A",
+        101: "嘉宾B",
+        102: "嘉宾C",
+        103: "嘉宾D",
+        130: "嘉宾S",
+        200: "超级推荐人",
+      },
       dialogTitle: "",
       dialogVisible: false,
       changeUserInfoVisible: false,

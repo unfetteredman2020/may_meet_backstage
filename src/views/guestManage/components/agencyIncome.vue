@@ -1,8 +1,8 @@
 <template>
   <div class="" style="background-color: #fff; height: 100%">
     <el-form style="background-color: #eee; padding: 10px 0 0" :inline="true" :model="searchForm" ref="agentGuestRef">
-      <el-form-item label="代理人ID：" prop="proxy_id">
-        <el-input v-model="searchForm.proxy_id" placeholder="代理人ID"></el-input>
+      <el-form-item label="推荐人ID：" prop="proxy_id">
+        <el-input v-model="searchForm.proxy_id" placeholder="推荐人ID"></el-input>
       </el-form-item>
       <el-form-item label="统计日期：" prop="date" :rules="[{ required: true, message: '请选择统计日期' }]">
         <el-date-picker value-format="yyyy-MM-dd" :clearable="false" v-model="searchForm.date" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
@@ -16,7 +16,7 @@
       <el-table-column label="嘉宾ID" prop="userid"></el-table-column>
       <el-table-column label="昵称" prop="nickname"></el-table-column>
       <el-table-column label="统计日期" prop="统计日期"></el-table-column>
-      <el-table-column label="代理人" prop="代理人"></el-table-column>
+      <el-table-column label="推荐人" prop="推荐人"></el-table-column>
       <el-table-column label="当日收益" prop="当日收益"></el-table-column>
       <el-table-column label="总收益" prop="总收益"></el-table-column>
       <el-table-column label="分成比例" prop="分成比例"></el-table-column>

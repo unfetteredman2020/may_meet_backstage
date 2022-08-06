@@ -42,19 +42,19 @@ export const getWomenList = data => request.get(`/jbgl/nyhlb`, { params: data ||
 export const setRecommendRole = params => request.post('/jbgl/nyhlb/xgtjzqqx', params)
 
 /**
- * 代理人列表
+ * 推荐人列表
  */
 
 export const getListOfAgents = data => request.get(`/jbgl/dlrlb`, { params: data || {} })
 
 /**
-* 代理人嘉宾
+* 推荐人嘉宾
 */
 
 export const getAgentGuest = data => request.get(`/jbgl/dlrjb`, { params: data || {} })
 
 /**
-* 代理人收益
+* 推荐人收益
 */
 
 export const getAgencyIncome = data => request.get(`/jbgl/dlsy`, { params: data || {} })
