@@ -74,6 +74,7 @@ import { isTimeOut } from "@/utils/date";
 import { clearEmptyObj } from "@/utils/formatData.js";
 const customPagination = () => import("@/components/customPagination.vue");
 export default {
+  mixins: [getTableHeight],
   props: {},
   components: {
     customPagination,
@@ -112,24 +113,19 @@ export default {
         { label: "推荐人", value: "推荐人" },
       ],
       coverPreview: [],
-      tableHeight: 0,
       total: 0,
       page_index: 0,
       page_per_count: 30,
     };
   },
+  created() {
+    this.subCount = 165;
+  },
   computed: {},
   mounted() {
     this.getTableHeight();
-    window.addEventListener("resize", this.getTableHeight);
   },
   methods: {
-    getTableHeight() {
-      this.$nextTick(() => {
-        console.log("getTableHeight", window.innerHeight - 150);
-        this.tableHeight = window.innerHeight - 165;
-      });
-    },
     expandChange(row, a) {
       row["主页封面"] && this.setPreview(row["主页封面"]);
     },
@@ -218,7 +214,6 @@ export default {
     },
   },
   beforeDestroy() {
-    window.removeEventListener("resize", this.getTableHeight);
   },
 };
 </script>
