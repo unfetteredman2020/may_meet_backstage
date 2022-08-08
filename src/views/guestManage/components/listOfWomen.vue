@@ -10,7 +10,7 @@
           <el-option label="不是" value="0"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="女用户分级：" prop="level" :rules="[{ required: true, message: '请选择女用户分级' }]">
+      <el-form-item label="女用户分级：" prop="level">
         <el-select v-model="searchForm.level" placeholder="请选择">
           <el-option v-for="item in options" :key="item.label" :label="item.label" :value="item.value"></el-option>
         </el-select>
@@ -31,9 +31,7 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column
-      type="index">
-    </el-table-column>
+      <el-table-column type="index"></el-table-column>
       <el-table-column label="注册时间" prop="注册时间"></el-table-column>
       <el-table-column label="是否真人" prop="是否真人">
         <template slot-scope="scope">
@@ -117,7 +115,7 @@ export default {
       tableHeight: 0,
       total: 0,
       page_index: 0,
-      page_per_count: 20,
+      page_per_count: 30,
     };
   },
   computed: {},
@@ -192,15 +190,17 @@ export default {
       }
     },
     setPagination(page_per_count, page_index) {
+      console.log("page_per_count", page_per_count);
+      console.log("page_index", page_index);
       page_per_count && (this.page_per_count = page_per_count);
       page_index && (this.page_index = page_index);
-      this.getData()
+      this.getData(page_per_count, page_index);
     },
-    async getData() {
+    async getData(page_per_count, page_index) {
       try {
-        let params = Object.assign({page_per_count: this.page_per_count,page_index: this.page_index }, clearEmptyObj(this.searchForm));
+        let params = Object.assign({ page_per_count: page_per_count || this.page_per_count, page_index: page_index ?? this.page_index }, clearEmptyObj(this.searchForm));
         console.log("params", params);
-        const res = await getWomenList();
+        const res = await getWomenList(params);
         console.log("getWomenList", res);
         if (res && res.errcode == 0) {
           res.data && res.data.length && res.data[0]?.record_count && (this.total = res.data[0]?.record_count);

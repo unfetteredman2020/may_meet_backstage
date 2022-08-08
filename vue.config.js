@@ -9,7 +9,7 @@
 // const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack');
 const devConfig = require('./webpack.dev.config')
-const proConfig = require('./webpack.pro.config')
+// const proConfig = require('./webpack.pro.config')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -17,6 +17,7 @@ console.log('isProduction', isProduction)
 module.exports = {
   publicPath: './',
   transpileDependencies: true,
+  parallel: true,
   //关闭eslint校验
   lintOnSave: false,
   devServer: {
@@ -34,7 +35,8 @@ module.exports = {
   configureWebpack: (config) => {
     console.log('config', config)
     if (isProduction) {
-      return proConfig
+      // return proConfig
+      return {}
     } else {
       return devConfig
     }
